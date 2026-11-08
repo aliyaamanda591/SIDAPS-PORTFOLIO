@@ -3,6 +3,8 @@ import { database } from './database';
 import { resolveIdentity } from './identity';
 import { ensureAccount, isOwnerEmail } from './account-store';
 import { canonicalEmail, checkPassword, digest, hashPassword, normalizedRecovery, randomToken, recoveryCode, sessionCookie } from './auth-crypto';
+import { verifyGoogleToken } from './firebase-google';
+import { linkVerifiedGoogleAccount } from './google-account-link';
 
 export class AuthError extends Error{constructor(message:string,public status=400){super(message);}}
 type Credential={user_id:string;email:string;password_hash:string;recovery_hash:string;version:number;email_verified:number};
@@ -13,6 +15,12 @@ function passwordInput(body:Record<string,unknown>){if(body.password!==body.conf
 async function replacePassword(credential:Credential,password:unknown,expectedRecovery?:string){const code=recoveryCode(),encoded=await hashPassword(password),recoveryHash=await digest('recovery:'+normalizedRecovery(code));const sql='UPDATE credentials SET password_hash=?,recovery_hash=?,version=version+1,updated_at=?'+(expectedRecovery?'':'')+' WHERE user_id=?'+(expectedRecovery?' AND recovery_hash=?':'')+' RETURNING version';const args=[encoded,recoveryHash,new Date().toISOString(),credential.user_id,...(expectedRecovery?[expectedRecovery]:[])];const updated=await database().prepare(sql).bind(...args).first<{version:number}>();if(!updated)throw new AuthError('Kode pemulihan sudah tidak berlaku.');await database().prepare('DELETE FROM sessions WHERE user_id=?').bind(credential.user_id).run();return {code,cookie:await issueSession(credential.user_id,updated.version)};}
 export async function handleEmailAuth(action:string,body:Record<string,unknown>,request:Request):Promise<{data:Record<string,unknown>;cookie?:string}>{
  const ip=request.headers.get('cf-connecting-ip')||'local';
+ if(action==='google'){
+  await limit('google-ip:'+ip,30,15*60000);
+  let google;try{google=await verifyGoogleToken(body.idToken);}catch{throw new AuthError('Login Google tidak valid atau sudah kedaluwarsa. Silakan coba lagi.',401);}
+  let credential;try{credential=await linkVerifiedGoogleAccount(database(),google);}catch{throw new AuthError('Akun Google belum berhasil dihubungkan. Coba lagi.',503);}
+  return {data:{ok:true},cookie:await issueSession(credential.user_id,credential.version)};
+ }
  if(action==='logout'){const {SESSION_COOKIE}=await import('./auth-crypto');const cookie=request.headers.get('cookie')?.split(';').map(c=>c.trim()).find(c=>c.startsWith(SESSION_COOKIE+'='))?.slice(SESSION_COOKIE.length+1);if(cookie&&/^[a-f0-9]{64}$/.test(cookie))await database().prepare('DELETE FROM sessions WHERE token_hash=?').bind(await digest(cookie)).run();const platform=await getChatGPTUser();return {data:{redirect:platform?'/signout-with-chatgpt?return_to=%2F':'/'},cookie:sessionCookie('',0)};}
  if(!['register','login','recover','activate','change-password'].includes(action))throw new AuthError('Halaman tidak ditemukan.',404);
  await limit('auth-ip:'+ip,60,15*60000);
@@ -36,7 +44,7 @@ export async function handleEmailAuth(action:string,body:Record<string,unknown>,
   const result=await replacePassword(credential,passwordInput(body),encoded);return {data:{ok:true,recoveryCode:result.code},cookie:result.cookie};
  }
  if(action==='activate'){
-  const platform=await getChatGPTUser();if(!platform)throw new AuthError('Hubungkan akun lama terlebih dahulu.',401);
+  const platform=await getChatGPTUser()||await resolveIdentity().then(user=>user?.authMethod==='google'&&user.emailVerified&&!user.hasPassword?user:null);if(!platform)throw new AuthError('Hubungkan akun lama atau masuk dengan Google terlebih dahulu.',401);
   const email=canonicalEmail(platform.email);await limit('activate-email:'+email,8,15*60000);const password=passwordInput(body),existing=await getCredential(email);
   if(existing){const result=await replacePassword(existing,password);await database().prepare('UPDATE credentials SET email_verified=1 WHERE user_id=?').bind(existing.user_id).run();return {data:{ok:true,recoveryCode:result.code},cookie:result.cookie};}
   await ensureAccount(platform);const encoded=await hashPassword(password),code=recoveryCode();await database().prepare('INSERT INTO credentials (user_id,email,password_hash,recovery_hash,version,email_verified,updated_at) VALUES (?,?,?,?,1,1,?)').bind(platform.userId,email,encoded,await digest('recovery:'+normalizedRecovery(code)),new Date().toISOString()).run();return {data:{ok:true,recoveryCode:code},cookie:await issueSession(platform.userId,1)};
