@@ -2,6 +2,8 @@
 
 Aplikasi catatan portofolio saham, kripto, dan emas. Pengguna masuk dengan email/password dan memiliki data portofolio pribadi masing-masing. Hak admin/developer mengelola metadata akun tanpa membuka transaksi pengguna lain.
 
+Login **Google melalui Firebase** juga tersedia. Email Google yang terverifikasi menghubungkan pengguna ke akun website dengan email yang sama; pengguna baru mendapat portofolio kosong. Email/password dan penyimpanan portofolio tetap menggunakan backend website yang sudah berjalan. Lihat [FIREBASE-SETUP.md](FIREBASE-SETUP.md) dan [ACCOUNT-LOGIN.md](ACCOUNT-LOGIN.md) untuk konfigurasi serta perilaku akun.
+
 ## Fitur
 
 - Dashboard portofolio, tombol mata untuk menyembunyikan saldo, dan profil foto.
