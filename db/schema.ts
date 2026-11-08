@@ -8,6 +8,11 @@ export const accounts = sqliteTable("accounts", {
   email: text("email").notNull(),
   displayName: text("display_name").notNull(),
   createdAt: text("created_at").notNull(),
+  profileDisplayName: text("profile_display_name"),
+  lastSeenAt: text("last_seen_at"),
+  supportStatus: text("support_status").notNull().default("none"),
+  supportNote: text("support_note").notNull().default(""),
+  supportUpdatedAt: text("support_updated_at"),
 });
 
 export const portfolios = sqliteTable("portfolios", {

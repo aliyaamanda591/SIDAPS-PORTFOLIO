@@ -1,0 +1,2 @@
+INSERT INTO accounts (user_id,email,display_name,created_at) VALUES ('member_fixture','friend@example.test','Friend test','2026-11-01T00:00:00Z') ON CONFLICT(user_id) DO NOTHING;
+INSERT INTO portfolios (user_id,data,revision,updated_at) VALUES ('member_fixture','{"transactions":[],"assets":[{"name":"BMRI","unit":"lembar","kind":"stock","quantity":7,"symbol":"BMRI.JK","valueSnapshot":25900,"manualPrice":null}],"profile":{"displayName":"PRIVATE PORTFOLIO","photo":""},"logs":[],"sheetUrl":"","lastBackup":""}',0,'2026-11-01T00:00:00Z') ON CONFLICT(user_id) DO NOTHING;

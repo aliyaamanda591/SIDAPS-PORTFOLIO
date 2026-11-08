@@ -7,6 +7,7 @@ const request=(path,init={})=>fetch(origin+path,{...init,headers:{Cookie:cookie,
 assert.equal((await fetch(origin+'/api/state')).status,401,'Anonymous portfolios denied');
 assert.equal((await fetch(origin+'/api/state',{headers:{'oai-authenticated-user-id':'forged-owner','oai-authenticated-user-email':'owner@example.test'}})).status,401,'Untrusted identity headers stripped');
 assert.equal((await request('/api/admin/accounts')).status,403,'Normal user cannot access owner API');
+assert.equal((await request('/api/admin/accounts',{method:'PATCH',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({id:'member_fixture',status:'resolved',note:'Unauthorized'})})).status,403,'Member cannot change account-support metadata');
 const initial=await (await request('/api/state')).json();
 const state={transactions:[],assets:[],profile:{displayName:'Local Test',photo:''},logs:[],sheetUrl:'',lastBackup:'',roles:['admin'],userId:'victim'};
 const write=await request('/api/state',{method:'PUT',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({state,revision:initial.revision,userId:'victim'})});
