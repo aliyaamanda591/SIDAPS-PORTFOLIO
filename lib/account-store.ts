@@ -1,5 +1,8 @@
 import { env } from "cloudflare:workers";
-import { getChatGPTUser, type ChatGPTUser } from "@/app/chatgpt-auth";
+import type { ChatGPTUser } from "@/app/chatgpt-auth";
+import { resolveIdentity } from './identity';
+import { database } from './database';
+export { database } from './database';
 import { validateState, type PortfolioState } from "./state-validation";
 
 export function isOwnerEmail(userEmail: string) {
@@ -7,14 +10,10 @@ export function isOwnerEmail(userEmail: string) {
   return !!email && userEmail.trim().toLowerCase() === email.trim().toLowerCase();
 }
 export function isOwner(user: ChatGPTUser) {
-  return isOwnerEmail(user.email);
-}
-export function database() {
-  if (!env.DB) throw Error("Database belum tersedia.");
-  return env.DB;
+  return isOwnerEmail(user.email) && (!('emailVerified' in user) || user.emailVerified===true);
 }
 export async function authenticatedUser() {
-  const user = await getChatGPTUser();
+  const user = await resolveIdentity();
   if (!user) throw new Response(JSON.stringify({ error: "Silakan masuk kembali." }), { status: 401, headers: { "Content-Type": "application/json" } });
   return user;
 }
