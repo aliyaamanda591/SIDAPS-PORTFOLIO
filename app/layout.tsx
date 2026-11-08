@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Catatan Investasi",
+  title: "Sidaps Portfolio",
   description: "Portofolio pribadi, catatan pembelian dan penjualan, serta harga aset dalam satu tempat.",
   icons: {
     icon: "/favicon.svg",
