@@ -1,0 +1,17 @@
+import { headers } from 'next/headers';
+import { getChatGPTUser, type ChatGPTUser } from '@/app/chatgpt-auth';
+import { database } from './database';
+import { digest, SESSION_COOKIE } from './auth-crypto';
+export type AccountIdentity=ChatGPTUser&{authMethod:'email'|'platform';hasPassword:boolean;emailVerified:boolean};
+export async function resolveIdentity():Promise<AccountIdentity|null>{
+ const requestHeaders=await headers();const cookie=requestHeaders.get('cookie')||'';
+ const token=cookie.split(';').map(c=>c.trim()).find(c=>c.startsWith(SESSION_COOKIE+'='))?.slice(SESSION_COOKIE.length+1);
+ if(token&&/^[a-f0-9]{64}$/.test(token)){
+  const row=await database().prepare('SELECT a.user_id,a.email,a.display_name,a.profile_display_name,c.email_verified FROM sessions s JOIN credentials c ON c.user_id=s.user_id JOIN accounts a ON a.user_id=s.user_id WHERE s.token_hash=? AND s.expires_at>? AND s.credential_version=c.version').bind(await digest(token),Date.now()).first<{user_id:string;email:string;display_name:string;profile_display_name:string|null;email_verified:number}>();
+  if(row)return {userId:row.user_id,email:row.email,displayName:row.profile_display_name||row.display_name,fullName:row.profile_display_name||row.display_name,authMethod:'email',hasPassword:true,emailVerified:row.email_verified===1};
+ }
+ const user=await getChatGPTUser();if(!user)return null;
+ // A verified legacy sign-in with the same email links to the existing email account, never to a different email.
+ const credential=await database().prepare('SELECT user_id FROM credentials WHERE email=?').bind(user.email.trim().toLowerCase()).first<{user_id:string}>();
+ return {...user,userId:credential?.user_id||user.userId,authMethod:'platform',hasPassword:!!credential,emailVerified:true};
+}

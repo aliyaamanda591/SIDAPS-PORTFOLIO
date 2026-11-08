@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+const origin='http://127.0.0.1:5178',password='Owner-Local-Test-Password-93!';
+const login=await fetch(origin+'/signin-with-chatgpt?return_to=/',{redirect:'manual'}),legacy=login.headers.getSetCookie()[0].split(';')[0];
+const read=cookie=>fetch(origin+'/api/state',{headers:{Cookie:cookie}});
+const before=await (await read(legacy)).json();
+const post=(action,body,cookie='')=>fetch(origin+'/api/auth/'+action,{method:'POST',headers:{Origin:origin,'Content-Type':'application/json',...(cookie?{Cookie:cookie}:{})},body:JSON.stringify(body)});
+assert.equal((await post('register',{email:'seedy@sites.test',displayName:'Fake Owner',password,confirm:password})).status,409,'Owner email cannot be claimed by public signup');
+assert.equal((await post('activate',{password,confirm:password})).status,401,'Activation requires verified legacy identity');
+const activated=await post('activate',{password,confirm:password},legacy);assert.equal(activated.status,200,await activated.clone().text());assert.ok((await activated.json()).recoveryCode);
+const cookie=activated.headers.getSetCookie()[0].split(';')[0];
+assert.deepEqual(await (await read(cookie)).json(),before,'Owner activation retains original user ID and portfolio');
+assert.equal((await fetch(origin+'/api/admin/accounts',{headers:{Cookie:cookie}})).status,200,'Owner keeps Admin/Developer with email login');
+const html=await (await fetch(origin+'/',{headers:{Cookie:cookie}})).text();assert.ok(html.includes('"roles":["admin","developer"]'));assert.ok(html.includes('"authMethod":"email"'));
+const fresh=await post('login',{email:'seedy@sites.test',password});assert.equal(fresh.status,200,'Owner can sign in without legacy provider');
+console.log('PASS: reserved owner identity, verified activation, email/password login, unchanged portfolio identity, and retained owner permissions.');
