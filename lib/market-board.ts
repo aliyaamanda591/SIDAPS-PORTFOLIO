@@ -1,5 +1,5 @@
 // Public, fixed watchlist only. Never reads accounts or portfolio records.
-export type MarketQuote = { code:string; name:string; kind:'stock'|'crypto'; price:number; change:number|null; points:number[]; period:string; source:string; marketAt:string; fetchedAt:string; stale:boolean };
+export type MarketQuote = { code:string; name:string; kind:'stock'|'crypto'; price:number; change:number|null; points:number[]; period:string; source:string; marketAt:string; fetchedAt:string; stale:boolean; estimated?:boolean; changeLabel?:string };
 const stocks = [['BMRI','Bank Mandiri'],['BBCA','Bank Central Asia'],['BBRI','Bank Rakyat Indonesia'],['TLKM','Telkom Indonesia']];
 const coins = [['bitcoin','BTC','Bitcoin'],['ethereum','ETH','Ethereum'],['solana','SOL','Solana']];
 const positive = (n:unknown):n is number => typeof n==='number'&&Number.isFinite(n)&&n>0;
@@ -29,7 +29,24 @@ export function createMarketBoard(fetcher:typeof fetch=fetch,clock=Date.now){
     const missing=stocks.filter(([code])=>!fresh.has(code));
     await Promise.allSettled([
       missing.length?(async()=>{const d=await json('https://scanner.tradingview.com/indonesia/scan',{method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify({symbols:{tickers:missing.map(([c])=>'IDX:'+c)},columns:['name','close','change']})});for(const row of d?.data||[]){const [code,price,change]=row.d||[];const entry=missing.find(([c])=>c===code);if(entry&&positive(price))fresh.set(code,{code,name:entry[1],kind:'stock',price,change:finite(change)?change:null,points:[],period:'Grafik belum tersedia',source:'TradingView · dapat tertunda',marketAt:'',fetchedAt:new Date(now).toISOString(),stale:false});}})():Promise.resolve(),
-      results[4].status==='rejected'||coins.some(([,code])=>!fresh.has(code))?(async()=>{const d=await json('https://indodax.com/api/tickers');for(const [,code,name]of coins){if(fresh.has(code))continue;const row=d?.tickers?.[code.toLowerCase()+'_idr'],price=Number(row?.last);if(positive(price))fresh.set(code,{code,name,kind:'crypto',price,change:null,points:[],period:'Grafik belum tersedia',source:'Indodax',marketAt:positive(d?.server_time)?new Date(d.server_time*1000).toISOString():'',fetchedAt:new Date(now).toISOString(),stale:false});}})():Promise.resolve()
+      results[4].status==='rejected'||coins.some(([,code])=>!fresh.has(code))?(async()=>{
+        // These independent fallbacks run together to keep the total deadline bounded.
+        const [indodax,fx,...history]=await Promise.allSettled([
+          json('https://indodax.com/api/tickers'),
+          json('https://query1.finance.yahoo.com/v8/finance/chart/IDR=X?range=1d&interval=15m'),
+          ...coins.map(([,code])=>json('https://query1.finance.yahoo.com/v8/finance/chart/'+code+'-USD?range=1d&interval=15m'))
+        ]);
+        const f=fx.status==='fulfilled'?fx.value?.chart?.result?.[0]?.meta:null;
+        for(const [i,[,code,name]]of coins.entries()){
+          if(fresh.has(code))continue;
+          const d=indodax.status==='fulfilled'?indodax.value:null,price=Number(d?.tickers?.[code.toLowerCase()+'_idr']?.last);
+          if(positive(price)){fresh.set(code,{code,name,kind:'crypto',price,change:null,points:[],period:'Grafik belum tersedia',source:'Indodax',marketAt:positive(d?.server_time)?new Date(d.server_time*1000).toISOString():'',fetchedAt:new Date(now).toISOString(),stale:false});continue;}
+          const h=history[i],r=h.status==='fulfilled'?h.value?.chart?.result?.[0]:null,m=r?.meta;
+          if(f?.symbol!=='IDR=X'||f.currency!=='IDR'||!positive(f.regularMarketPrice)||m?.symbol!==code+'-USD'||m.currency!=='USD'||!positive(m.regularMarketPrice)||!positive(m.regularMarketTime))continue;
+          const previous=m.chartPreviousClose??m.previousClose;
+          fresh.set(code,{code,name,kind:'crypto',price:m.regularMarketPrice*f.regularMarketPrice,change:positive(previous)?(m.regularMarketPrice/previous-1)*100:null,points:points(r.indicators?.quote?.[0]?.close),period:'Sesi hari ini · USD',source:'Yahoo Finance · konversi USD/IDR',marketAt:new Date(m.regularMarketTime*1000).toISOString(),fetchedAt:new Date(now).toISOString(),stale:false,estimated:true,changeLabel:'sesi USD'});
+        }
+      })():Promise.resolve()
     ]);
     for(const [code,q]of fresh)saved.set(code,q);
     expires=clock()+(fresh.size===7?300000:30000);
