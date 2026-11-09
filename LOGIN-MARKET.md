@@ -1,5 +1,7 @@
 # Login exchange reminder
 
+The login view uses a compact 40px status strip: a small state dot, concise exchange status (including lunch restart time), and the current WIB clock. Long motivational/session paragraphs and the crypto footer are hidden there; full explanations remain on the dashboard. The concise status has its own polite live region. Verified at 320px with no horizontal overflow.
+
 The login card shows a friendly BEI reminder based on the existing `idxSession()` schedule and `Asia/Jakarta` time. Regular session I/II use a green status and encouragement; lunch, preopening, closing phases, weekends, and configured 2026 exchange holidays use their own messages. After the final session, the copy reads “Mau lihat apa? Bursa sedang tutup”. Users can always sign in; crypto remains available 24 hours.
 
 This is a **scheduled reminder**, not an exchange connectivity feed or an indicator of trading halts for individual stocks. It reuses the asset-card schedule and holiday list. A year outside the configured calendar is explicitly marked as missing holiday coverage. Source: https://www.idx.id/id/produk-layanan/jam-dan-mekanisme-perdagangan

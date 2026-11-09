@@ -13,7 +13,7 @@ check('2026-11-09','08:44','closed','belum buka');check('2026-11-09','08:45','op
 assert.ok(elements.loginMarketTitle.textContent.includes('Semangat, trader'));check('2026-11-09','11:59','open','sesi I');check('2026-11-09','12:00','break','13.30');check('2026-11-09','13:29','break','Istirahat');check('2026-11-09','13:30','open','sesi II');check('2026-11-09','15:49','open','sesi II');check('2026-11-09','15:50','closing','Prapenutupan');check('2026-11-09','16:00','closing','Pencocokan');check('2026-11-09','16:02','closing','Pascapenutupan');check('2026-11-09','16:15','closed','selesai');assert.ok(elements.loginMarketTitle.textContent.includes('Mau lihat apa?'));
 check('2026-11-13','11:30','break','14.00');check('2026-11-13','13:59','break','14.00');check('2026-11-13','14:00','open','sesi II');check('2026-11-14','10:00','closed','akhir pekan');check('2026-12-25','10:00','closed','libur bursa');
 // Explicit Jakarta conversion, regardless of the execution machine's timezone.
-context.now=Date.parse('2026-11-09T02:00:00Z');vm.runInContext('updateLoginMarket(now)',context);assert.ok(elements.loginMarketClock.textContent.includes('09.00'));assert.equal(elements.loginMarketBadge.textContent,'BURSA BUKA');
+context.now=Date.parse('2026-11-09T02:00:00Z');vm.runInContext('updateLoginMarket(now)',context);assert.ok(elements.loginMarketClock.textContent.includes('09.00'));assert.equal(elements.loginMarketBadge.textContent,'Bursa buka · sesi I');
 check('2027-01-04','10:00','open','Kalender libur tahun 2027 belum tersedia');
 // Dashboard and every equity badge share the same lunch / closing schedule.
 context.Date=class extends Date{static now(){return context.now;}};context.esc=s=>String(s);context.idxMarketStatus={};
