@@ -1,6 +1,6 @@
 # Login exchange reminder
 
-The login view uses a compact 40px status strip: a small state dot, concise exchange status (including lunch restart time), and the current WIB clock. Long motivational/session paragraphs and the crypto footer are hidden there; full explanations remain on the dashboard. The concise status has its own polite live region. Verified at 320px with no horizontal overflow.
+The login view places market information **outside the form card**. At desktop widths, a small navy panel sits beside the login card and shows concise exchange status, WIB clock and date. At widths up to 900px, the panel becomes a compact bar above the login card (about 59px at 320px), with date/footer omitted. The old top/bottom symbol ticker bands and their generation code are retired. The form keeps its own scroll area; both the board and the card fit within the viewport. Long session paragraphs remain hidden in login; full explanations remain on the dashboard. The concise status has its own polite live region. Verified at 320px and 1100px with no horizontal overflow.
 
 The login card shows a friendly BEI reminder based on the existing `idxSession()` schedule and `Asia/Jakarta` time. Regular session I/II use a green status and encouragement; lunch, preopening, closing phases, weekends, and configured 2026 exchange holidays use their own messages. After the final session, the copy reads “Mau lihat apa? Bursa sedang tutup”. Users can always sign in; crypto remains available 24 hours.
 
