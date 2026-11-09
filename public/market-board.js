@@ -18,7 +18,7 @@
       const q=quotes.find(q=>q.code===code),valid=q&&Number.isFinite(q.price)&&q.price>0,change=valid&&typeof q.change==='number'&&Number.isFinite(q.change)?q.change:null;
       const tone=change===null?'neutral':change<0?'down':'up';
       const delta=change===null?'Perubahan —':(change>0?'+':'')+change.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
-      return '<article class="watch-quote '+tone+'"><div class="watch-identity"><span class="watch-symbol">'+code+'</span><span class="watch-name">'+name+'</span></div><div class="watch-value"><strong>'+ (valid?safe(money(q.price)):'—')+'</strong><span class="watch-change">'+safe(delta)+(group==='crypto'?' <small>24j</small>':'')+'</span></div><div class="watch-trend">'+(valid?chart(q):'<span class="watch-no-chart">Menunggu sumber</span>')+'</div><p class="watch-source">'+(valid?safe((q.stale?'Tersimpan · ':'')+q.source)+'<br>'+safe(stamp(q.marketAt||q.fetchedAt)):'Harga belum tersedia')+'</p></article>';
+      return '<article class="watch-quote '+tone+'"><div class="watch-identity"><span class="watch-symbol">'+code+'</span><span class="watch-name">'+name+'</span></div><div class="watch-value"><strong>'+ (valid?(q.estimated?'≈ ':'')+safe(money(q.price)):'—')+'</strong><span class="watch-change">'+safe(delta)+(group==='crypto'?' <small>'+safe(q?.changeLabel||'24j')+'</small>':'')+'</span></div><div class="watch-trend">'+(valid?chart(q):'<span class="watch-no-chart">Menunggu sumber</span>')+'</div><p class="watch-source">'+(valid?safe((q.stale?'Tersimpan · ':'')+q.source)+'<br>'+safe(stamp(q.marketAt||q.fetchedAt)):'Harga belum tersedia')+'</p></article>';
     }).join('');
   }
   function accept(data,cached=false){
