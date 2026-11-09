@@ -1,11 +1,11 @@
 import { authenticatedUser } from "@/lib/account-store";
+import { retailGold } from '@/lib/retail-gold';
 export const dynamic = "force-dynamic";
 const sources: Record<string,string> = {
   crypto: "https://indodax.com/api/tickers",
   "crypto-pairs": "https://indodax.com/api/pairs",
   bitcoin: "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=idr&include_last_updated_at=true",
   gold: "https://api.gold-api.com/price/XAU", fx: "https://open.er-api.com/v6/latest/USD",
-  gold15: "https://rajaemas.id/api/proxy/prices",
 };
 const cache = new Map<string,{expires:number; data:unknown}>();
 async function forward(source: string, init?: RequestInit, key=source) {
@@ -17,6 +17,10 @@ async function forward(source: string, init?: RequestInit, key=source) {
 }
 export async function GET(request:Request,{params}:{params:Promise<{source:string}>}) {
   try { await authenticatedUser(); const { source }=await params;
+    if(source==='gold15'){
+      const q=await retailGold.get();
+      return Response.json({karats:[{label:'15K',price:q.price}],last_updated:new Date(q.marketAt).toISOString(),fetched_at:q.fetchedAt,source:q.source,sourceUrl:q.sourceUrl,fallback:q.fallback,stale:q.stale},{headers:{'Cache-Control':'private, no-store'}});
+    }
     if(source==='coins'){
       const raw=new URL(request.url).searchParams.get('ids')||'';
       const ids=[...new Set(raw.split(','))].sort();
