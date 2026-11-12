@@ -1,0 +1,9 @@
+// Appearance only. Never reads account or portfolio storage.
+(()=>{const key='sidaps_appearance_v1',root=document.documentElement;let preference='system';const media=window.matchMedia?window.matchMedia('(prefers-color-scheme: dark)'):null;
+try{const saved=window.localStorage.getItem(key);if(['system','light','dark'].includes(saved))preference=saved;}catch{}
+function apply(){const resolved=preference==='system'?(media?.matches?'dark':'light'):preference;root.setAttribute('data-sidaps-theme',resolved);root.setAttribute('data-theme-preference',preference);document.querySelectorAll('[data-theme-picker]').forEach(p=>p.value=preference);const color=document.querySelector('meta[name="theme-color"]');if(color)color.setAttribute('content',resolved==='dark'?'#101927':'#f3f5f8');}
+function bind(){document.querySelectorAll('[data-theme-picker]').forEach(p=>{p.value=preference;p.addEventListener('change',()=>{if(!['system','light','dark'].includes(p.value))return;preference=p.value;try{window.localStorage.setItem(key,preference);}catch{}apply();});});}
+apply();if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
+if(media?.addEventListener)media.addEventListener('change',()=>{if(preference==='system')apply();});
+window.addEventListener('storage',event=>{if(event.key===key){preference=['system','light','dark'].includes(event.newValue)?event.newValue:'system';apply();}});
+})();
