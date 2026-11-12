@@ -5,6 +5,16 @@ if(!header||!chip||!tabs||!actions)return;
 const panel=document.createElement('div');panel.id='accountQuickMenu';panel.className='account-quick-menu';panel.hidden=true;panel.setAttribute('role','region');panel.setAttribute('aria-label','Menu akun dan navigasi');
 const heading=document.createElement('div');heading.className='account-menu-heading';heading.textContent='Ruang portofoliomu';panel.append(heading,tabs);
 const label=document.createElement('p');label.className='account-menu-label';label.textContent='PENGATURAN TAMPILAN';panel.append(label,actions);
+// Both entry points use the existing single privacy control and device preference.
+const privacy=actions.querySelector('#balanceVisibilityButton'),capital=document.querySelector('.capital-stat');
+if(privacy&&capital){
+ const quick=document.createElement('button');quick.id='capitalBalanceVisibilityButton';quick.type='button';quick.className='capital-balance-toggle';
+ const icon=privacy.querySelector('svg');if(icon)quick.append(icon.cloneNode(true));
+ quick.addEventListener('click',()=>privacy.click());capital.append(quick);
+ const menuText=privacy.querySelector('.balance-eye-label');
+ function syncPrivacy(){const hidden=privacy.getAttribute('aria-pressed')==='true',text=hidden?'Tampilkan saldo':'Sembunyikan saldo';quick.setAttribute('aria-label',text);quick.setAttribute('aria-pressed',String(hidden));quick.title=text;quick.classList.toggle('is-private',hidden);if(menuText&&menuText.textContent!==text)menuText.textContent=text;}
+ syncPrivacy();new MutationObserver(syncPrivacy).observe(privacy,{attributes:true,attributeFilter:['aria-pressed']});
+}
 const footer=document.createElement('div');footer.className='account-menu-footer';
 const edit=document.createElement('button');edit.type='button';edit.className='account-edit-profile';edit.textContent='Edit profil';edit.addEventListener('click',()=>{close();window.openProfileEditor?.();});footer.append(edit);panel.append(footer);header.querySelector('.top').append(panel);
 function trigger(){return chip.querySelector('.header-profile');}
