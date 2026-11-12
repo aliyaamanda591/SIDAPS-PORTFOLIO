@@ -8,5 +8,8 @@ tick();assert.equal(elements.usageTourCounter.textContent,'2 / 6');run('pauseUsa
 run('moveUsageTour(99)');assert.equal(elements.usageTourCounter.textContent,'6 / 6');run('playUsageTour()');assert.equal(elements.usageTourCounter.textContent,'1 / 6');
 ctx.document.hidden=true;tick();assert.equal(run('usageTourTimer'),null);ctx.document.hidden=false;
 run('playUsageTour()');for(let i=0;i<6;i++)tick();assert.equal(run('usageTourTimer'),null);assert.equal(elements.usageTourCounter.textContent,'6 / 6');
-assert.ok(html.indexOf('class="learn-banner"')<html.indexOf('class="investment-overview"'));assert.ok(html.includes('bukan rekaman akunmu'));assert.ok(html.includes('prefers-reduced-motion:reduce'));
-console.log('PASS: guide prominence, six-step demo, play/pause/replay, manual navigation bounds, hidden-tab pause, completion and simulation disclosure.');
+assert.ok(!html.includes('class="learn-banner"'));assert.ok(html.indexOf('id="usageHelpButton"')<html.indexOf('id="userChip"'));assert.ok(!html.includes('openUsageGuide();playUsageTour()'));
+elements.usageGuide={open:false,showModal(){this.open=true;},close(){this.open=false;},addEventListener(){}};
+run(script.slice(end,script.indexOf('function portfolioEmptyHtml()',end)));run('openUsageGuide()');assert.equal(elements.usageGuide.open,true);assert.equal(run('usageTourTimer'),null,'Opening Help never starts playback');assert.equal(run('usageTourStep'),0);run('playUsageTour();closeUsageGuide()');assert.equal(elements.usageGuide.open,false);assert.equal(run('usageTourTimer'),null,'Closing Help stops its timer');
+assert.ok(html.includes('bukan rekaman akunmu'));assert.ok(html.includes('prefers-reduced-motion:reduce'));
+console.log('PASS: compact header help, no permanent guide panel/autoplay, manual play/pause/replay, navigation, hidden-tab pause and close cleanup.');
