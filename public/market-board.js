@@ -1,6 +1,6 @@
 /* Public prices only; loaded independently of authentication and private portfolios. */
 (()=>{
-  const root=document.getElementById('marketWatch');if(!root||!document.body.classList.contains('locked'))return;
+  const root=document.getElementById('marketWatch');if(!root)return;
   const list=document.getElementById('marketWatchList'),note=document.getElementById('marketWatchNote');
   let catalog=[{id:'index:IHSG',code:'IHSG',name:'Indeks Harga Saham Gabungan',kind:'index'}];
   const search=document.getElementById('marketWatchSearch'),count=document.getElementById('watchCount'),previous=document.getElementById('watchPrevious'),next=document.getElementById('watchNext');
@@ -44,7 +44,7 @@
   if(previous)previous.addEventListener('click',()=>{if(page>0){cancelPrevious();page--;render();refresh();}});
   if(next)next.addEventListener('click',()=>{if((page+1)*6<filtered().length){cancelPrevious();page++;render();refresh();}});
   async function refresh(){
-    if(document.hidden||!document.body.classList.contains('locked'))return;
+    if(document.hidden)return;
     const assets=visible();if(!assets.length)return;const key=assets.map(a=>a.id).sort().join(',');
     if(Date.now()-(checked.get(key)||0)<300000)return;
     if(controller)controller.abort();controller=new AbortController();const ownController=controller,request=++requestNumber;
@@ -59,5 +59,6 @@
   }
   async function loadCatalog(){try{const r=await window.fetch('/market-catalog.json',{credentials:'omit'});if(!r.ok)throw Error('catalog');const data=await r.json();if(!Array.isArray(data)||!data.some(a=>a.id==='index:IHSG'))throw Error('catalog');catalog=data;try{const d=JSON.parse(window.localStorage.getItem('sidaps_public_market_v1')||'null');if(d&&Date.now()-d.savedAt<7*86400000)accept(d,true);}catch{}render();}catch{note.textContent='Katalog belum tersedia. Muat ulang untuk mencoba lagi.';}await refresh();}
   // First paint and login initialization always come before market traffic.
-  setTimeout(loadCatalog,800);setInterval(refresh,300000);document.addEventListener('visibilitychange',refresh);
+  if(window.IntersectionObserver){const observer=new window.IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();loadCatalog();}},{rootMargin:'160px'});observer.observe(root);}else setTimeout(loadCatalog,800);
+  setInterval(refresh,300000);document.addEventListener('visibilitychange',refresh);
 })();
