@@ -4,6 +4,7 @@ import { resolveIdentity } from './identity';
 import { database } from './database';
 export { database } from './database';
 import { validateState, type PortfolioState } from "./state-validation";
+import { withoutUnusedStarterCards } from './starter-portfolio';
 
 export function isOwnerEmail(userEmail: string) {
   const email = (env as unknown as { OWNER_EMAIL?: string }).OWNER_EMAIL;
@@ -24,7 +25,7 @@ export async function ensureAccount(user: ChatGPTUser, recordVisit = false) {
 export async function readState(user: ChatGPTUser) {
   await ensureAccount(user, true);
   const row = await database().prepare("SELECT data,revision FROM portfolios WHERE user_id=?").bind(user.userId).first<{ data: string; revision: number }>();
-  return row ? { state: validateState(JSON.parse(row.data)), revision: row.revision } : { state: null, revision: 0 };
+  return row ? { state: withoutUnusedStarterCards(validateState(JSON.parse(row.data))), revision: row.revision } : { state: null, revision: 0 };
 }
 export async function writeState(user: ChatGPTUser, raw: unknown, revision: number) {
   const state: PortfolioState = validateState(raw);
