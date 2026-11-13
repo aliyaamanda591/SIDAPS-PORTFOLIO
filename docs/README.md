@@ -13,6 +13,7 @@
 - [Optimasi login pada HP](features/MOBILE-LOGIN.md).
 - [Sumber katalog platform dan aset](features/PLATFORM-CATALOG.md).
 - [Logo saham/platform dan nama kripto](features/BRAND-LOGOS.md).
+- [Katalog kadar emas dan harga toko](features/GOLD-CATALOG.md).
 
 ## Pengembangan dan pemeriksaan
 

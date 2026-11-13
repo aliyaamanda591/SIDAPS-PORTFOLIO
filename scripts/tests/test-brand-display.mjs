@@ -15,6 +15,6 @@ const logos={window:{}};vm.runInNewContext(fs.readFileSync('public/brand-logos.j
 assert.equal(Object.keys(map.stocks).length,839);
 for(const ticker of ['AMIN','AMMN','AMMS','AMOR','AMRT','ANDI','ANJT','ANTM'])assert.ok(map.stocks[ticker],ticker+' has local logo');
 for(const [ticker,path] of Object.entries(map.stocks)){assert.match(ticker,/^[A-Z]{4}$/);assert.equal(path,'/logos/stocks/'+ticker+'.svg');const svg=fs.readFileSync('public'+path,'utf8');assert.ok(svg.includes('<svg'));assert.doesNotMatch(svg,/<script|<foreignObject|<!DOCTYPE|javascript:|\son\w+\s*=/i);}
-for(const [key,path] of Object.entries(map.platforms)){assert.match(path,/^\/logos\/(platforms\/[a-z0-9-]+\.png|stocks\/[A-Z]{4}\.svg)$/);assert.ok(fs.existsSync('public'+path),key);}
+for(const [key,path] of Object.entries(map.platforms)){assert.match(path,/^\/logos\/(platforms\/[a-z0-9-]+\.(?:png|jpg)|stocks\/[A-Z]{4}\.svg)$/);assert.ok(fs.existsSync('public'+path),key);}
 for(const platform of ['GROWIN','STOCKBIT','INDODAX','PLUANG','PINTU','BIONS','BIBIT'])assert.ok(map.platforms[platform],platform+' logo');
 console.log('PASS: neutral crypto labels, unchanged legacy keys/holdings, source disclosure, 839 safe stock SVGs and '+Object.keys(map.platforms).length+' platform logo mappings.');

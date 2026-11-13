@@ -982,6 +982,381 @@
     "BAREKSA": {
       "domain": "www.bareksa.com",
       "url": "https://www.google.com/s2/favicons?domain=www.bareksa.com&sz=64"
+    },
+    "AMANTARA SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "AMANTARA SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/sk-amantara.jpg"
+    },
+    "BCA SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "BCA SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-bca-sekuritas.jpg"
+    },
+    "ALDIRACITA SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "ALDIRACITA SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/aldiracita-sekuritas-indonesia/aldiracita.png"
+    },
+    "BINAARTHA SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "BINAARTHA SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-binaartha-sekuritas.jpg"
+    },
+    "BNC SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "BNC SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-bnc-sekuritas-indonesia.jpg"
+    },
+    "BNI SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "BNI SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-bni-sekuritas.jpg"
+    },
+    "BRI DANAREKSA SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "BRI DANAREKSA SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-danareksa-sekuritas.jpg"
+    },
+    "BUANA CAPITAL SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "BUANA CAPITAL SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-buana-capital-sekuritas.jpg"
+    },
+    "CIPTADANA SEKURITAS ASIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "CIPTADANA SEKURITAS ASIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-ciptadana-sekuritas-asia.jpg"
+    },
+    "DANASAKTI SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "DANASAKTI SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-danasakti-sekuritas-indonesia.jpg"
+    },
+    "DANATAMA MAKMUR SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "DANATAMA MAKMUR SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-danatama-makmur-sekuritas.jpg"
+    },
+    "DBS VICKERS SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "DBS VICKERS SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/sk-dbs-vickers.jpg"
+    },
+    "EKOKAPITAL SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "EKOKAPITAL SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-ekokapital-sekuritas.jpg"
+    },
+    "EQUITY SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "EQUITY SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-equity-sekuritas-indonesia.jpg"
+    },
+    "EVERGREEN SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "EVERGREEN SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/sk-evergreen.jpg"
+    },
+    "FAC SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "FAC SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-fac-sekuritas-indonesia.jpg"
+    },
+    "INA SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "NIKKO SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-nikko-sekuritas-indonesia.jpg"
+    },
+    "BAHANA SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "BAHANA SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-bahana-sekuritas.jpg"
+    },
+    "INDO CAPITAL SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "INDO CAPITAL SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-indo-capital-sekuritas.jpg"
+    },
+    "ARTHA SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "ARTHA SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-artha-sekuritas-indonesia.jpg"
+    },
+    "INTI TELADAN SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "INTI TELADAN SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-inti-teladan-sekuritas.jpg"
+    },
+    "ANUGERAH SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "ANUGERAH SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/sk-anugerah.jpg"
+    },
+    "INVESTINDO NUSANTARA SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "INVESTINDO NUSANTARA SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-investindo-nusantara-sekuritas.jpg"
+    },
+    "J.P. MORGAN SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "J.P. MORGAN SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-jp-morgan-sekuritas-indonesia.jpg"
+    },
+    "KAY HIAN SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "UOB KAY HIAN SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-uob-kay-hian-sekuritas.jpg"
+    },
+    "KB VALBURY SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "VALBURY SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-valbury-sekuritas-indonesia.jpg"
+    },
+    "KGI SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "KGI SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-kgi-sekuritas-indonesia.jpg"
+    },
+    "KIWOOM SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "KIWOOM SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/sk-kiwoom.jpg"
+    },
+    "MEGA CAPITAL SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "MEGA CAPITAL SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-mega-capital-sekuritas.jpg"
+    },
+    "MINNA PADI INVESTAMA SEKURITAS TBK": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "MINNA PADI INVESTAMA SEKURITAS TBK",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-minna-padi-investama-sekuritas.jpg"
+    },
+    "NH KORINDO SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "NH KORINDO SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-nh-korindo-sekuritas-indonesia.jpg"
+    },
+    "PANCA GLOBAL SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "PANCA GLOBAL SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-panca-global-securities-tbk.jpg"
+    },
+    "OCBC SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "OCBC SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-ocbc-sekuritas-indonesia.jpg"
+    },
+    "NET SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "NET SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-net-sekuritas.jpg"
+    },
+    "PARAMITRA ALFA SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "PARAMITRA ALFA SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-paramitra-alfa-sekuritas.jpg"
+    },
+    "PROFINDO SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "PROFINDO SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-profindo-sekuritas-indonesia.jpg"
+    },
+    "PILARMAS INVESTINDO SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "PILARMAS INVESTINDO SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-pilarmas-investindo-sekuritas.jpg"
+    },
+    "PHILLIP SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "PHILLIP SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-phillip-sekuritas-indonesia.jpg"
+    },
+    "PHINTRACO SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "PHINTRACO SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-phintraco-sekuritas.jpg"
+    },
+    "RELIANCE SEKURITAS INDONESIA, TBK": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "RELIANCE SEKURITAS INDONESIA TBK.",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-reliance-sekuritas-indonesia-tbk.jpg"
+    },
+    "SHINHAN SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "SHINHAN SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-shinhan-sekuritas-indonesia.jpg"
+    },
+    "SAMUEL SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "SAMUEL SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-samuel-sekuritas-indonesia.jpg"
+    },
+    "SEMESTA INDOVEST SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "SEMESTA INDOVEST SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-semesta-indovest-sekuritas.jpg"
+    },
+    "SINARMAS SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "SINARMAS SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-sinarmas-sekuritas.jpg"
+    },
+    "SUCOR SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "SUCOR SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-sucor-sekuritas.jpg"
+    },
+    "SUKADANA PRIMA SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "OSO SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/sk-oso.jpg"
+    },
+    "VICTORIA SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "VICTORIA SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-victoria-sekuritas-indonesia.jpg"
+    },
+    "TRUST SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "TRUST SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-trust-sekuritas.jpg"
+    },
+    "TRIMEGAH SEKURITAS INDONESIA TBK": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "TRIMEGAH SEKURITAS INDONESIA TBK.",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-trimegah-sekuritas-indonesia-tbk.jpg"
+    },
+    "WATERFRONT SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "WATERFRONT SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-waterfront-sekuritas-indonesia.jpg"
+    },
+    "YUANTA SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "YUANTA SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/ppe-yuanta-sekuritas-indonesia.jpg"
+    },
+    "YULIE SEKURITAS INDONESIA TBK": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "YULIE SEKURITAS INDONESIA TBK.",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/blank-imge.jpg"
+    },
+    "MIRAE ASSET SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "MIRAE ASSET SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/partner/logo-mirae-asset-(format-jpeg).jpg"
+    },
+    "BJB SEKURITAS JAWA BARAT": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "BJB SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logo-bjb-sekuritas.jpg"
+    },
+    "CLSA SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "CLSA SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logo-clsa.jpg"
+    },
+    "BUMIPUTERA SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "BUMIPUTERA SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logo-baru-zr.jpg"
+    },
+    "CGS INTERNATIONAL SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "CGS INTERNATIONAL SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logo-cgs.jpg"
+    },
+    "DWIDANA SAKTI SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "DWIDANA SAKTI SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logo-dwidana-sakti-sekuritas.jpg"
+    },
+    "ELIT SUKSES SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "ELIT SUKSES SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/elit-sukses.jpg"
+    },
+    "ERDIKHA ELIT": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "ERDIKHA ELIT SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/72fefc04-e8b0-4953-ac3c-2308098099f3.jpeg"
+    },
+    "HARITA KENCANA SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "HARITA KENCANA SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logo-harita-kencana-sekuritas.png"
+    },
+    "INDO HARVEST SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "INDO HARVEST SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/ih-sekuritas.png"
+    },
+    "LABA SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "LABA SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logo-pt-laba-sekuritas-indonesia.jpg"
+    },
+    "MAGENTA KAPITAL SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "MAGENTA KAPITAL SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logo-magenta.jpeg"
+    },
+    "MNC SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "MNC SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/mnc-sekuritas-vertikal-gold.png"
+    },
+    "PACIFIC SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "PACIFIC SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/pacific-sekuritas-indonesia.png"
+    },
+    "PANIN SEKURITAS TBK": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "PANIN SEKURITAS TBK.",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logo-panin-sekuritas.jpeg"
+    },
+    "PLUANG MAJU SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "PLUANG MAJU SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logopluangmajusekuritas.png"
+    },
+    "MAYBANK SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "MAYBANK SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/maybank-sekuritas-indonesia.jpg"
+    },
+    "RHB SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "RHB SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/img_5182.jpeg"
+    },
+    "TUNTUN SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "TUNTUN SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logo-tuntun.jpg"
+    },
+    "VERDHANA SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "VERDHANA SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/verdhana_logo.jpg"
+    },
+    "SUPRA SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "SUPRA SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/supra-sekuritas-indonesia.jpg"
+    },
+    "YAKIN BERTUMBUH SEKURITAS": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "YAKIN BERTUMBUH SEKURITAS",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/yb-(yakin-bertumbuh-sekuritas).jpg"
+    },
+    "WEBULL SEKURITAS INDONESIA": {
+      "directory": "https://indonesiasipf.co.id/anggota-dpp",
+      "name": "WEBULL SEKURITAS INDONESIA",
+      "url": "https://indonesiasipf.co.id/uploads/media/anggota-dpp/logo-webull-sekuritas.jpg"
     }
   }
 }

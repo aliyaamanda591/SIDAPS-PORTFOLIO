@@ -27,9 +27,10 @@ export function validateState(raw: unknown): PortfolioState {
   });
   if (new Set(transactions.map(t => t.id)).size !== transactions.length) throw Error("ID transaksi berulang.");
   const assets = raw.assets.map(a => {
-    if (!object(a) || !string(a.name, 100) || !string(a.unit, 30) || !["stock", "crypto", "gold24", "gold15"].includes(String(a.kind)) || (a.quantity !== null && (!finite(a.quantity) || Number(a.quantity) < 0)) || !string(a.symbol, 30) || !finite(a.valueSnapshot) || Number(a.valueSnapshot) < 0 || (a.manualPrice != null && (!finite(a.manualPrice) || Number(a.manualPrice) < 0))) throw Error("Aset tidak valid.");
+    if (!object(a) || !string(a.name, 100) || !string(a.unit, 30) || !["stock", "crypto", "gold24", "gold15", "goldRetail"].includes(String(a.kind)) || (a.quantity !== null && (!finite(a.quantity) || Number(a.quantity) < 0)) || !string(a.symbol, 30) || !finite(a.valueSnapshot) || Number(a.valueSnapshot) < 0 || (a.manualPrice != null && (!finite(a.manualPrice) || Number(a.manualPrice) < 0))) throw Error("Aset tidak valid.");
+    if (a.kind === "goldRetail" && (a.unit !== 'gram' || !/^XAU_RETAIL_(?:K(?:[2-9]|1[0-9]|2[0-3])|K24_99|K24_999)$/.test(String(a.symbol)))) throw Error('Kadar emas tidak valid.');
     if (a.kind === "stock" && (!/^[A-Z]{4}$/.test(String(a.name)) || a.symbol !== a.name + ".JK")) throw Error("Kode saham tidak valid.");
-    return { name: a.name, unit: a.unit, kind: a.kind, quantity: a.quantity, symbol: a.kind === "gold15" ? "XAU" : a.symbol, valueSnapshot: a.valueSnapshot, manualPrice: a.kind === "gold15" ? null : a.manualPrice ?? null, archived: a.archived === true, company: string(a.company, 150) ? a.company : "" };
+    return { name: a.name, unit: a.unit, kind: a.kind, quantity: a.quantity, symbol: a.kind === "gold15" ? "XAU" : a.symbol, valueSnapshot: a.valueSnapshot, manualPrice: (a.kind === "gold15" || a.kind === "goldRetail") ? null : a.manualPrice ?? null, archived: a.archived === true, company: string(a.company, 150) ? a.company : "" };
   });
   if (new Set(assets.map(a => a.name)).size !== assets.length) throw Error("Nama aset berulang.");
   const p = object(raw.profile) ? raw.profile : {};

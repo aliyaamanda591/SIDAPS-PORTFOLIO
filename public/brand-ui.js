@@ -8,7 +8,8 @@
   if(typeof src==='string'&&/^\/logos\//.test(src)){const img=document.createElement('img');img.src=src;img.alt='';img.width=28;img.height=28;img.loading='lazy';img.decoding='async';img.addEventListener('error',()=>img.remove());icon.append(img);}
   return icon;
  }
- window.SidapsBrandUI={platform};
+ function asset(value){if(typeof assetLogoHtml!=='function'||typeof assets==='undefined')return null;const a=assets.find(a=>a.name===value);if(!a)return null;const holder=document.createElement('span');holder.innerHTML=assetLogoHtml(a,true);return holder.firstElementChild;}
+ window.SidapsBrandUI={platform,asset};
  let pending=false;
  function scan(){pending=false;document.querySelectorAll('.platform-record:not([data-branded])').forEach(node=>{node.dataset.branded='true';const icon=platform(node.dataset.platform,node.textContent);if(icon)node.prepend(icon);});}
  scan();new MutationObserver(()=>{if(!pending){pending=true;requestAnimationFrame(scan);}}).observe(document.body,{subtree:true,childList:true});

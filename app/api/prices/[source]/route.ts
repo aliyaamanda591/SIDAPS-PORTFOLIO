@@ -1,5 +1,5 @@
 import { authenticatedUser } from "@/lib/account-store";
-import { retailGold } from '@/lib/retail-gold';
+import { retailGold, retailGoldTable } from '@/lib/retail-gold';
 export const dynamic = "force-dynamic";
 const sources: Record<string,string> = {
   crypto: "https://indodax.com/api/tickers",
@@ -17,6 +17,10 @@ async function forward(source: string, init?: RequestInit, key=source) {
 }
 export async function GET(request:Request,{params}:{params:Promise<{source:string}>}) {
   try { await authenticatedUser(); const { source }=await params;
+    if(source==='gold-karats'){
+      const quotes=await retailGoldTable.get();
+      return Response.json({karats:Object.entries(quotes).map(([label,q])=>({label,...q}))},{headers:{'Cache-Control':'private, no-store'}});
+    }
     if(source==='gold15'){
       const q=await retailGold.get();
       return Response.json({karats:[{label:'15K',price:q.price}],last_updated:new Date(q.marketAt).toISOString(),fetched_at:q.fetchedAt,source:q.source,sourceUrl:q.sourceUrl,fallback:q.fallback,stale:q.stale},{headers:{'Cache-Control':'private, no-store'}});
