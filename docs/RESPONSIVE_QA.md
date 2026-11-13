@@ -97,3 +97,10 @@ The current product has no separate Goals page. Analytics is represented by the 
 - Local Chromium verified upload, save/reload persistence, removal/reload, and editor bounds without page overflow at 320/375/390/430/768/1440. Synthetic local image/account only.
 - Tests cover signed picture claims, unsafe URL rejection, new empty account, custom/removal preservation, CAS conflicts, isolation, legacy profiles, and rendering. Login/calculation regressions, TypeScript and production build passed.
 - Existing Google sessions acquire provider avatar metadata on the next Google sign-in. Actual provider image availability depends on the Google account; no production user's authentication or financial data was changed during QA.
+
+## Dashboard IHSG chart (13 November 2026)
+- Added IHSG / Arus transaksi selector in the existing chart card, with IHSG as initial view and existing 6/12-month personal transaction charts retained.
+- Reuses the public index-only market-board endpoint. Displays actual provider history in index points, percent change, source, timestamp, manual refresh and five-minute checks. Cached/error and absent-history states remain explicit; no fabricated points.
+- Public index stays visible in balance privacy mode; personal charts redact immediately on body privacy-state changes, including background tabs where animation frames may be delayed.
+- Chromium loaded live provider index/history locally and checked 320/360/375/390/414/430/768/1024/1440 CSS widths: no page overflow and 12px axis labels. Verified both chart tabs, 12-month selector and privacy redaction/public index behavior.
+- Syntax, TypeScript, market-board/calculation/profile-photo regression checks and production build passed. Market availability depends on providers; no private financial state sent by the index component.
