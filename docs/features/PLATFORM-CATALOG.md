@@ -38,3 +38,7 @@ Existing broker/platform values and historical user records are retained. Aplika
 | RHB TradeSmart | [RHB Sekuritas](https://www.rhbtradesmart.co.id/faq) |
 
 These are labels for recording transactions, including legacy products; no broker connection is created. Availability/branding can change independently.
+
+## Exchange-neutral display and logos
+
+Crypto exchange suffixes are hidden in asset labels while their legacy storage keys and pricing remain intact. See [Brand logos](BRAND-LOGOS.md) for local stock/platform images, source provenance and fallbacks.
