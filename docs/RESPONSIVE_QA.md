@@ -116,3 +116,7 @@ The current product has no separate Goals page. Analytics is represented by the 
 ## Brand logos — 13 November 2026
 
 Verified local preview in browser: AMIN real SVG loads; crypto picker shows BTC/ETH/SOL without exchange suffix; transaction selector retains BTC INDODAX as submitted value. Platform picker shows Stockbit and Stockbit Crypto logos, Riwayat badge and current selection check. Pluang icon loads; unknown broker falls back to initials. Checked 320px, 390px, 430px and desktop: no document-wide horizontal overflow at mobile widths; platform dropdown stays within viewport. Existing compact mobile transaction summaries retain unmodified platform labels.
+
+## Katalog emas dan logo lanjutan — 13 November 2026
+
+Local browser: transaction asset dropdown renders stock logos, BTC and gold karat icons. Anugerah and BJB broker logos load from local optimized PNG files. Gold catalog contains 25 unique choices in descending karat order, hides stock-only custom fields, and fits 320/390/430/1024px without document overflow. Added K23 only to the synthetic local account, verified live retailer price and persistence after reload. No production financial state modified. The BIBIK/BIBIT identity distinction and backup-provider exact-karat parsing are covered by regression tests.

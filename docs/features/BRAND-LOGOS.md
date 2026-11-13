@@ -11,3 +11,9 @@ Updated 13 November 2026.
 - No accounts, holdings, price logic, database schema or authentication configuration are changed.
 
 `public/brand-logos.js` loads before the application shell. `public/brand-ui.js` adds platform images and the existing custom selector uses that renderer. Stock images are lazy-loaded only when their items are rendered; the complete image library is not requested at startup. `scripts/tests/test-brand-display.mjs` checks the manifest, safe SVG content and legacy-key preservation.
+
+## Pembaruan logo dan kadar emas — 13 November 2026
+
+Pilihan Aset dalam formulir transaksi kini menggunakan logo saham, kripto dan ikon kadar emas yang sama dengan kartu. Dropdown aset tetap mengirim identitas tersimpan yang asli.
+
+Logo sekuritas tambahan diambil dari [direktori Indonesia SIPF](https://indonesiasipf.co.id/anggota-dpp) berdasarkan kode broker, disimpan lokal dan dirapikan margin gambarnya. Manifest kini mencakup 130 nilai platform/alias. Nama custom BIBIK tidak dipetakan ke Bibit: BIBIK memakai inisial, sementara BIBIT memakai logonya sendiri. Tidak ada penggantian nama transaksi lama atau penyamaan platform custom secara otomatis.
