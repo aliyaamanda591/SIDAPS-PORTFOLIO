@@ -104,3 +104,11 @@ The current product has no separate Goals page. Analytics is represented by the 
 - Public index stays visible in balance privacy mode; personal charts redact immediately on body privacy-state changes, including background tabs where animation frames may be delayed.
 - Chromium loaded live provider index/history locally and checked 320/360/375/390/414/430/768/1024/1440 CSS widths: no page overflow and 12px axis labels. Verified both chart tabs, 12-month selector and privacy redaction/public index behavior.
 - Syntax, TypeScript, market-board/calculation/profile-photo regression checks and production build passed. Market availability depends on providers; no private financial state sent by the index component.
+
+## Asset picker recording and platform expansion (13 November 2026)
+- Reviewed the supplied local video. Asset category selection now uses visible Semua/Saham/Kripto/Emas buttons rather than the problematic dropdown. Search autofill is disabled and lengthy source help is collapsed.
+- Generic menus scroll their own list instead of scrolling all ancestors, attach within the active modal, and reposition rather than close on viewport resize or external scroll.
+- Added eight named stock applications (168 unique platform values total), preserving historical values. Direct Platform lain controls are available in transaction, purchase and sale forms.
+- Chromium checked category buttons at 320/360/375/390/414/430/768/1024/1440 without page overflow. Verified stock/crypto/gold filters, BIONS/HOTS/MotionTrade selections, menu persistence after resize, and custom-name focus in transaction/sale forms.
+- New platform tests cover uniqueness, all three custom-name forms, escaping, legacy values and account-local choices. Integration catalog test now requests the app with its existing test session instead of the anonymous landing page; it passed, with public-source fallback clearly identified.
+- Syntax, TypeScript, financial summary, fast-login and production build passed. No production records changed during QA.

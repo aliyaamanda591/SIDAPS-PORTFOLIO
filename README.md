@@ -13,7 +13,7 @@ Login **Google melalui Firebase** juga tersedia. Email Google yang terverifikasi
 - Tampilan HP dengan daftar aset dan riwayat ringkas yang bisa diperluas.
 - Pembelian/penjualan termasuk pecahan kripto, perhitungan modal, profit/loss, dan arsip aset.
 - Pencarian 843 saham dan 438 pasangan kripto IDR pada snapshot katalog.
-- Pilihan 160 platform dengan nama platform tambahan milik masing-masing akun.
+- Pilihan 168 platform dengan nama platform tambahan milik masing-masing akun.
 - Pemeriksaan harga setiap lima menit; sumber cadangan ditampilkan secara jelas.
 - Login, kode pemulihan, pembatasan percobaan, dan data akun terpisah.
 

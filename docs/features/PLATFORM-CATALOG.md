@@ -1,6 +1,6 @@
 # Platform recording catalog
 
-Checked 8 November 2026. The embedded portfolio shell contains 160 categorized choices shared by the transaction, purchase, and sale forms.
+The base catalog was checked 8 November 2026. On 13 November 2026, eight named stock applications were added, for 168 categorized choices shared by the transaction, purchase, and sale forms.
 
 - Securities company names/codes: https://web.ksei.co.id/services/participants/brokers?setLocale=id-ID
 - Mutual-fund selling agents: https://web.ksei.co.id/services/participants/mutual-agents?setLocale=id-ID
@@ -20,3 +20,21 @@ Indodax's public API documentation: https://github.com/btcid/indodax-official-ap
 Crypto logos use the corresponding official Indodax image URL with a symbol fallback. New cards start with zero holdings/capital. Fractional crypto purchases and sales use the existing portfolio accounting and remain account-owned.
 
 Local integration verification: Indodax returns HTTP 403 to the Worker runtime while its public endpoint works from Node. The authenticated CoinGecko fallback returned real IDR quotes for BTC, ETH, and SOL after adding the descriptive application User-Agent requested by CoinGecko. If a coin has no fallback ID and Indodax is unavailable, it keeps its previous quote or reports price unavailable; no substitute price is invented. This limitation does not affect manually recorded holdings/transactions.
+
+
+## Stock application names added 13 November 2026
+
+Existing broker/platform values and historical user records are retained. Aplikasi saham groups recognizable app names; broker choices remain available separately. The direct Platform lain button opens the existing per-account custom-name field.
+
+| Application | Provider reference |
+| --- | --- |
+| BIONS | [BNI Sekuritas](https://www.bions.id/pages/detail/1/produk) |
+| HOTS | [Mirae Asset Sekuritas](https://sekuritas.miraeasset.co.id/id/hots) |
+| MotionTrade | [MNC Sekuritas](https://www.mncsekuritas.id/pages/online-trading/en/) |
+| BRIGHTS | [BRI Danareksa Sekuritas](https://www.brights.id/id/produk-dan-layanan) |
+| SimInvest | [Official support](https://help.siminvest.id/cara-menghubungi-siminvest/) |
+| BEST | [BCA Sekuritas](https://webcrp.lnc.bcasekuritas.co.id/help/faq/bagaimana-cara-pembukaan-rekening-bcas-1) |
+| POEMS | [Phillip official user guide](https://www.poems.web.id/htm/download/poems_user_guide.pdf) |
+| RHB TradeSmart | [RHB Sekuritas](https://www.rhbtradesmart.co.id/faq) |
+
+These are labels for recording transactions, including legacy products; no broker connection is created. Availability/branding can change independently.
