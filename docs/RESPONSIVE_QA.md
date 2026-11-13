@@ -82,3 +82,10 @@ The current product has no separate Goals page. Analytics is represented by the 
 - Duplicate dashboard portfolio table starts closed behind Lihat portofolio; expanded records retain original purchase/sale/archive actions.
 - Exact Chromium widths 320/360/375/390/414/430/768/1024/1440 passed page-overflow checks. Verified three local transactions, six local assets, one-open-row behavior, purchase action, privacy masking, and table disclosure.
 - Syntax, CSS parsing, TypeScript, portfolio calculation regressions and production build passed. Tests used local synthetic records only.
+
+## Phone chart typography and contrast (13 November 2026)
+- Chart drawing width now follows its actual container, retaining 12px axis labels instead of scaling down a fixed desktop SVG. Month-label spacing adapts to width; all monthly data points remain present.
+- Added ResizeObserver redraw on width changes, clearer mobile secondary text and native system font stack. Preserved compact records and privacy behavior.
+- Fixed realized-P/L summary retaining a stale light-theme text color when changing themes; it now inherits current theme and gain/loss classes.
+- Chromium checks at 320/360/375/390/414/430/768/1024/1440: no page overflow; rendered chart-label size approximately 12 CSS pixels. Verified 12-month points, 6-month switch, hidden chart in privacy mode, and text colors in light/dark themes.
+- Physical device rendering still requires user review. Syntax, TypeScript, theme/calculation regression checks and production build passed.
