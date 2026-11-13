@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {generateKeyPair,exportJWK,createLocalJWKSet,SignJWT} from 'jose';
-import {verifyGoogleToken,FIREBASE_PROJECT_ID} from '../lib/firebase-google.ts';
+import {verifyGoogleToken,FIREBASE_PROJECT_ID} from '../../lib/firebase-google.ts';
 const {privateKey,publicKey}=await generateKeyPair('RS256'),jwk=await exportJWK(publicKey),key=createLocalJWKSet({keys:[{...jwk,kid:'fixture-key',alg:'RS256',use:'sig'}]});
 const now=Math.floor(Date.now()/1000),base={sub:'google-fixture-uid',aud:FIREBASE_PROJECT_ID,iss:'https://securetoken.google.com/'+FIREBASE_PROJECT_ID,iat:now,exp:now+3600,auth_time:now,email:'Member@Example.test',email_verified:true,name:'Member One',firebase:{sign_in_provider:'google.com'}};
 const sign=payload=>new SignJWT(payload).setProtectedHeader({alg:'RS256',kid:'fixture-key'}).sign(privateKey);

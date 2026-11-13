@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {safeGooglePhoto} from '../lib/profile-photo.js';
-import {validateState} from '../lib/state-validation.ts';
-import {linkVerifiedGoogleAccount,syncVerifiedGooglePhoto} from '../lib/google-account-link.ts';
+import {safeGooglePhoto} from '../../lib/profile-photo.js';
+import {validateState} from '../../lib/state-validation.ts';
+import {linkVerifiedGoogleAccount,syncVerifiedGooglePhoto} from '../../lib/google-account-link.ts';
 
 const photo='https://lh3.googleusercontent.com/a/fixture=s96-c',next='https://lh3.googleusercontent.com/a/updated=s96-c',upload='data:image/png;base64,aGVsbG8=';
 assert.equal(safeGooglePhoto(photo),photo);

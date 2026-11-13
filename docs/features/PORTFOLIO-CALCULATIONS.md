@@ -26,4 +26,4 @@ Example: buy 100 units for Rp500.000; sell 40 for net Rp260.000. Released basis 
 
 ## Validation
 
-`node scripts/test-portfolio-summary.mjs` checks screenshot arithmetic, separate sale totals, live quotes, colors, privacy, unchanged records, whole-rupiah consistency, and first-time cloud accounts through purchase, partial sale, repurchase, full sale, archive, account reload, and deletion. Ordinary withdrawals are excluded from realized sales.
+`node scripts/tests/test-portfolio-summary.mjs` checks screenshot arithmetic, separate sale totals, live quotes, colors, privacy, unchanged records, whole-rupiah consistency, and first-time cloud accounts through purchase, partial sale, repurchase, full sale, archive, account reload, and deletion. Ordinary withdrawals are excluded from realized sales.

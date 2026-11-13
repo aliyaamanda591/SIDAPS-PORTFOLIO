@@ -22,6 +22,6 @@ Admin dapat mencari metadata akun dan mencatat bantuan. Tidak tersedia API admin
 
 ## Pemeriksaan lokal
 
-- `node scripts/test-email-auth.mjs`: pratinjau lokal tanpa konfigurasi pemilik untuk akun simulasi.
-- `node scripts/test-owner-email.mjs`: pratinjau lokal dengan `OWNER_EMAIL=seedy@sites.test` pada `.dev.vars` yang diabaikan Git.
+- `node scripts/tests/test-email-auth.mjs`: pratinjau lokal tanpa konfigurasi pemilik untuk akun simulasi.
+- `node scripts/tests/test-owner-email.mjs`: pratinjau lokal dengan `OWNER_EMAIL=seedy@sites.test` pada `.dev.vars` yang diabaikan Git.
 - Hapus `.dev.vars` uji sebelum selesai. Konfigurasi pemilik produksi tetap dikelola sebagai secret Sites.

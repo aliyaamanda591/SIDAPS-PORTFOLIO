@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
 import fs from 'node:fs';
-import {linkVerifiedGoogleAccount} from '../lib/google-account-link.ts';
+import {linkVerifiedGoogleAccount} from '../../lib/google-account-link.ts';
 const sqlite=new DatabaseSync(':memory:');
 for(const file of ['drizzle/0000_omniscient_starbolt.sql','drizzle/0001_opposite_dracula.sql','drizzle/0002_icy_jetstream.sql'])sqlite.exec(fs.readFileSync(file,'utf8').replaceAll('--> statement-breakpoint',''));
 const db={prepare(sql){let args=[];return {bind(...values){args=values;return this;},async first(){return sqlite.prepare(sql).get(...args)||null;},async run(){return sqlite.prepare(sql).run(...args);}};},async batch(statements){sqlite.exec('BEGIN');try{const out=[];for(const statement of statements)out.push(await statement.run());sqlite.exec('COMMIT');return out;}catch(e){sqlite.exec('ROLLBACK');throw e;}}};

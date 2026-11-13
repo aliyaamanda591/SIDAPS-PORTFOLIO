@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {RETAIL_SOURCES,parseRetailPage,RetailGoldService} from '../lib/retail-gold.ts';
+import {RETAIL_SOURCES,parseRetailPage,RetailGoldService} from '../../lib/retail-gold.ts';
 const now=Date.parse('2026-11-09T04:00:00Z');
 const pages=[
  '<div class="last-updated">Monday, 09 November 2026, 08:58 WIB</div><div class="harga-kami-beli"><div id="perhiasan-emas"><table><tr><td>K14</td><td>Rp1.208.138</td></tr><tr><td>K15</td><td>Rp1.295.173</td></tr></table></div></div><div class="harga-kami-jual"><td>K15</td><td>Rp9.999.999</td></div>',

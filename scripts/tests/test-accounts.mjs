@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { validateState } from '../lib/state-validation.ts';
+import { validateState } from '../../lib/state-validation.ts';
 const origin='http://127.0.0.1:5178';
 const signIn=await fetch(origin+'/signin-with-chatgpt?return_to=/',{redirect:'manual'});
 const cookie=signIn.headers.getSetCookie()[0].split(';')[0];

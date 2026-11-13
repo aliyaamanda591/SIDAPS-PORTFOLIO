@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { validateState } from '../lib/state-validation.ts';
+import { validateState } from '../../lib/state-validation.ts';
 const origin='http://127.0.0.1:5178';
 for(const path of ['/api/prices/crypto','/api/prices/crypto-pairs','/api/prices/coins?ids=solana'])assert.equal((await fetch(origin+path)).status,401,'Public proxy requires account');
 const signIn=await fetch(origin+'/signin-with-chatgpt?return_to=/',{redirect:'manual'});

@@ -16,7 +16,7 @@ Source date and retrieval time are separate. A fallback retailer is identified a
 
 ## Verification
 
-- `node scripts/test-retail-gold.mjs`: exact K15 rows, price/date validation, WIB/WITA, cache, three-source failover, stale dates, unchanged last-good timestamps, all-source failure, format changes.
-- `node scripts/test-retail-gold.mjs --live`: read and parse all three current public sources.
-- `node scripts/test-retail-api.mjs`: with the local server at port 5178, create a local test account and check the authenticated Worker endpoint, real retailer response, cache timestamp, and anonymous access denial.
+- `node scripts/tests/test-retail-gold.mjs`: exact K15 rows, price/date validation, WIB/WITA, cache, three-source failover, stale dates, unchanged last-good timestamps, all-source failure, format changes.
+- `node scripts/tests/test-retail-gold.mjs --live`: read and parse all three current public sources.
+- `node scripts/tests/test-retail-api.mjs`: with the local server at port 5178, create a local test account and check the authenticated Worker endpoint, real retailer response, cache timestamp, and anonymous access denial.
 - Workspace-root `node verify-investasi.cjs`: K15 valuation, fallback-source label, last quote after offline reload, account/privacy and other app regressions.
