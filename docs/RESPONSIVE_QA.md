@@ -53,3 +53,10 @@ Dashboard money values were inspected for clipping using a local fixture with ei
 Browser checks used Chromium responsive viewport emulation, not physical iOS/Android devices. Native mobile keyboard and OS-specific browser chrome were not simulated. OAuth provider configuration was unchanged.
 
 The current product has no separate Goals page. Analytics is represented by the dashboard insights panels; no unavailable page is reported as tested. Existing source, accounts, storage, authorization, and calculation code are retained.
+
+## Dashboard clarity follow-up (13 November 2026)
+- Restored the existing Sidaps SVG mark at every breakpoint.
+- Moved original formula, market schedule, KPI explanations and optional Google Sheets settings into a native modal dialog; IDs and event handlers remain intact.
+- Condensed realized P/L to an expandable row; its summary mirrors the privacy-masked rendered amount.
+- Browser checked exact CSS widths 320, 360, 375, 390, 414, 430, 768, 1024 and 1440: logo visible, no page overflow, dialog within viewport.
+- Verified dialog Escape restores focus and privacy masks both original and condensed sale amounts. Financial regression and TypeScript checks, syntax and production build passed.
