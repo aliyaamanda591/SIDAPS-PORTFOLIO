@@ -12,3 +12,5 @@ html[data-sidaps-theme] body #usageTourScreen.guided-demo{position:relative;padd
 @media(prefers-reduced-motion:reduce){.demo-cursor{will-change:auto}.demo-click-ring{display:none}}
 
 .guided-demo .demo-window{min-height:265px}
+
+.demo-asset-details[hidden]{display:none!important}.demo-asset-name[data-demo=expand]{min-height:36px;border-radius:7px}
