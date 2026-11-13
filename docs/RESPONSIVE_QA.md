@@ -68,3 +68,10 @@ The current product has no separate Goals page. Analytics is represented by the 
 - Chromium checked exact 320/360/375/390/414/430/768/1024/1440 CSS widths for transaction-table overflow, dropdown viewport bounds and landing-market layout.
 - Verified mouse and keyboard platform selection, form reset, 12-month chart state, purchase-modal platform changes, light/dark appearance, FAQ expansion. Test fixture only; no financial records added.
 - Syntax, TypeScript, theme, fast-login, mobile-login, landing and financial-summary regressions passed. Production build passed.
+
+## Mobile asset scanning follow-up (13 November 2026)
+- Assets now use compact disclosure rows on phones (through 760px), showing logo, name, units, current value and P/L. Original financial details and action buttons remain inside the expanded row; only one row opens at a time.
+- Six local test assets measured 568px combined at 390px (88px rows with 8px gaps). Desktop retains full cards.
+- Chromium checks at exact 320/360/375/390/414/430/768/1024/1440 CSS widths passed without page overflow.
+- Verified single-open behavior, masked amounts/units after privacy toggle, and original purchase-modal opening from expanded details. Local test fixture only.
+- Syntax, TypeScript and financial-summary regressions passed; production build passed.
