@@ -60,3 +60,11 @@ The current product has no separate Goals page. Analytics is represented by the 
 - Condensed realized P/L to an expandable row; its summary mirrors the privacy-masked rendered amount.
 - Browser checked exact CSS widths 320, 360, 375, 390, 414, 430, 768, 1024 and 1440: logo visible, no page overflow, dialog within viewport.
 - Verified dialog Escape restores focus and privacy masks both original and condensed sale amounts. Financial regression and TypeScript checks, syntax and production build passed.
+
+## Controls and contrast follow-up (13 November 2026)
+- Replaced chart-period and transaction-type native dropdowns with grouped buttons that drive the original select values/events.
+- Added theme-aware searchable platform/asset selectors, keyboard navigation, Escape and disabled-option handling. Unsupported popover browsers retain native controls.
+- Fixed public market-board title contrast; spaced FAQ disclosure cards and standardized table amounts, status badges and destructive actions.
+- Chromium checked exact 320/360/375/390/414/430/768/1024/1440 CSS widths for transaction-table overflow, dropdown viewport bounds and landing-market layout.
+- Verified mouse and keyboard platform selection, form reset, 12-month chart state, purchase-modal platform changes, light/dark appearance, FAQ expansion. Test fixture only; no financial records added.
+- Syntax, TypeScript, theme, fast-login, mobile-login, landing and financial-summary regressions passed. Production build passed.
