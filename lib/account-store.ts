@@ -23,8 +23,12 @@ export async function ensureAccount(user: ChatGPTUser, recordVisit = false) {
   if (recordVisit) await database().prepare("UPDATE accounts SET email=?,display_name=?,last_seen_at=? WHERE user_id=?").bind(user.email,user.displayName,new Date().toISOString(),user.userId).run();
 }
 export async function readState(user: ChatGPTUser) {
-  await ensureAccount(user, true);
-  const row = await database().prepare("SELECT data,revision FROM portfolios WHERE user_id=?").bind(user.userId).first<{ data: string; revision: number }>();
+  const now=new Date().toISOString();
+  const results=await database().batch([
+    database().prepare("INSERT INTO accounts (user_id,email,display_name,created_at,last_seen_at) VALUES (?,?,?,?,?) ON CONFLICT(user_id) DO UPDATE SET email=excluded.email,display_name=excluded.display_name,last_seen_at=excluded.last_seen_at").bind(user.userId,user.email,user.displayName,now,now),
+    database().prepare("SELECT data,revision FROM portfolios WHERE user_id=?").bind(user.userId),
+  ]);
+  const row=results[1].results?.[0] as {data:string;revision:number}|undefined;
   return row ? { state: withoutUnusedStarterCards(validateState(JSON.parse(row.data))), revision: row.revision } : { state: null, revision: 0 };
 }
 export async function writeState(user: ChatGPTUser, raw: unknown, revision: number) {
