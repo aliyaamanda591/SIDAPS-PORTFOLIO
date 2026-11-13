@@ -75,3 +75,10 @@ The current product has no separate Goals page. Analytics is represented by the 
 - Chromium checks at exact 320/360/375/390/414/430/768/1024/1440 CSS widths passed without page overflow.
 - Verified single-open behavior, masked amounts/units after privacy toggle, and original purchase-modal opening from expanded details. Local test fixture only.
 - Syntax, TypeScript and financial-summary regressions passed; production build passed.
+
+## Compact history and portfolio records (13 November 2026)
+- Transaction and portfolio table rows become compact disclosure rows on phones. Original cells/actions stay in place, desktop tables retain their columns.
+- Dashboard history is capped at 280px; each collapsed transaction measured 78–80px. Mobile automatic scrolling is paused while desktop behavior is restored on leaving the mobile breakpoint.
+- Duplicate dashboard portfolio table starts closed behind Lihat portofolio; expanded records retain original purchase/sale/archive actions.
+- Exact Chromium widths 320/360/375/390/414/430/768/1024/1440 passed page-overflow checks. Verified three local transactions, six local assets, one-open-row behavior, purchase action, privacy masking, and table disclosure.
+- Syntax, CSS parsing, TypeScript, portfolio calculation regressions and production build passed. Tests used local synthetic records only.
