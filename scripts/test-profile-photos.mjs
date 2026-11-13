@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import {DatabaseSync} from 'node:sqlite';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {safeGooglePhoto} from '../lib/profile-photo.js';
+import {validateState} from '../lib/state-validation.ts';
+import {linkVerifiedGoogleAccount,syncVerifiedGooglePhoto} from '../lib/google-account-link.ts';
+
+const photo='https://lh3.googleusercontent.com/a/fixture=s96-c',next='https://lh3.googleusercontent.com/a/updated=s96-c',upload='data:image/png;base64,aGVsbG8=';
+assert.equal(safeGooglePhoto(photo),photo);
+for(const bad of ['http://lh3.googleusercontent.com/a','https://lh3.googleusercontent.com.evil.test/a','https://evil.test/a','https://user@lh3.googleusercontent.com/a','https://lh3.googleusercontent.com:8443/a','data:image/svg+xml,test','javascript:alert(1)'])assert.equal(safeGooglePhoto(bad),'');
+const sqlite=new DatabaseSync(':memory:');for(const file of ['0000_omniscient_starbolt.sql','0001_opposite_dracula.sql','0002_icy_jetstream.sql'])sqlite.exec(fs.readFileSync('drizzle/'+file,'utf8').replaceAll('--> statement-breakpoint',''));
+let conflict=false;
+const db={prepare(sql){let args=[];return {bind(...values){args=values;return this;},async first(){if(conflict&&sql.startsWith('UPDATE portfolios SET data=')){conflict=false;const row=sqlite.prepare('SELECT data FROM portfolios WHERE user_id=?').get(args[2]),state=JSON.parse(row.data);state.sheetUrl='concurrent-user-change';sqlite.prepare('UPDATE portfolios SET data=?,revision=revision+1 WHERE user_id=?').run(JSON.stringify(state),args[2]);}return sqlite.prepare(sql).get(...args)||null;},async run(){return sqlite.prepare(sql).run(...args);}};},async batch(statements){const out=[];for(const s of statements)out.push(await s.run());return out;}};
+const read=id=>{const row=sqlite.prepare('SELECT data,revision FROM portfolios WHERE user_id=?').get(id);return {...row,state:JSON.parse(row.data)};};
+const account=await linkVerifiedGoogleAccount(db,{uid:'photos',email:'photos@example.test',displayName:'Profile test',photoURL:photo});
+let record=read(account.user_id);assert.equal(record.state.profile.googlePhoto,photo);assert.deepEqual(record.state.assets,[]);assert.deepEqual(record.state.transactions,[]);
+const original={...record.state,profile:{displayName:'Custom name',photo:upload,photoMode:'custom',googlePhoto:photo},assets:[{name:'BMRI',symbol:'BMRI.JK',kind:'stock',unit:'lembar',quantity:200,valueSnapshot:900000,manualPrice:null}],transactions:[{id:'fixture',date:'2026-11-01',type:'MASUK',amount:800000,asset:'BMRI',description:'Synthetic fixture',platform:'STOCKBIT'}]};
+sqlite.prepare('UPDATE portfolios SET data=? WHERE user_id=?').run(JSON.stringify(original),account.user_id);
+await syncVerifiedGooglePhoto(db,account.user_id,next);record=read(account.user_id);assert.equal(record.state.profile.photo,upload);assert.equal(record.state.profile.photoMode,'custom');assert.deepEqual(record.state.assets,original.assets);assert.deepEqual(record.state.transactions,original.transactions);assert.equal(record.state.profile.displayName,'Custom name');
+const revision=record.revision;await syncVerifiedGooglePhoto(db,account.user_id,next);assert.equal(read(account.user_id).revision,revision,'Same Google photo causes no write');
+record.state.profile.photoMode='none';record.state.profile.photo='';sqlite.prepare('UPDATE portfolios SET data=? WHERE user_id=?').run(JSON.stringify(record.state),account.user_id);conflict=true;await syncVerifiedGooglePhoto(db,account.user_id,photo);record=read(account.user_id);assert.equal(record.state.profile.photoMode,'none','Removing photo survives later Google sign-in');assert.equal(record.state.sheetUrl,'concurrent-user-change','CAS retry preserves simultaneous edits');
+await linkVerifiedGoogleAccount(db,{uid:'separate',email:'other@example.test',displayName:'Other',photoURL:next});assert.equal(read(account.user_id).state.profile.googlePhoto,photo,'Other account cannot overwrite this profile');
+const checked=validateState({...original,profile:{...original.profile,googlePhoto:'https://evil.test/avatar'}});assert.equal(checked.profile.googlePhoto,undefined);assert.equal(validateState(original).profile.googlePhoto,photo);
+
+const source=fs.readFileSync('lib/portfolio-html.ts','utf8'),html=JSON.parse(source.slice(source.indexOf('=')+1).trim().replace(/;$/,''));
+const ctx=vm.createContext({URL,HTMLImageElement:class{},document:{addEventListener(){}},localStorage:{getItem(){return null;}},getAuth(){return {username:'Test'};},esc:value=>String(value).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;')});
+vm.runInContext(html.slice(html.indexOf('function googleProfilePhotoUrl('),html.indexOf('function roleCaption(')),ctx);
+assert.equal(ctx.safeProfile({photo:upload}).photoMode,'custom','Legacy uploaded photos stay selected');
+assert.ok(ctx.profileAvatarHtml({googlePhoto:photo},'Member').includes(photo));assert.ok(ctx.profileAvatarHtml({photo:upload,googlePhoto:photo},'Member').includes(upload));assert.ok(!ctx.profileAvatarHtml({googlePhoto:photo,photoMode:'none'},'Member').includes('<img'));assert.ok(ctx.profileAvatarHtml({googlePhoto:photo},'Member').includes('referrerpolicy="no-referrer"'));
+console.log('PASS: verified Google-avatar defaults, custom/removal preservation, empty account, CAS conflict, account isolation, URL validation and client rendering.');

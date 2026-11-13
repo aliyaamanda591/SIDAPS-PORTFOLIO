@@ -1,4 +1,20 @@
 import type { GoogleIdentity } from './firebase-google';
+import { safeGooglePhoto } from './profile-photo.js';
+
+export async function syncVerifiedGooglePhoto(db:D1Database,userId:string,value:unknown){
+ const photo=safeGooglePhoto(value);if(!photo)return;
+ for(let attempt=0;attempt<3;attempt++){
+  const row=await db.prepare('SELECT data,revision FROM portfolios WHERE user_id=?').bind(userId).first<{data:string;revision:number}>();
+  if(!row){const state={transactions:[],assets:[],profile:{displayName:'',photo:'',googlePhoto:photo},logs:[],sheetUrl:'',lastBackup:''};const inserted=await db.prepare('INSERT INTO portfolios (user_id,data,revision,updated_at) VALUES (?,?,0,?) ON CONFLICT(user_id) DO NOTHING RETURNING revision').bind(userId,JSON.stringify(state),new Date().toISOString()).first();if(inserted)return;continue;}
+  let state;try{state=JSON.parse(row.data);}catch{return;}
+  if(!state||typeof state!=='object'||Array.isArray(state))return;
+  const profile=state.profile&&typeof state.profile==='object'&&!Array.isArray(state.profile)?state.profile:{};
+  if(profile.googlePhoto===photo)return;
+  // Merge only provider metadata. Never overwrite custom photos, preferences or holdings.
+  state.profile={...profile,googlePhoto:photo};
+  const updated=await db.prepare('UPDATE portfolios SET data=?,revision=revision+1,updated_at=? WHERE user_id=? AND revision=? RETURNING revision').bind(JSON.stringify(state),new Date().toISOString(),userId,row.revision).first();if(updated)return;
+ }
+}
 type Credential={user_id:string;version:number};
 export async function linkVerifiedGoogleAccount(db:D1Database,google:GoogleIdentity):Promise<Credential>{
  const get=()=>db.prepare('SELECT user_id,version FROM credentials WHERE email=?').bind(google.email).first<Credential>();
@@ -11,5 +27,6 @@ export async function linkVerifiedGoogleAccount(db:D1Database,google:GoogleIdent
  }
  if(!credential)throw Error('Akun belum berhasil dihubungkan.');
  await db.batch([db.prepare('UPDATE credentials SET email_verified=1 WHERE user_id=?').bind(credential.user_id),db.prepare('UPDATE accounts SET last_seen_at=? WHERE user_id=?').bind(new Date().toISOString(),credential.user_id)]);
+ try{await syncVerifiedGooglePhoto(db,credential.user_id,google.photoURL);}catch{/* Optional photo metadata must not block sign-in. */}
  return credential;
 }

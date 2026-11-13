@@ -89,3 +89,11 @@ The current product has no separate Goals page. Analytics is represented by the 
 - Fixed realized-P/L summary retaining a stale light-theme text color when changing themes; it now inherits current theme and gain/loss classes.
 - Chromium checks at 320/360/375/390/414/430/768/1024/1440: no page overflow; rendered chart-label size approximately 12 CSS pixels. Verified 12-month points, 6-month switch, hidden chart in privacy mode, and text colors in light/dark themes.
 - Physical device rendering still requires user review. Syntax, TypeScript, theme/calculation regression checks and production build passed.
+
+## Google and custom profile photos (13 November 2026)
+- Verified Firebase Google ID-token picture claims seed the user's own Google avatar metadata. Only HTTPS Google avatar hosts are accepted; no server-side URL fetch or database migration is introduced.
+- Photo metadata merges use revision checks/retries and preserve custom photo selection, deliberate removal, names, transactions, holdings and unrelated profile fields. Photo metadata failure does not block authentication.
+- Profile editor supports Google default, custom JPG/PNG/WebP uploads, returning to Google and initials. Existing uploaded photos remain selected. Broken images fall back to initials; avatar requests omit the referrer.
+- Local Chromium verified upload, save/reload persistence, removal/reload, and editor bounds without page overflow at 320/375/390/430/768/1440. Synthetic local image/account only.
+- Tests cover signed picture claims, unsafe URL rejection, new empty account, custom/removal preservation, CAS conflicts, isolation, legacy profiles, and rendering. Login/calculation regressions, TypeScript and production build passed.
+- Existing Google sessions acquire provider avatar metadata on the next Google sign-in. Actual provider image availability depends on the Google account; no production user's authentication or financial data was changed during QA.

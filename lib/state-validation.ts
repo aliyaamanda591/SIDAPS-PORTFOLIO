@@ -1,7 +1,8 @@
+import { safeGooglePhoto } from './profile-photo.js';
 export type PortfolioState = {
   transactions: Record<string, unknown>[];
   assets: Record<string, unknown>[];
-  profile: { displayName: string; photo: string };
+  profile: { displayName: string; photo: string; googlePhoto?:string; photoMode?:'google'|'custom'|'none' };
   logs: { t: string; m: string }[];
   sheetUrl: string;
   lastBackup: string;
@@ -33,7 +34,8 @@ export function validateState(raw: unknown): PortfolioState {
   if (new Set(assets.map(a => a.name)).size !== assets.length) throw Error("Nama aset berulang.");
   const p = object(raw.profile) ? raw.profile : {};
   const photo = typeof p.photo === "string" && p.photo.length <= 512000 && /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(p.photo) ? p.photo : "";
-  const profile = { displayName: typeof p.displayName === "string" ? p.displayName.trim().slice(0, 60) : "", photo };
+  const googlePhoto=safeGooglePhoto(p.googlePhoto),photoMode=['google','custom','none'].includes(String(p.photoMode))?p.photoMode as 'google'|'custom'|'none':undefined;
+  const profile = { displayName: typeof p.displayName === "string" ? p.displayName.trim().slice(0, 60) : "", photo,...(googlePhoto?{googlePhoto}:{}),...(photoMode?{photoMode}:{}) };
   const logs = (Array.isArray(raw.logs) ? raw.logs : []).filter(l => object(l) && string(l.m, 500) && typeof l.t === "string" && Number.isFinite(Date.parse(l.t))).slice(0, 60).map(l => ({ t: l.t as string, m: l.m as string }));
   return { transactions, assets, profile, logs, sheetUrl: string(raw.sheetUrl, 1500) ? raw.sheetUrl as string : "", lastBackup: string(raw.lastBackup, 60) ? raw.lastBackup as string : "" };
 }
