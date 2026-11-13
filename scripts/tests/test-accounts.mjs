@@ -18,6 +18,6 @@ const stale=await request('/api/state',{method:'PUT',headers:{Origin:origin,'Con
 const crossSite=await request('/api/state',{method:'PUT',headers:{Origin:'https://untrusted.example','Content-Type':'application/json'},body:JSON.stringify({state,revision:saved.revision})});assert.equal(crossSite.status,403,'Cross-site writes denied');
 const invalid=structuredClone(state);invalid.assets=[{name:'BMRI',kind:'stock',quantity:-1,unit:'lembar',symbol:'BMRI.JK',valueSnapshot:0}];assert.throws(()=>validateState(invalid),/Aset/);
 const sale=structuredClone(state);sale.transactions=[{id:'sale',date:'2026-11-08',type:'KELUAR',trade:'sell',amount:100,asset:'BBCA',quantityDelta:-1,costBasis:50,realizedPnl:999}];assert.throws(()=>validateState(sale),/Modal/);
-const html=await (await fetch(origin+'/')).text();
-assert.ok(html.includes('id="emailAuthForm"'));assert.ok(html.includes('Hubungkan akun lama / verifikasi identitas'));assert.ok(html.includes('const initialTx=[];'));assert.ok(!html.includes('Handled by'),'Private seed ledger not published');
+const html=await (await fetch(origin+'/?login=1')).text();
+assert.ok(html.includes('id="emailAuthForm"'));assert.ok(html.includes('id="googleSignInButton"'));assert.ok(!html.includes('initialTx'));assert.ok(!html.includes('Handled by'),'Private seed ledger not published');
 console.log('PASS: verified sign-in, anonymous denial, forged-header denial, member admin denial, server-owned identity, state persistence, revision conflicts, CSRF checks, validation, sanitized public page.');

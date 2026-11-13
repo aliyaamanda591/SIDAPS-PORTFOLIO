@@ -124,3 +124,7 @@ Local browser: transaction asset dropdown renders stock logos, BTC and gold kara
 ## Login recovery and visual polish — 13 November 2026
 
 Standalone login retains its light emerald/white appearance and lightweight form-only payload. Refined card, button, label and input styling checked in browser at 320/390/430/1024px with no horizontal document overflow; inputs stay 16px on mobile. Register/login switching and password visibility remain available. A local screenshot was saved of the default login form. Domain recovery states are tested using a controlled DOM/network fixture rather than choosing a real Google account automatically.
+
+## Dashboard startup optimization — 13 November 2026
+
+Local browser verified the compact shell renders dashboard content immediately after setup, the temporary boot status is removed, no local shell images are broken, and the mobile summary/cards retain their layout at 390px. Existing seven-asset synthetic account and transactions were preserved. Account API integration tests verify owner-scoped state persistence, conflict checks and cross-origin denials with batched loading.
