@@ -2,7 +2,7 @@ import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:asser
 const raw=fs.readFileSync('lib/portfolio-html.ts','utf8').split('export const portfolioHtml=')[1].trim(),html=JSON.parse(raw.slice(0,-1));
 const script=html.match(/<script>([\s\S]*?)<\/script>/)[1];const start=script.indexOf('let usageTourStep='),end=script.indexOf('function openUsageGuide(){',start);
 const elements=Object.fromEntries(['usageTourScreen','usageTourTitle','usageTourCaption','usageTourCounter','usageTourProgress','usageTourPlay'].map(id=>[id,{}]));let tick,cleared=0;
-const ctx={Math,document:{hidden:false,getElementById:id=>elements[id]},setInterval:(fn,delay)=>{assert.equal(delay,6000);tick=fn;return 1;},clearInterval:()=>cleared++};vm.createContext(ctx);const run=s=>vm.runInContext(s,ctx);run(script.slice(start,end));
+const ctx={window:{},Math,document:{hidden:false,getElementById:id=>elements[id]},setInterval:(fn,delay)=>{assert.equal(delay,4800);tick=fn;return 1;},clearInterval:()=>cleared++};vm.createContext(ctx);const run=s=>vm.runInContext(s,ctx);run(script.slice(start,end));
 run('playUsageTour()');assert.equal(elements.usageTourCounter.textContent,'1 / 6');assert.equal(elements.usageTourPlay.textContent,'Ⅱ Jeda');
 tick();assert.equal(elements.usageTourCounter.textContent,'2 / 6');run('pauseUsageTour()');assert.equal(run('usageTourTimer'),null);assert.ok(cleared>0);
 run('moveUsageTour(99)');assert.equal(elements.usageTourCounter.textContent,'6 / 6');run('playUsageTour()');assert.equal(elements.usageTourCounter.textContent,'1 / 6');

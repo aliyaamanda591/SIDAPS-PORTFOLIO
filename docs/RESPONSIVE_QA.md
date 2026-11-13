@@ -128,3 +128,7 @@ Standalone login retains its light emerald/white appearance and lightweight form
 ## Dashboard startup optimization — 13 November 2026
 
 Local browser verified the compact shell renders dashboard content immediately after setup, the temporary boot status is removed, no local shell images are broken, and the mobile summary/cards retain their layout at 390px. Existing seven-asset synthetic account and transactions were preserved. Account API integration tests verify owner-scoped state persistence, conflict checks and cross-origin denials with batched loading.
+
+## Cursor walkthrough — 13 November 2026
+
+Browser verified moving cursor, gold target outline, click-ring cue and typed form sequence in the Help demo on light/dark themes. Manual play, pause, step navigation and close were checked. At 320/390/430/1024px the page stayed inside its viewport and mock controls remained inside the guide. Playback scrolls the demo into view instead of leaving it clipped above its playback controls. Only synthetic mock UI is animated; account data is unchanged.
