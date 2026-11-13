@@ -1,9 +1,0 @@
-# Mobile dashboard and login
-
-At widths up to 760px, four persistent bottom navigation buttons expose Dashboard, Transaksi, Portofolio and Akun, with active-page accessibility state and safe-area spacing. Summary metrics use two columns; asset cards use one column. Controls have touch-sized targets, inputs use 16px text to avoid iOS focus zoom, and wide data tables scroll horizontally. Market source/time detail is available in a disclosure per asset. Delayed Yahoo/TradingView stock quotes are labelled HARGA TERTUNDA instead of implying a real-time quote. Existing balance privacy, sales calculations, K15 failover and per-user storage are unchanged.
-
-Mobile/coarse-pointer and reduced-motion login views skip the canvas/coins/ticker JavaScript and use a lightweight static background. The hosted anonymous view does not request private price endpoints. Transaction auto-scroll does not run its normal animation loop while login is locked, the document is hidden, or the dashboard is inactive. Unchanged platform options are not rebuilt on every price render, preserving active form selections. Decorative desktop tickers contain symbols only, with no invented price changes.
-
-Email and Google session exchanges have a 15-second request deadline and retryable errors. Successful Google session exchange reloads immediately without waiting for temporary SDK sign-out. Firebase still uses memory persistence; reload clears its temporary state. Password hashing, cookie security, token checks and authorization are unchanged. Network/provider speed still affects actual sign-in time.
-
-Checks: `node scripts/test-mobile-login.mjs`, workspace `node verify-investasi.cjs`, and the normal production build. Visual QA should cover login, keyboard/scroll, bottom navigation and dashboard at 320–430px widths.

@@ -1,4 +1,4 @@
-import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';import {loginHtml} from '../lib/login-html.ts';
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';import {loginHtml} from '../../lib/login-html.ts';
 assert.ok(Buffer.byteLength(loginHtml)<30000);for(const marker of ['dashboardAssets','initialTx','initialAssets','id="authCanvas"','marketWatch','Verifikasi melalui akun ChatGPT'])assert.ok(!loginHtml.includes(marker),'Login excludes '+marker);
 const ids=[...loginHtml.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(ids.length,new Set(ids).size);
 const elements=Object.fromEntries(ids.map(id=>[id,{value:'',textContent:'',disabled:false,hidden:false,attrs:{},setAttribute(k,v){this.attrs[k]=v;},classList:{add(){},remove(){}}}]));let reloaded=false,good=false;const calls=[];

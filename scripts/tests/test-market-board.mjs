@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
-import {createMarketBoard,yahooQuote,coinQuotes} from '../lib/market-board.ts';
+import {createMarketBoard,yahooQuote,coinQuotes} from '../../lib/market-board.ts';
 let now=Date.parse('2026-11-09T10:00Z'),calls=0,offline=false;
 const stock=(code)=>({chart:{result:[{meta:{symbol:code+'.JK',currency:'IDR',regularMarketPrice:110,chartPreviousClose:100,regularMarketTime:now/1000},indicators:{quote:[{close:[100,null,105,110]}]}}]}});
 const crypto=['bitcoin','ethereum','solana'].map(id=>({id,current_price:1000,price_change_percentage_24h:-2,last_updated:new Date(now).toISOString(),sparkline_in_7d:{price:[1100,1050,1000]}}));

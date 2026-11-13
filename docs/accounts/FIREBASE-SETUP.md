@@ -27,6 +27,6 @@ Only explicit development hosts should be added for local tests. Changing hostin
 
 ## Checks
 
-- `node scripts/test-google-tokens.mjs`: cryptographic signature and claim validation.
-- `node scripts/test-email-auth.mjs`: existing email login, signup, recovery, sessions, role protection, and data isolation (local preview).
+- `node scripts/tests/test-google-tokens.mjs`: cryptographic signature and claim validation.
+- `node scripts/tests/test-email-auth.mjs`: existing email login, signup, recovery, sessions, role protection, and data isolation (local preview).
 - Google popup sign-in needs a person to choose their own Google account; automated checks must not approve that authentication on their behalf.

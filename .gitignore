@@ -51,3 +51,10 @@ yarn-error.log*
 *.db
 *.sqlite
 *.sqlite3
+
+# Export archives and browser-test output
+*.zip
+*.tar
+*.tar.gz
+/playwright-report/
+/test-results/

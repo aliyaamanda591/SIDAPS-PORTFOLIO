@@ -2,11 +2,15 @@
 
 Aplikasi catatan portofolio saham, kripto, dan emas. Pengguna masuk dengan email/password dan memiliki data portofolio pribadi masing-masing. Hak admin/developer mengelola metadata akun tanpa membuka transaksi pengguna lain.
 
-Login **Google melalui Firebase** juga tersedia. Email Google yang terverifikasi menghubungkan pengguna ke akun website dengan email yang sama; pengguna baru mendapat portofolio kosong. Email/password dan penyimpanan portofolio tetap menggunakan backend website yang sudah berjalan. Lihat [FIREBASE-SETUP.md](FIREBASE-SETUP.md) dan [ACCOUNT-LOGIN.md](ACCOUNT-LOGIN.md) untuk konfigurasi serta perilaku akun.
+Login **Google melalui Firebase** juga tersedia. Email Google yang terverifikasi menghubungkan pengguna ke akun website dengan email yang sama; pengguna baru mendapat portofolio kosong. Email/password dan penyimpanan portofolio tetap menggunakan backend website yang sudah berjalan. Lihat [konfigurasi Firebase](docs/accounts/FIREBASE-SETUP.md) dan [panduan akun](docs/accounts/ACCOUNT-LOGIN.md).
+
+[Buka website](https://sidaps-portfolio.sidaps.workers.dev/) · [Dokumentasi](docs/README.md) · [Panduan pengembangan](DEVELOPMENT.md)
 
 ## Fitur
 
 - Dashboard portofolio, tombol mata untuk menyembunyikan saldo, dan profil foto.
+- Grafik IHSG dengan sumber/waktu data, serta grafik arus transaksi pribadi yang terpisah.
+- Tampilan HP dengan daftar aset dan riwayat ringkas yang bisa diperluas.
 - Pembelian/penjualan termasuk pecahan kripto, perhitungan modal, profit/loss, dan arsip aset.
 - Pencarian 843 saham dan 438 pasangan kripto IDR pada snapshot katalog.
 - Pilihan 160 platform dengan nama platform tambahan milik masing-masing akun.
@@ -24,16 +28,22 @@ npm run dev
 
 Buka alamat lokal yang tercetak di terminal. Build produksi: `npm run build`. Runtime produksi memakai Cloudflare Worker dan D1; ini bukan situs HTML statis untuk GitHub Pages.
 
-## Struktur utama
+## Struktur repositori
 
-- `lib/portfolio-html.ts`: antarmuka aplikasi lengkap yang sudah disanitasi.
-- `app/api/`: autentikasi, data portofolio, pengelolaan akun, dan proxy harga.
-- `lib/account-store.ts`, `lib/email-auth.ts`: isolasi data dan autentikasi.
-- `drizzle/`: migrasi database.
-- `scripts/test-*.mjs`: pemeriksaan integrasi lokal.
-- `ACCOUNT-LOGIN.md`: perilaku login dan pemulihan.
-- `DEVELOPMENT.md`: dokumentasi runtime dan hosting.
-- `.openai/hosting.json`: identitas hosting Sites yang sudah digunakan.
+| Folder | Isi |
+| --- | --- |
+| `app/` | Halaman, autentikasi, dan endpoint API |
+| `lib/` | Logika akun, data, harga, dan shell halaman |
+| `public/` | CSS, JavaScript browser, ikon, dan katalog publik |
+| `drizzle/` | Migrasi serta metadata database |
+| `db/`, `worker/` | Koneksi database dan runtime Worker |
+| `components/`, `hooks/`, `vendor/` | Komponen, utilitas antarmuka, dan lisensi |
+| `scripts/tests/` | Pengujian source dan integrasi |
+| `scripts/dev/`, `scripts/fixtures/` | Alat serta data simulasi lokal |
+| `docs/` | Panduan akun, fitur, pengembangan, dan hasil pemeriksaan |
+| `examples/` | Contoh pengembangan opsional |
+
+File konfigurasi build tetap di root. Identitas proyek Sites tetap berada pada `.openai/hosting.json`. Lihat [peta source](docs/development/SOURCE-MAP.md) untuk memilih file yang perlu diedit, dan [panduan skrip](scripts/README.md) untuk menjalankan pengujian.
 
 ## Data dan konfigurasi
 

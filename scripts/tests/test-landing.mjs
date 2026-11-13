@@ -1,4 +1,4 @@
-import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';import {landingHtml} from '../lib/landing-html.ts';
+import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';import {landingHtml} from '../../lib/landing-html.ts';
 const ids=[...landingHtml.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(ids.length,new Set(ids).size);
 for(const match of landingHtml.matchAll(/href="#([^"]+)"/g))assert.ok(ids.includes(match[1]),'Navigation points to a real section');
 assert.ok(!landingHtml.includes('CLOUD_BOOTSTRAP'));assert.ok(landingHtml.toLowerCase().includes('bukan data pasar'));assert.ok(landingHtml.includes('/?login=1'));
