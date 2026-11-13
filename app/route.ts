@@ -1,3 +1,4 @@
+import { canonicalPortfolioUrl } from '@/lib/canonical-url';
 import { resolveIdentity } from '@/lib/identity';
 import { isOwner, readState } from "@/lib/account-store";
 import { portfolioHtml } from "@/lib/portfolio-html";
@@ -5,6 +6,8 @@ import { landingHtml } from '@/lib/landing-html';
 import { loginHtml } from '@/lib/login-html';
 export const dynamic="force-dynamic";
 export async function GET(request:Request){
+  const canonical=canonicalPortfolioUrl(request.url);
+  if(canonical)return new Response(null,{status:308,headers:{Location:canonical,'Cache-Control':'no-store'}});
   const url=new URL(request.url);
   if(url.searchParams.get('view')==='landing')return landingResponse();
   const user=await resolveIdentity();let bootstrap:unknown=null;
