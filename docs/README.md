@@ -12,6 +12,7 @@
 - [Jadwal bursa dan pengingat pasar](features/LOGIN-MARKET.md).
 - [Optimasi login pada HP](features/MOBILE-LOGIN.md).
 - [Sumber katalog platform dan aset](features/PLATFORM-CATALOG.md).
+- [Logo saham/platform dan nama kripto](features/BRAND-LOGOS.md).
 
 ## Pengembangan dan pemeriksaan
 

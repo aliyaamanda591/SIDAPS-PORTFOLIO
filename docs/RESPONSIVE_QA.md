@@ -112,3 +112,7 @@ The current product has no separate Goals page. Analytics is represented by the 
 - Chromium checked category buttons at 320/360/375/390/414/430/768/1024/1440 without page overflow. Verified stock/crypto/gold filters, BIONS/HOTS/MotionTrade selections, menu persistence after resize, and custom-name focus in transaction/sale forms.
 - New platform tests cover uniqueness, all three custom-name forms, escaping, legacy values and account-local choices. Integration catalog test now requests the app with its existing test session instead of the anonymous landing page; it passed, with public-source fallback clearly identified.
 - Syntax, TypeScript, financial summary, fast-login and production build passed. No production records changed during QA.
+
+## Brand logos — 13 November 2026
+
+Verified local preview in browser: AMIN real SVG loads; crypto picker shows BTC/ETH/SOL without exchange suffix; transaction selector retains BTC INDODAX as submitted value. Platform picker shows Stockbit and Stockbit Crypto logos, Riwayat badge and current selection check. Pluang icon loads; unknown broker falls back to initials. Checked 320px, 390px, 430px and desktop: no document-wide horizontal overflow at mobile widths; platform dropdown stays within viewport. Existing compact mobile transaction summaries retain unmodified platform labels.
