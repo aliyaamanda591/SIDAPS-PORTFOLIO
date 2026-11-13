@@ -120,3 +120,7 @@ Verified local preview in browser: AMIN real SVG loads; crypto picker shows BTC/
 ## Katalog emas dan logo lanjutan — 13 November 2026
 
 Local browser: transaction asset dropdown renders stock logos, BTC and gold karat icons. Anugerah and BJB broker logos load from local optimized PNG files. Gold catalog contains 25 unique choices in descending karat order, hides stock-only custom fields, and fits 320/390/430/1024px without document overflow. Added K23 only to the synthetic local account, verified live retailer price and persistence after reload. No production financial state modified. The BIBIK/BIBIT identity distinction and backup-provider exact-karat parsing are covered by regression tests.
+
+## Login recovery and visual polish — 13 November 2026
+
+Standalone login retains its light emerald/white appearance and lightweight form-only payload. Refined card, button, label and input styling checked in browser at 320/390/430/1024px with no horizontal document overflow; inputs stay 16px on mobile. Register/login switching and password visibility remain available. A local screenshot was saved of the default login form. Domain recovery states are tested using a controlled DOM/network fixture rather than choosing a real Google account automatically.
