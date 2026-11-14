@@ -5,6 +5,7 @@ import { database } from './database';
 export { database } from './database';
 import { validateState, type PortfolioState } from "./state-validation";
 import { withoutUnusedStarterCards } from './starter-portfolio';
+import { validateStockMutations, validateLedgerMutations } from './financial-validation.js';
 
 export function isOwnerEmail(userEmail: string) {
   const email = (env as unknown as { OWNER_EMAIL?: string }).OWNER_EMAIL;
@@ -33,6 +34,10 @@ export async function readState(user: ChatGPTUser) {
 }
 export async function writeState(user: ChatGPTUser, raw: unknown, revision: number) {
   const state: PortfolioState = validateState(raw);
+  const existing = await database().prepare('SELECT data FROM portfolios WHERE user_id=?').bind(user.userId).first<{data:string}>();
+  const previous=existing ? validateState(JSON.parse(existing.data)) : undefined;
+  validateStockMutations(state,previous);
+  validateLedgerMutations(state,previous);
   const serialized = JSON.stringify(state);
   if (serialized.length > 1900000) throw Error("Data melebihi batas penyimpanan akun.");
   await ensureAccount(user);

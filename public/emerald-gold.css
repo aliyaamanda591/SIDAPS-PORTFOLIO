@@ -41,8 +41,9 @@
 #sidaps-portfolio body :is(.sidaps-segmented button,.market-chart-tabs button){color:var(--sp-muted)!important}
 #sidaps-portfolio body :is(.sidaps-segmented button[aria-pressed=true],.market-chart-tabs button[aria-pressed=true]){background:var(--sp-raised)!important;color:var(--gold)!important;border-color:color-mix(in srgb,var(--eg-gold) 50%,var(--sp-border))!important;box-shadow:none!important}
 /* Existing logo images keep their original source, colors, proportions and fallback behavior. */
-#sidaps-portfolio body :is(.asset-logo,.platform-logo,.overview-icon){background:var(--sp-raised)!important;border-color:var(--sp-border)!important;box-shadow:none!important}
+#sidaps-portfolio body :is(.asset-logo,.platform-logo){background:#fff!important;color:#173c2d!important;border-color:#d2ddd5!important;box-shadow:none!important}
 #sidaps-portfolio body :is(.asset-logo,.platform-logo) img{object-fit:contain;filter:none!important;opacity:1}
+#sidaps-portfolio body .platform-logo:before{color:#173c2d!important;opacity:1!important;text-shadow:none!important}
 #sidaps-portfolio body :is(.tag.manual,.tag.cached,.tag.closed,.tag){background:var(--sp-raised)!important;color:var(--sp-muted)!important;border-color:var(--sp-border)!important;box-shadow:none!important}
 #sidaps-portfolio body :is(.pill,.pill.in){background:color-mix(in srgb,var(--green) 10%,var(--sp-surface))!important;color:var(--green)!important}
 #sidaps-portfolio body .pill.out{background:color-mix(in srgb,var(--red) 10%,var(--sp-surface))!important;color:var(--red)!important}

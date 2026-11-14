@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict';
 import { validateState } from '../../lib/state-validation.ts';
-const origin='http://127.0.0.1:5178';
-const signIn=await fetch(origin+'/signin-with-chatgpt?return_to=/',{redirect:'manual'});
+const origin=process.env.SIDAPS_TEST_ORIGIN||'http://127.0.0.1:5178';
+assert.equal(new URL(origin).hostname,'127.0.0.1','Synthetic local accounts only');
+const password='Synthetic-Accounts-Test-83!',email='accounts-'+Date.now().toString(36)+'@example.invalid';
+const signIn=await fetch(origin+'/api/auth/register',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({email,displayName:'Synthetic member',password,confirm:password})});
+assert.equal(signIn.status,200,await signIn.clone().text());
 const cookie=signIn.headers.getSetCookie()[0].split(';')[0];
 const request=(path,init={})=>fetch(origin+path,{...init,headers:{Cookie:cookie,...init.headers}});
 assert.equal((await fetch(origin+'/api/state')).status,401,'Anonymous portfolios denied');

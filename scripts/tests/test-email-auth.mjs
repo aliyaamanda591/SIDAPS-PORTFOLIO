@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-const origin='http://127.0.0.1:5178',suffix=Date.now().toString(36);
+const origin=process.env.SIDAPS_TEST_ORIGIN||'http://127.0.0.1:5178',suffix=Date.now().toString(36);
 const pw='Local-Test-Password-83!',next='New-Local-Password-94!',changed='Changed-Local-Password-95!';
 const post=(action,body,cookie='',from=origin)=>fetch(origin+'/api/auth/'+action,{method:'POST',headers:{Origin:from,'Content-Type':'application/json',...(cookie?{Cookie:cookie}:{})},body:JSON.stringify(body)});
 const getState=cookie=>fetch(origin+'/api/state',{headers:{Cookie:cookie}});
@@ -29,5 +29,5 @@ response=await post('change-password',{oldPassword:next,password:changed,confirm
 assert.equal((await getState(cookieA)).status,401,'Password change revokes previous cookie');assert.equal((await getState(changedCookie)).status,200);
 assert.equal((await post('logout',{},changedCookie)).status,200);assert.equal((await getState(changedCookie)).status,401,'Logout revokes session token');assert.equal((await getState(cookieB)).status,200,'Other account session unaffected');
 let lastStatus=0;for(let i=0;i<13;i++)lastStatus=(await post('login',{email:'missing-'+suffix+'@example.test',password:pw})).status;assert.equal(lastStatus,429,'Login attempts rate limited');
-const publicHtml=await (await fetch(origin+'/')).text();assert.ok(publicHtml.includes('id="emailAuthForm"'));assert.ok(publicHtml.includes('Buat akun baru'));assert.ok(!publicHtml.includes('SECRET-A-'+suffix));
+const publicHtml=await (await fetch(origin+'/?login=1')).text();assert.ok(publicHtml.includes('id="emailAuthForm"'));assert.ok(publicHtml.includes('Daftar'));assert.ok(!publicHtml.includes('SECRET-A-'+suffix));
 console.log('PASS: email signup/login, secure cookies, user isolation, owner-role protection, forged-session denial, recovery-code rotation, session invalidation, password change, logout, portfolio preservation and rate limits.');
