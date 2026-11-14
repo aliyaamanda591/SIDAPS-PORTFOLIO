@@ -132,3 +132,7 @@ Local browser verified the compact shell renders dashboard content immediately a
 ## Cursor walkthrough — 13 November 2026
 
 Browser verified moving cursor, gold target outline, click-ring cue and typed form sequence in the Help demo on light/dark themes. Manual play, pause, step navigation and close were checked. At 320/390/430/1024px the page stayed inside its viewport and mock controls remained inside the guide. Playback scrolls the demo into view instead of leaving it clipped above its playback controls. Only synthetic mock UI is animated; account data is unchanged.
+
+## Landing tutorial and hero motion — 14 November 2026
+
+Browser checked native hero link scrolls to #tutorial and starts playback, chapter selection scrolls to the player, amounts type to 100/500000, and manual crypto preview changes both its label and SVG path. At 320/375/390/430/768/1024/1440px the document remained within viewport width. Mock window content fits the fixed 400px stage, including reserved toast space. Desktop/mobile screenshots were saved. Public illustration labels and reduced-motion/offscreen/hidden-tab behavior are covered by regression tests.
