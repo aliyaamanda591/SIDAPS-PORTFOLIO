@@ -16,6 +16,7 @@
 - [Katalog kadar emas dan harga toko](features/GOLD-CATALOG.md).
 - [Demo panduan dengan kursor](features/USAGE-DEMO.md).
 - [Animasi tutorial landing page](features/LANDING-ANIMATION.md).
+- [Dashboard demo tanpa daftar](features/DEMO-MODE.md).
 
 ## Pengembangan dan pemeriksaan
 
