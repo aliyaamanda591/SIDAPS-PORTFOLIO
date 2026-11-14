@@ -15,6 +15,7 @@
 - [Logo saham/platform dan nama kripto](features/BRAND-LOGOS.md).
 - [Katalog kadar emas dan harga toko](features/GOLD-CATALOG.md).
 - [Demo panduan dengan kursor](features/USAGE-DEMO.md).
+- [Animasi tutorial landing page](features/LANDING-ANIMATION.md).
 
 ## Pengembangan dan pemeriksaan
 
