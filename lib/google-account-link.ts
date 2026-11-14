@@ -26,7 +26,16 @@ export async function linkVerifiedGoogleAccount(db:D1Database,google:GoogleIdent
   credential=await get();
  }
  if(!credential)throw Error('Akun belum berhasil dihubungkan.');
- await db.batch([db.prepare('UPDATE credentials SET email_verified=1 WHERE user_id=?').bind(credential.user_id),db.prepare('UPDATE accounts SET last_seen_at=? WHERE user_id=?').bind(new Date().toISOString(),credential.user_id)]);
+ // An unverified email/password registration does not establish ownership of
+ // the email. A verified Google owner must not inherit its password, recovery
+ // code or sessions. Keep the account ID and portfolio; revoke only access.
+ await db.batch([
+  db.prepare("UPDATE credentials SET password_hash='!firebase-google-only',recovery_hash='',version=version+1,email_verified=1,updated_at=? WHERE user_id=? AND email_verified=0").bind(new Date().toISOString(),credential.user_id),
+  db.prepare('DELETE FROM sessions WHERE user_id=? AND credential_version<>(SELECT version FROM credentials WHERE user_id=?)').bind(credential.user_id,credential.user_id),
+  db.prepare('UPDATE accounts SET last_seen_at=? WHERE user_id=?').bind(new Date().toISOString(),credential.user_id)
+ ]);
+ credential=await get();
+ if(!credential)throw Error('Akun belum berhasil dihubungkan.');
  try{await syncVerifiedGooglePhoto(db,credential.user_id,google.photoURL);}catch{/* Optional photo metadata must not block sign-in. */}
  return credential;
 }
