@@ -5,5 +5,5 @@ const a=setup(null,true);assert.equal(a.root.attrs['data-sidaps-theme'],'dark');
 for(const file of ['lib/portfolio-html.ts']){const text=fs.readFileSync(file,'utf8');assert.ok(text.includes('data-theme-option'));assert.ok(!text.includes('data-theme-picker'));assert.ok(text.includes('/theme.js?v=4'));assert.ok(text.includes('/theme.css?v=2'));}
 console.log('PASS: segmented theme buttons, active state, saved preferences, system changes, cross-tab sync and all three surfaces.');
 
-for(const file of ['lib/login-html.ts','lib/landing-html.ts']){const text=fs.readFileSync(file,'utf8');assert.ok(!text.includes('data-theme-option'));assert.ok(!text.includes('/theme.js'));assert.ok(text.includes('data-sidaps-theme'));assert.ok(text.includes('light'));}
-console.log('PASS: public pages are light without appearance controls; account appearance remains available.');
+for(const file of ['lib/login-html.ts','lib/landing-html.ts']){const text=fs.readFileSync(file,'utf8');assert.ok(!text.includes('data-theme-option'));assert.ok(!text.includes('/theme.js'));assert.ok(text.includes('data-sidaps-theme'));assert.ok(text.includes(file.includes('login-html')?'dark':'light'));}
+console.log('PASS: landing remains light; requested login is Black Emerald without appearance controls; account appearance remains available.');
