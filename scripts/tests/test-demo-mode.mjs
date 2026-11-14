@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import { createDemoBootstrap, renderDemoPortfolio } from '../../lib/demo-portfolio.ts';
+import { portfolioHtml } from '../../lib/portfolio-html.ts';
+import { validateState } from '../../lib/state-validation.ts';
+import { loginHtml } from '../../lib/login-html.ts';
+const boot=createDemoBootstrap(),other=createDemoBootstrap(),html=renderDemoPortfolio(portfolioHtml);
+assert.equal(validateState(other.state).assets.length,5);
+assert.equal(boot.demo,true);assert.deepEqual(boot.user.roles,['guest']);assert.equal(boot.user.email,'');assert.equal(boot.state.assets.length,5);assert.equal(boot.state.transactions.length,5);boot.state.assets[0].quantity=999;assert.equal(other.state.assets[0].quantity,100,'Each request receives a fresh, independent fixture');
+assert.ok(!/denny|aliya|amanda|@gmail\.com/i.test(JSON.stringify(other)),'Public fixture contains no owner data');assert.ok(!html.includes('/*__CLOUD_BOOTSTRAP__*/null'));assert.ok(html.includes('Mode demo · data contoh'));assert.ok(html.includes('HARGA DEMO'));assert.ok(loginHtml.includes('href="/?demo=1"'));assert.ok(fs.readFileSync('lib/landing-html.ts','utf8').includes('href="/?demo=1"'));
+const route=fs.readFileSync('app/route.ts','utf8');assert.ok(route.indexOf("url.searchParams.get('demo')")<route.indexOf('await resolveIdentity()'),'Demo bypasses account/database lookup entirely');assert.ok(!fs.readFileSync('lib/demo-portfolio.ts','utf8').includes('Set-Cookie'));
+let calls=0;const context={URL,location:{href:'https://sidaps.example/?demo=1'},window:{fetch:async()=>{calls++;return {ok:true};}}};vm.createContext(context);const start=html.indexOf('const demoBrowserFetch='),end=html.indexOf('let cloudRevision=',start);vm.runInContext(html.slice(start,end),context);
+for(const path of ['/api/state','/api/auth/login','/api/auth/logout','/api/admin/accounts','https://sidaps.example/api/state?x=1'])await assert.rejects(vm.runInContext('cloudNativeFetch('+JSON.stringify(path)+')',context),/Mode demo/);assert.equal(calls,0,'Demo cannot read/write a logged-in user account');await vm.runInContext("cloudNativeFetch('/api/market-board')",context);assert.equal(calls,1,'Public market reads remain available');
+let sync='';Object.assign(context,{cloudDirty:true,cloudSetSyncStatus:m=>sync=m});const saveStart=html.indexOf('async function cloudSave(){'),saveEnd=html.indexOf('async function cloudFlushBeforeLogout()',saveStart);vm.runInContext(html.slice(saveStart,saveEnd),context);await vm.runInContext('cloudSave()',context);assert.equal(context.cloudDirty,false);assert.ok(sync.includes('Mode demo'));assert.equal(calls,1,'Demo save never writes to the server');
+vm.runInContext(html.slice(saveEnd,html.indexOf("window.addEventListener('beforeunload'",saveEnd)),context);await vm.runInContext('cloudFlushBeforeLogout()',context);assert.equal(context.location.href,'/?view=landing');assert.equal(calls,1,'Leaving demo does not log out an existing real session');
+assert.ok(portfolioHtml.includes('const cloudDeviceStorage=(()=>{try{return window.localStorage;}catch{return null;}})();'));assert.ok(html.includes('const cloudDeviceStorage=null;'),'Demo does not persist browser data');
+console.log('PASS: independent synthetic portfolios, no identity/database lookup, no account API requests or cookies, in-memory saves, real-session-safe exit, labelled prices, login/landing entry and unchanged real app.');

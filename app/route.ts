@@ -1,3 +1,4 @@
+import { renderDemoPortfolio } from '@/lib/demo-portfolio';
 import { canonicalPortfolioUrl } from '@/lib/canonical-url';
 import { resolveIdentity } from '@/lib/identity';
 import { isOwner, readState } from "@/lib/account-store";
@@ -10,6 +11,7 @@ export async function GET(request:Request){
   if(canonical)return new Response(null,{status:308,headers:{Location:canonical,'Cache-Control':'no-store'}});
   const url=new URL(request.url);
   if(url.searchParams.get('view')==='landing')return landingResponse();
+  if(url.searchParams.get('demo')==='1')return new Response(renderDemoPortfolio(portfolioHtml),{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin'}});
   const user=await resolveIdentity();let bootstrap:unknown=null;
   if(!user&&!url.searchParams.has('login'))return landingResponse();
   if(!user)return new Response(loginHtml,{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store','Vary':'Cookie,oai-authenticated-user-id','X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin'}});
