@@ -2,12 +2,11 @@
 (()=>{
  const root=document.documentElement,entry=document.getElementById('loginEntry'),intro=document.getElementById('sidapsIntro'),form=document.getElementById('emailAuthForm');
  if(!entry||!form)return;
- const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)'),seenKey='sidaps_login_intro_v1';
+ const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)');
  let busy=false,success=false,introTimer=null,transition=null;
  function finishIntro(focus=false){
-  clearTimeout(introTimer);root.classList.remove('login-intro-pending');entry.inert=false;entry.removeAttribute('aria-hidden');
+  clearTimeout(introTimer);clearTimeout(window.sidapsIntroWatchdog);root.classList.remove('login-intro-pending');entry.inert=false;entry.removeAttribute('aria-hidden');
   if(intro){intro.hidden=true;intro.setAttribute('aria-hidden','true');}
-  try{window.sessionStorage.setItem(seenKey,'1');}catch{}
   if(focus)document.getElementById('authTitle')?.focus({preventScroll:true});
  }
  window.SidapsLoginExperience={skipIntro:()=>finishIntro(true),async authenticated(){
@@ -17,13 +16,19 @@
   if(!reduced?.matches&&!document.hidden)await new Promise(resolve=>setTimeout(resolve,180));
   location.reload();
  }};
- // No long-running animation loop. An inline watchdog and CSS also fail open.
- if(root.classList.contains('login-intro-pending')&&!reduced?.matches&&intro){
+ // Replay on every login-page load and back/forward restoration, without storage.
+ function startIntro(){
+  clearTimeout(introTimer);clearTimeout(window.sidapsIntroWatchdog);
+  if(reduced?.matches||!intro||document.hidden){finishIntro();return;}
+  root.classList.remove('login-intro-pending');
   intro.hidden=false;intro.setAttribute('aria-hidden','false');entry.inert=true;entry.setAttribute('aria-hidden','true');
+  // One layout read resets the finite CSS sequence, including a restored page.
+  void intro.offsetWidth;root.classList.add('login-intro-pending');
   introTimer=setTimeout(()=>finishIntro(),2280);
-  document.getElementById('introSkip')?.addEventListener('click',()=>finishIntro(true));
-  intro.querySelector('img')?.addEventListener('error',()=>finishIntro(),{once:true});
- }else finishIntro();
+ }
+ document.getElementById('introSkip')?.addEventListener('click',()=>finishIntro(true));
+ intro?.querySelector('img')?.addEventListener('error',()=>finishIntro(),{once:true});
+ startIntro();
  document.addEventListener('visibilitychange',()=>{if(document.hidden){document.body.setAttribute('data-page-hidden','');finishIntro();transition?.cancel();}else document.body.removeAttribute('data-page-hidden');});
  reduced?.addEventListener?.('change',event=>{if(event.matches){finishIntro();transition?.cancel();}});
  function setBusy(kind,on){
@@ -62,5 +67,5 @@
   else if(input.validity.valueMissing)input.setCustomValidity('Lengkapi kolom ini terlebih dahulu.');
  },true);
  form.addEventListener('input',event=>{if(event.target.matches('input')){event.target.setCustomValidity('');event.target.removeAttribute('aria-invalid');}});
- window.addEventListener('pageshow',event=>{if(event.persisted){success=false;setBusy('email',false);document.body.classList.remove('login-leaving');finishIntro();}});
+ window.addEventListener('pageshow',event=>{if(event.persisted){success=false;setBusy('email',false);document.body.classList.remove('login-leaving');startIntro();}});
 })();
