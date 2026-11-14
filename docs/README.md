@@ -17,6 +17,7 @@
 - [Demo panduan dengan kursor](features/USAGE-DEMO.md).
 - [Animasi tutorial landing page](features/LANDING-ANIMATION.md).
 - [Dashboard demo tanpa daftar](features/DEMO-MODE.md).
+- [Tema Zamrud & Emas, logo dan pengujian tampilan](features/EMERALD-GOLD-THEME.md).
 
 ## Pengembangan dan pemeriksaan
 
