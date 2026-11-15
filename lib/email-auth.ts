@@ -5,6 +5,9 @@ import { ensureAccount, isOwnerEmail } from './account-store';
 import { canonicalEmail, checkPassword, digest, hashPassword, normalizedRecovery, randomToken, recoveryCode, sessionCookie } from './auth-crypto';
 import { verifyGoogleToken } from './firebase-google';
 import { linkVerifiedGoogleAccount } from './google-account-link';
+import { env } from 'cloudflare:workers';
+import { PasswordResetError, requestPasswordReset, finishPasswordReset } from './password-reset';
+import { recoveryMailSender } from './recovery-mail';
 
 export class AuthError extends Error{constructor(message:string,public status=400){super(message);}}
 type Credential={user_id:string;email:string;password_hash:string;recovery_hash:string;version:number;email_verified:number};
@@ -22,8 +25,23 @@ export async function handleEmailAuth(action:string,body:Record<string,unknown>,
   return {data:{ok:true},cookie:await issueSession(credential.user_id,credential.version)};
  }
  if(action==='logout'){const {SESSION_COOKIE}=await import('./auth-crypto');const cookie=request.headers.get('cookie')?.split(';').map(c=>c.trim()).find(c=>c.startsWith(SESSION_COOKIE+'='))?.slice(SESSION_COOKIE.length+1);if(cookie&&/^[a-f0-9]{64}$/.test(cookie))await database().prepare('DELETE FROM sessions WHERE token_hash=?').bind(await digest(cookie)).run();const platform=await getChatGPTUser();return {data:{redirect:platform?'/signout-with-chatgpt?return_to=%2F':'/'},cookie:sessionCookie('',0)};}
- if(!['register','login','recover','activate','change-password'].includes(action))throw new AuthError('Halaman tidak ditemukan.',404);
+ if(!['register','login','recover','request-otp','reset-otp','activate','change-password'].includes(action))throw new AuthError('Halaman tidak ditemukan.',404);
  await limit('auth-ip:'+ip,60,15*60000);
+ if(action==='request-otp'||action==='reset-otp'){
+  try{
+   const email=canonicalEmail(body.email);
+   if(action==='request-otp'){
+    const sender=recoveryMailSender(env);
+    await limit('otp-send-ip:'+ip,10,15*60000);
+    await limit('otp-send-email:'+email,5,15*60000);
+    return {data:await requestPasswordReset(database(),email,sender)};
+   }
+   await limit('otp-check-ip:'+ip,30,15*60000);
+   await limit('otp-check-email:'+email,15,15*60000);
+   await finishPasswordReset(database(),body);
+   return {data:{ok:true,message:'Sandi berhasil diperbarui. Silakan masuk dengan sandi baru.'}};
+  }catch(error){if(error instanceof PasswordResetError)throw new AuthError(error.message,error.status);throw error;}
+ }
  if(action==='register'){
   const email=canonicalEmail(body.email),name=typeof body.displayName==='string'?body.displayName.trim():'';if(name.length<2||name.length>60)throw new AuthError('Nama tampilan harus 2–60 karakter.');await limit('register-ip:'+ip,10,15*60000);
   if(isOwnerEmail(email))throw new AuthError('Akun pemilik sudah disediakan. Gunakan Hubungkan akun lama untuk mengaktifkan password.',409);
