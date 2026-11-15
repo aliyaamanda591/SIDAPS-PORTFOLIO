@@ -38,16 +38,16 @@ function escapeHtml(text: string): string {
 }
 
 export function getMailEnvironment(): MailEnvironment {
-  const cf = workerEnv as unknown as MailEnvironment;
+  const cf = (workerEnv ?? {}) as unknown as MailEnvironment;
   const p: Record<string, string | undefined> = typeof process !== 'undefined' ? process.env : {};
   return {
-    RESEND_API_KEY: cf.RESEND_API_KEY ?? p.RESEND_API_KEY,
-    BREVO_API_KEY: cf.BREVO_API_KEY ?? p.BREVO_API_KEY,
-    MAIL_WEBHOOK_URL: cf.MAIL_WEBHOOK_URL ?? p.MAIL_WEBHOOK_URL,
-    MAIL_WEBHOOK_SECRET: cf.MAIL_WEBHOOK_SECRET ?? p.MAIL_WEBHOOK_SECRET,
-    AUTH_EMAIL_FROM: cf.AUTH_EMAIL_FROM ?? p.AUTH_EMAIL_FROM,
-    OWNER_EMAIL: cf.OWNER_EMAIL ?? p.OWNER_EMAIL,
-    APP_URL: cf.APP_URL ?? p.APP_URL,
+    RESEND_API_KEY: cf?.RESEND_API_KEY ?? p.RESEND_API_KEY,
+    BREVO_API_KEY: cf?.BREVO_API_KEY ?? p.BREVO_API_KEY,
+    MAIL_WEBHOOK_URL: cf?.MAIL_WEBHOOK_URL ?? p.MAIL_WEBHOOK_URL,
+    MAIL_WEBHOOK_SECRET: cf?.MAIL_WEBHOOK_SECRET ?? p.MAIL_WEBHOOK_SECRET,
+    AUTH_EMAIL_FROM: cf?.AUTH_EMAIL_FROM ?? p.AUTH_EMAIL_FROM,
+    OWNER_EMAIL: cf?.OWNER_EMAIL ?? p.OWNER_EMAIL,
+    APP_URL: cf?.APP_URL ?? p.APP_URL,
   };
 }
 
