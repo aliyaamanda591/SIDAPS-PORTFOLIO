@@ -43,3 +43,15 @@ export const authLimits = sqliteTable("auth_limits", {
   attempts: integer("attempts").notNull(),
   windowStart: integer("window_start").notNull(),
 });
+
+export const passwordResetOtps = sqliteTable("password_reset_otps", {
+  emailHash: text("email_hash").primaryKey(),
+  challengeHash: text("challenge_hash").notNull().unique(),
+  otpHash: text("otp_hash").notNull(),
+  userId: text("user_id").references(() => accounts.userId),
+  credentialVersion: integer("credential_version").notNull(),
+  attempts: integer("attempts").notNull().default(0),
+  requestedAt: integer("requested_at").notNull(),
+  expiresAt: integer("expires_at").notNull(),
+  ready: integer("ready").notNull().default(0),
+});

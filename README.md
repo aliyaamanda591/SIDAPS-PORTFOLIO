@@ -50,3 +50,7 @@ File konfigurasi build tetap di root. Identitas proyek Sites tetap berada pada `
 Repository ini menyimpan source aplikasi, bukan isi database akun, saldo, transaksi pribadi, password, atau backup pribadi. Nilai `OWNER_EMAIL` produksi dikelola melalui secret hosting; contoh konfigurasi tersedia di `.env.example`. Jangan masukkan file `.env`, `.dev.vars`, database lokal, atau token ke Git.
 
 Menyimpan source ke GitHub tidak memindahkan database atau mengganti hosting yang sedang berjalan. Data produksi tetap berada pada penyimpanan hosting sebelumnya.
+
+## Pemulihan OTP email
+
+Alur OTP sudah tersedia, tetapi pengiriman memerlukan konfigurasi layanan email dan pengirim terverifikasi. Lihat [panduan pemasangan OTP](docs/features/EMAIL-OTP-RECOVERY.md). Kode pemulihan lama dan login Google tetap tersedia sebagai cadangan.
