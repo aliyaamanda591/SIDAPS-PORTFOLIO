@@ -37,13 +37,14 @@ Buka alamat lokal yang tercetak di terminal. Build produksi: `npm run build`. Ru
 | `public/` | CSS, JavaScript browser, ikon, dan katalog publik |
 | `drizzle/` | Migrasi serta metadata database |
 | `db/`, `worker/` | Koneksi database dan runtime Worker |
-| `components/`, `hooks/`, `vendor/` | Komponen, utilitas antarmuka, dan lisensi |
+| `vendor/` | Stylesheet vendor dan lisensi yang masih dirujuk |
 | `scripts/tests/` | Pengujian source dan integrasi |
 | `scripts/dev/`, `scripts/fixtures/` | Alat serta data simulasi lokal |
 | `docs/` | Panduan akun, fitur, pengembangan, dan hasil pemeriksaan |
-| `examples/` | Contoh pengembangan opsional |
 
 File konfigurasi build tetap di root. Identitas proyek Sites tetap berada pada `.openai/hosting.json`. Lihat [peta source](docs/development/SOURCE-MAP.md) untuk memilih file yang perlu diedit, dan [panduan skrip](scripts/README.md) untuk menjalankan pengujian.
+
+Komponen UI dan contoh D1 bawaan template yang tidak dirujuk aplikasi dibersihkan pada Fase 2. Logo, katalog, source fitur aktif, konfigurasi Firebase/D1, serta migrasi tetap dipertahankan. Pekerjaan Firebase yang belum selesai diamankan terpisah pada branch `safety/firebase-wip-2026-11-16`; branch itu belum digabung ke main.
 
 ## Data dan konfigurasi
 

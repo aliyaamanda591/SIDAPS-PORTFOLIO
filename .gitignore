@@ -58,3 +58,39 @@ yarn-error.log*
 *.tar.gz
 /playwright-report/
 /test-results/
+
+# Additional build/cache output (never application source)
+/build/
+/.cache/
+/.turbo/
+/.parcel-cache/
+/.eslintcache
+/.stylelintcache
+/.firebase/
+/tmp/
+/temp/
+*.log
+*.pid
+*.pid.lock
+
+# Private keys and provider credentials; public Firebase Web Config stays tracked.
+*.key
+*.p12
+*.pfx
+**/*service-account*.json
+**/*serviceAccount*.json
+**/*firebase-adminsdk*.json
+
+# SQLite sidecars and local recovery/export artifacts
+*.db-wal
+*.db-shm
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+*.tgz
+*.7z
+*.rar
+/reports/
+Thumbs.db
+Desktop.ini

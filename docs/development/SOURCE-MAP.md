@@ -28,6 +28,6 @@ Shell aplikasi menggunakan HTML yang disimpan sebagai string. Berkas CSS/JavaScr
 
 ## Infrastruktur
 
-`vite.config.ts`, `worker/`, `.openai/hosting.json`, `scripts/vite/`, dan `scripts/connector-preview/` merupakan bagian runtime/build. Folder `components/`, `hooks/`, `vendor/`, dan `examples/` menyimpan komponen serta contoh pengembangan. Keberadaannya tidak berarti semua komponen tampil di dashboard.
+`vite.config.ts`, `worker/`, `.openai/hosting.json`, `scripts/vite/`, dan `scripts/connector-preview/` merupakan bagian runtime/build. `vendor/` masih menyimpan stylesheet dan lisensi yang dirujuk `app/globals.css`. Komponen UI, hook sidebar, dan contoh D1 bawaan template yang tidak dipakai aplikasi dihapus pada Fase 2.
 
 `scripts/tests/` berisi pengujian. `scripts/dev/` dan `scripts/fixtures/` khusus simulasi lokal. Semua perintah skrip dijalankan dari root repositori.
