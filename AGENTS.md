@@ -8,16 +8,35 @@
 - Jangan menyalin seluruh source lokal lama ke main: source kerja dan main dapat berbeda. Periksa diff, import, dan identitas proyek sebelum sinkronisasi.
 - Branch `safety/firebase-wip-2026-11-16` menyimpan pekerjaan Firebase yang belum selesai (commit `4e18ef5`). Branch itu arsip pengaman, bukan implementasi yang sudah digabung ke main atau siap deploy.
 
-## Peta arsitektur
+## Peta arsitektur — terverifikasi 16 November 2026
 
-- Teknologi: TypeScript, Vinext/Vite, route handler bergaya Next.js, Cloudflare Worker dan D1.
-- `app/route.ts`: memilih landing, login, demo, atau portofolio; `app/api/`: auth, state, admin, dan harga.
-- `lib/{landing,login,portfolio}-html.ts`: perangkai string HTML. Isi halaman berada di `lib/landing/`, `lib/login/`, `lib/portfolio/`. Urutan concatenation dan scope script browser penting.
-- `lib/auth/`, `lib/firebase-auth.ts`, `lib/firebase-google.ts`, `lib/identity.ts`: autentikasi dan sesi. Main saat Fase 2 masih memiliki jalur kompatibilitas lama; jangan menghapusnya hanya berdasarkan nama.
-- `lib/account-store.ts`, `lib/state-validation.ts`, `lib/financial-validation.js`: kepemilikan data, revisi, validasi dan perhitungan transaksi.
-- `lib/market-board.ts`, `lib/retail-gold.ts`, `app/api/prices/`: sumber harga IHSG, saham, kripto, dan emas.
-- `public/`: modul browser, stylesheet, logo dan aset. `scripts/tests/`: regresi; `scripts/fixtures/`: data sintetis, bukan data produksi.
-- `db/`, `drizzle/`, `worker/`, `.openai/hosting.json`, `scripts/vite/`, `scripts/connector-preview/`: penyimpanan, migrasi dan integrasi hosting/build.
+Teknologi: TypeScript, Vinext/Vite, route Next.js, Cloudflare Worker + D1. Root aplikasi adalah checkout ini; source lokal lama di workspace bukan salinan main yang identik.
+
+| Fitur | Lokasi awal yang dibaca |
+| --- | --- |
+| Pemilih landing/login/demo/dashboard | `app/route.ts` |
+| Route API | `app/api/{auth/[action],state,admin/accounts,prices/[source],market-board}/route.ts` |
+| Halaman reset | `app/reset-password/route.ts` |
+| Landing | `lib/landing-html.ts` → `lib/landing/{head,hero,market-before,features,tutorial-faq-footer}.ts` |
+| Login | `lib/login-html.ts` → `lib/login/{head,backdrop,auth-card,auth-script}.ts` |
+| Perangkai dashboard | `lib/portfolio-html.ts`; urutan concatenation/scope script wajib dipertahankan |
+| Struktur dashboard/form/akun | `lib/portfolio/views/{shell-dashboard,transactions-assets,developer-footer}.ts` |
+| Tampilan dasar/responsive | `lib/portfolio/{styles-base,styles-components,styles-responsive,head-links}.ts` |
+| State, transaksi, rumus, backup | `lib/portfolio/scripts/{core-state,trades-profile,render-overview}.ts`; validasi server `lib/{state-validation.ts,financial-validation.js}` |
+| Render aset/harga | `lib/portfolio/scripts/render-prices.ts` |
+| Katalog browser | `lib/portfolio/scripts/{catalog-stocks,catalog-crypto,platform-catalog}.ts`; cari ticker dahulu |
+| Auth browser | `lib/portfolio/scripts/hosted-auth.ts`, `lib/{email-auth-client,google-auth-client}.js` |
+| Auth server | `lib/email-auth.ts` → `lib/auth/{account-handlers,reset-handlers,session-helpers}.ts` |
+| Firebase/identitas | `lib/{firebase-auth,firebase-google,google-account-link,identity}.ts` |
+| Data privat/revisi | `lib/{database,account-store}.ts`, `db/schema.ts`, `drizzle/` |
+| Pasar/IHSG/emas | `lib/{market-board,retail-gold,market-catalog}.ts`; route harga di atas |
+| Grafik/tema/navigasi/HP | `public/{portfolio-insights.js,dashboard-ihsg.*,theme.*,account-menu.*,mobile-*}` |
+| Panduan/demo | `lib/portfolio/usage-guide.ts`, `lib/demo-portfolio.ts`, `public/{usage-demo,landing-cinema,landing-demo-data}.js` |
+| Reset UI | `public/recovery-otp.js` (nama historis; sekarang tautan reset), `lib/auth/reset-handlers.ts` |
+| Hosting/build | `worker/`, `vite.config.ts`, `.openai/hosting.json`, `scripts/{vite,connector-preview}/` |
+| Tes | `scripts/tests/run-offline.mjs` (25 tes); `helpers/templates.mjs` membaca HTML hasil modul langsung |
+
+Peta lengkap: `docs/development/SOURCE-MAP.md`. Jangan memindai seluruh repo jika lokasi fitur sudah tercantum.
 
 ## Keamanan dan kompatibilitas
 
@@ -39,7 +58,10 @@
 
 ## Verifikasi
 
-- Gunakan database lokal terpisah dan data sintetis; jangan arahkan skrip pembelian, registrasi atau reset sandi ke produksi.
-- Beberapa pengujian lama masih menganggap shell HTML berupa satu literal JSON. Bedakan kegagalan loader/fixture lama dari regresi aplikasi; jangan melemahkan assertion agar tampak lulus.
-- Jalankan build/typecheck dan regresi yang relevan. Saat mengubah struktur halaman berikutnya, perbarui loader tes beserta referensi import secara terkontrol.
-- Pertahankan nama route dan field data; pakai nama deskriptif sesuai modul yang ada. Jangan mengganti nama proyek/domain/storage tanpa kebutuhan fitur yang jelas.
+- Dari root checkout: `npm test` (25 regresi offline), `npm run verify:project` (aset/sintaks/config), `node node_modules/typescript/bin/tsc --noEmit --incremental false`, `npm run build`.
+- Tes Node memerlukan `registerHooks` (Node >=22.15; diverifikasi pada 26.7). Runner memasang `helpers/register.mjs` untuk import TypeScript/JSON. Tidak ada monkey-patch pembacaan file.
+- Stub `cloudflare:workers` hanya dalam tes offline dan melempar bila env produksi diakses. Gunakan transport Firebase/email palsu dan database SQLite memori; jangan jalankan skrip registrasi HTTP ke produksi.
+- Sembilan skrip integrasi HTTP/katalog tambahan bukan bagian dari 25 tes offline; jalankan hanya dengan environment lokal yang sesuai. Jangan mengklaim login Google nyata sudah diuji oleh suite offline.
+- Nama recovery/OTP lama tetap dipertahankan untuk kompatibilitas, bukan instruksi mengaktifkan OTP kustom.
+- 16 Nov: source/config runtime tetap identik terhadap commit Fase 2. Pemeriksaan publik menemukan `sidaps.online` belum ada di Authorized Domains Firebase; jangan menyatakan login Google pada domain itu siap sebelum izin eksternal diverifikasi/diperbaiki. Lihat `docs/development/PHASE4-VERIFICATION.md`.
+- Pertahankan route, field data, migrasi dan identitas hosting. Cabang pengaman Firebase tetap terpisah dari main.

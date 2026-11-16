@@ -1,3 +1,4 @@
+import {portfolioHtml} from './helpers/templates.mjs';
 import assert from 'node:assert/strict';
 import {DatabaseSync} from 'node:sqlite';
 import fs from 'node:fs';
@@ -23,7 +24,7 @@ record.state.profile.photoMode='none';record.state.profile.photo='';sqlite.prepa
 await linkVerifiedGoogleAccount(db,{uid:'separate',email:'other@example.test',displayName:'Other',photoURL:next});assert.equal(read(account.user_id).state.profile.googlePhoto,photo,'Other account cannot overwrite this profile');
 const checked=validateState({...original,profile:{...original.profile,googlePhoto:'https://evil.test/avatar'}});assert.equal(checked.profile.googlePhoto,undefined);assert.equal(validateState(original).profile.googlePhoto,photo);
 
-const source=fs.readFileSync('lib/portfolio-html.ts','utf8'),html=JSON.parse(source.slice(source.indexOf('=')+1).trim().replace(/;$/,''));
+const html=portfolioHtml;
 const ctx=vm.createContext({URL,HTMLImageElement:class{},document:{addEventListener(){}},localStorage:{getItem(){return null;}},getAuth(){return {username:'Test'};},esc:value=>String(value).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;')});
 vm.runInContext(html.slice(html.indexOf('function googleProfilePhotoUrl('),html.indexOf('function roleCaption(')),ctx);
 assert.equal(ctx.safeProfile({photo:upload}).photoMode,'custom','Legacy uploaded photos stay selected');

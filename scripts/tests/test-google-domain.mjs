@@ -1,3 +1,4 @@
+import {loginHtml} from './helpers/templates.mjs';
 import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
 const nodes=new Map(),get=id=>{if(!nodes.has(id))nodes.set(id,{disabled:false,textContent:'',hidden:true,attrs:{},setAttribute(k,v){this.attrs[k]=v;}});return nodes.get(id);};
 let domains=['sidaps-portfolio.sidaps.workers.dev'],outage=false,popupCalls=0;
@@ -6,5 +7,5 @@ vm.createContext(context);vm.runInContext(fs.readFileSync('lib/google-auth-clien
 await vm.runInContext('googleSignIn()',context);assert.match(get('googleAuthMessage').textContent,/sudah aktif/);assert.equal(get('googleAuthHelp').hidden,false);assert.equal(get('googleSignInButton').disabled,false);
 domains=[];await vm.runInContext('googleSignIn()',context);assert.match(get('googleAuthMessage').textContent,/alamat resmi/);
 outage=true;await vm.runInContext('googleSignIn()',context);assert.match(get('googleAuthMessage').textContent,/alamat resmi/);assert.equal(get('googleSignInButton').disabled,false);
-const s=fs.readFileSync('lib/login-html.ts','utf8'),h=JSON.parse(s.slice(s.indexOf('=')+1).trim().slice(0,-1));assert.ok(h.includes('id="googleAuthHelp"'));assert.ok(h.includes('https://sidaps-portfolio.sidaps.workers.dev/?login=1'));assert.ok(h.includes('/login-refinement.css?v=1'));assert.ok(h.includes('showGoogleDomainRecovery'));
+const h=loginHtml;assert.ok(h.includes('id="googleAuthHelp"'));assert.ok(h.includes('https://sidaps-portfolio.sidaps.workers.dev/?login=1'));assert.ok(h.includes('/login-refinement.css?v=1'));assert.ok(h.includes('showGoogleDomainRecovery'));
 console.log('PASS: live-domain recheck, stale SDK recovery guidance, wrong-domain official link, network failure, retry release and consistent generated login.');

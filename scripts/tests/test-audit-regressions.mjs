@@ -1,3 +1,4 @@
+import {portfolioHtml} from './helpers/templates.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
@@ -5,7 +6,7 @@ import {webcrypto} from 'node:crypto';
 import {validateState} from '../../lib/state-validation.ts';
 import {validateFinancialData,validateStockMutations} from '../../lib/financial-validation.js';
 
-const html=JSON.parse(fs.readFileSync('lib/portfolio-html.ts','utf8').split('export const portfolioHtml=')[1].trim().replace(/;$/,''));
+const html=portfolioHtml;
 const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
 const el=()=>({value:'',textContent:'',innerHTML:'',style:{},className:'',attrs:{},classList:{add(){},remove(){},contains(){return false},toggle(){}},setAttribute(k,v){this.attrs[k]=v;},addEventListener(){},focus(){},reset(){},contains(){return false},remove(){},click(){},scrollHeight:800,clientHeight:300,scrollTop:0});
 function boot({state,userId,device=new Map(),request=async()=>{throw Error('offline');}}={}){

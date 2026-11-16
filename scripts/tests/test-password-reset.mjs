@@ -44,9 +44,24 @@ assert.equal(sqlite.prepare('SELECT count(*) n FROM sessions').get().n,0);assert
 clock+=61000;r=await req();sqlite.prepare('UPDATE credentials SET version=version+1').run();await invalid(finish(db,body(r),clock));
 const before=sent.length,unknown=await req('missing@example.test');assert.deepEqual(Object.keys(unknown),Object.keys(r));assert.equal(unknown.message,r.message);assert.equal(sent.length,before);await invalid(finish(db,body(unknown,'123456','missing@example.test'),clock));
 clock+=61000;await assert.rejects(()=>request(db,email,async()=>{throw Error('private-provider-secret');},clock),e=>e.status===503&&!e.message.includes('private-provider-secret'));assert.equal(sqlite.prepare('SELECT count(*) n FROM password_reset_otps WHERE user_id=?').get('member').n,0,'Failed send cannot leave a usable OTP');
-r=await req();await assert.rejects(()=>finish(db,{...body(r),password:'short',confirm:'short'},clock),/minimal 12/);
+r=await req();await assert.rejects(()=>finish(db,{...body(r),password:'short',confirm:'short'},clock),/minimal 8/);
 for(const env of [{},{RESEND_API_KEY:'private-test-key'},{RESEND_API_KEY:'x',AUTH_EMAIL_FROM:'bad\r\nfrom'}])assert.throws(()=>recoveryMailSender(env),e=>e.status===503);
 let delivery;const sender=recoveryMailSender({RESEND_API_KEY:'private-test-key',AUTH_EMAIL_FROM:'SIDAPS <login@example.test>'},async(url,init)=>{delivery={url,init,body:JSON.parse(init.body)};return Response.json({id:'provider-accepted'});});
 await sender(email,'123456','challenge');assert.equal(delivery.url,'https://api.resend.com/emails');assert.deepEqual(delivery.body.to,[email]);assert.equal(delivery.init.headers['Idempotency-Key'],'sidaps-reset/challenge');assert.ok(delivery.body.text.includes('123456'));assert.ok(!delivery.body.html.includes('private-test-key'));assert.ok(delivery.init.signal);
 await assert.rejects(()=>recoveryMailSender({RESEND_API_KEY:'x',AUTH_EMAIL_FROM:'a@example.test'},async()=>Response.json({error:'private'},{status:403}))(email,'123456','id'),/rejected/);
 console.log('PASS: OTP delivery adapter, cryptographic code/request binding, cooldown, generic account response, expiry, five attempts, resend invalidation, concurrent single use, version binding, session revocation, password policy, email verification, portfolio preservation and delivery failure cleanup. No real emails sent.');
+
+// Native Firebase path used by current auth handlers, with an injected transport only.
+const firebase=await import('../../lib/firebase-auth.ts');
+const firebaseCalls=[];
+const transport=async(url,init)=>{firebaseCalls.push({url:new URL(url),headers:init.headers,body:JSON.parse(init.body)});return Response.json({localId:'synthetic-user',email:'member@example.test',idToken:'synthetic-token'});};
+await firebase.firebaseSignUp(email,'Password-83!', 'Member',transport);
+await firebase.firebaseSignIn(email,'Password-83!',transport);
+await firebase.firebaseSendPasswordResetEmail(email,'https://sidaps.online/?login=1',transport);
+await firebase.firebaseVerifyPasswordResetCode('synthetic-oob',transport);
+await firebase.firebaseConfirmPasswordReset('synthetic-oob','New-Password-83!',transport);
+assert.deepEqual(firebaseCalls.map(c=>c.url.pathname.split('/').at(-1)),['accounts:signUp','accounts:signInWithPassword','accounts:sendOobCode','accounts:resetPassword','accounts:resetPassword']);
+assert.equal(firebaseCalls[2].body.requestType,'PASSWORD_RESET');assert.equal(firebaseCalls[2].body.continueUrl,'https://sidaps.online/?login=1');
+assert.equal(firebaseCalls[3].body.newPassword,undefined,'Verification cannot mutate the password');assert.equal(firebaseCalls[4].body.newPassword,'New-Password-83!');
+for(const code of ['EXPIRED_OOB_CODE','INVALID_OOB_CODE'])await assert.rejects(()=>firebase.firebaseVerifyPasswordResetCode('invalid',async()=>Response.json({error:{message:code}},{status:400})),error=>error instanceof firebase.FirebaseAuthRestError&&error.status===400);
+console.log('PASS: native Firebase signup, login, localized email reset, proof verification/confirmation and invalid/expired-link rejection using synthetic HTTP responses.');

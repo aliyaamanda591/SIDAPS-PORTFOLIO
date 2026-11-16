@@ -1,8 +1,8 @@
+import {portfolioHtml} from './helpers/templates.mjs';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
-const source=fs.readFileSync('lib/portfolio-html.ts','utf8').split('export const portfolioHtml=')[1].trim();
-const html=JSON.parse(source.slice(0,-1));
+const html=portfolioHtml;
 const script=html.match(/<script>([\s\S]*?)<\/script>/)[1];
 const start=script.indexOf('const IDX_HOLIDAYS='),end=script.indexOf('function lastCompletedIdxClose(',start);
 const elements=Object.fromEntries(['loginMarket','loginMarketBadge','loginMarketTitle','loginMarketMessage','loginMarketSession','loginMarketClock','dashboardMarketNotice','dashboardMarketBadge','dashboardMarketTitle','dashboardMarketMessage'].map(id=>[id,{textContent:'',className:'',attrs:{},setAttribute(k,v){this.attrs[k]=v;}}]));

@@ -1,24 +1,47 @@
-import fs from 'node:fs';
-import vm from 'node:vm';
-import assert from 'node:assert/strict';
-import {loginHtml} from '../../lib/login-html.ts';
-import {portfolioHtml} from '../../lib/portfolio-html.ts';
-for(const html of [loginHtml,portfolioHtml]){assert.ok(html.includes('/recovery-otp.js?v=1'));assert.ok(html.includes('/recovery-otp.css?v=1'));}
+// Historical filename: current UI uses email reset links, not numeric OTP.
+import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
+import {setImmediate as tick} from 'node:timers/promises';
+import {loginHtml,portfolioHtml} from './helpers/templates.mjs';
+for(const html of [loginHtml,portfolioHtml]){assert.match(html,/\/recovery-otp\.js\?v=\d+/);assert.match(html,/\/recovery-otp\.css\?v=\d+/);}
 assert.ok(loginHtml.indexOf('/recovery-otp.js')<loginHtml.indexOf('/login-experience.js'));
-const elements=new Map();let clock=1000,id=0,timers=new Map();
-function el(){return {value:'',textContent:'',hidden:false,required:false,disabled:false,attrs:{},set id(value){elements.set(value,this);},closest(){return this.parent;},before(){},after(){},setAttribute(k,v){this.attrs[k]=v;},focus(){this.focused=true;},set innerHTML(value){for(const [,name] of value.matchAll(/id="([^"]+)"/g))elements.set(name,el());}};}
-for(const id of ['emailAuthForm','emailAddress','emailRecoveryField','emailPassword','emailConfirm','emailSubmit','emailAuthMessage','emailConfirmField','emailRecovery','authSub'])elements.set(id,el());
-elements.get('emailPassword').parent=el();const get=id=>elements.get(id),requests=[];let previousSubmits=0,response={ok:true,requestId:'a'.repeat(64),retryAfter:60,message:'Jika email terdaftar, OTP dikirim.'},failure=null;
-const ctx={console,Date:{now:()=>clock},setTimeout:fn=>{timers.set(++id,fn);return id;},clearTimeout:id=>timers.delete(id),document:{getElementById:get,createElement:el},addEventListener(){},cloudAuthSetMode(mode){get('emailRecoveryField').hidden=mode!=='recover';get('emailConfirmField').hidden=mode==='login';get('emailConfirm').required=mode!=='login';get('emailPassword').value='';get('emailRecovery').value='';get('emailAuthMessage').textContent='';},async emailAuthRequest(action,body){requests.push({action,body});if(failure)throw Error(failure);return response;}};
-get('emailAuthForm').onsubmit=async()=>{previousSubmits++;};get('emailAuthForm').requestSubmit=()=>get('emailAuthForm').onsubmit({preventDefault(){}});ctx.window=ctx;vm.createContext(ctx);vm.runInContext(fs.readFileSync('public/recovery-otp.js','utf8'),ctx);
-const mode=value=>ctx.cloudAuthSetMode(value),submit=()=>get('emailAuthForm').onsubmit({preventDefault(){}});
-mode('register');assert.equal(get('emailConfirmField').hidden,false);assert.equal(get('emailConfirm').required,true);await submit();assert.equal(previousSubmits,1,'Signup retains original handler');
-mode('login');assert.equal(get('emailConfirmField').hidden,true);await submit();assert.equal(previousSubmits,2,'Login retains original handler');
-mode('recover');assert.equal(get('emailRecoveryField').hidden,true);assert.equal(get('emailPassword').parent.hidden,true);assert.equal(get('emailPassword').required,false);assert.equal(get('emailOtp').required,false);assert.equal(get('emailSubmit').textContent,'Kirim OTP ke email');
-get('emailAddress').value='member@example.test';failure='Pengiriman OTP belum diaktifkan oleh pengelola.';await submit();assert.equal(get('emailAuthMessage').attrs['data-state'],'error');assert.equal(get('emailOtpField').hidden,true,'Missing provider never claims delivery');assert.equal(get('emailSubmit').disabled,false);
-failure=null;await submit();assert.equal(requests.at(-1).action,'request-otp');assert.deepEqual(JSON.parse(JSON.stringify(requests.at(-1).body)),{email:'member@example.test'});assert.equal(get('emailOtpField').hidden,false);assert.equal(get('emailOtp').required,true);assert.equal(get('emailAddress').readOnly,true);assert.equal(get('emailPassword').required,true);assert.equal(get('otpResend').disabled,true);assert.ok(get('emailAuthMessage').textContent.includes('Jika email terdaftar'));
-get('emailOtp').value='123456';get('emailPassword').value=get('emailConfirm').value='New-Local-Password-123';failure='OTP tidak sesuai';await submit();assert.equal(requests.at(-1).action,'reset-otp');assert.equal(requests.at(-1).body.requestId,'a'.repeat(64));assert.equal(get('emailOtpField').hidden,false);assert.equal(get('emailAuthMessage').textContent,'OTP tidak sesuai');
-failure=null;await submit();assert.equal(get('emailOtpField').hidden,true);assert.equal(get('emailAddress').readOnly,false);assert.equal(get('emailAddress').value,'member@example.test');assert.equal(get('emailPassword').value,'');assert.equal(get('emailAuthMessage').attrs['data-state'],'success');assert.ok(get('emailAuthMessage').textContent.includes('Masuk dengan sandi baru'));
-mode('recover');await submit();clock+=61000;for(const fn of [...timers.values()])fn();assert.equal(get('otpResend').disabled,false);get('otpChangeEmail').onclick();assert.equal(get('emailAddress').readOnly,false);assert.equal(get('emailOtpField').hidden,true);assert.equal(get('emailPassword').required,false);
-get('otpUseLegacy').onclick();assert.equal(get('emailRecoveryField').hidden,false);assert.equal(get('emailRecovery').required,true);await submit();assert.equal(previousSubmits,3,'Legacy saved codes remain a deliberate fallback');get('otpUseLegacy').onclick();assert.equal(get('emailRecoveryField').hidden,true);
-console.log('PASS: shared OTP enhancement in both login shells; login/signup unchanged, two-step recovery, clear unconfigured-provider error, OTP/password fields, resend cooldown, email change, invalid-code retry, successful reset returns to login and legacy fallback.');
+function setup(href='https://sidaps.online/?login=1',verifyFailure=false){
+ const nodes=new Map(),timers=new Map(),requests=[];let clock=1000,serial=0,baseSubmits=0,navigated=0,failure=null;
+ function el(){return {value:'',textContent:'',hidden:false,required:false,disabled:false,attrs:{},
+  set id(value){nodes.set(value,this);},closest(){return this.parent;},before(){},after(){},prepend(){},appendChild(){},
+  setAttribute(k,v){this.attrs[k]=String(v);},getAttribute(k){return this.attrs[k]??null;},removeAttribute(k){delete this.attrs[k];},
+  focus(){this.focused=true;},querySelector(){return null;},
+  set innerHTML(value){this.html=value;for(const [,id]of value.matchAll(/id="([^"]+)"/g))nodes.set(id,el());}
+ };}
+ for(const id of ['emailAuthForm','emailAddress','emailRecoveryField','emailRecovery','emailPassword','emailConfirm','emailConfirmField','emailSubmit','emailAuthMessage','authBack','authTitle','authSub','registerSecurityNote'])nodes.set(id,el());
+ const get=id=>nodes.get(id);get('emailAddress').parent=el();get('emailPassword').parent=el();
+ const location=new URL(href),events={};
+ const context={URL,console,Date:{now:()=>clock},location,
+  setTimeout(fn){timers.set(++serial,fn);return serial;},clearTimeout(id){timers.delete(id);},
+  addEventListener:(name,fn)=>events[name]=fn,history:{replaceState(_s,_t,path){location.href=new URL(path,location).href;}},
+  document:{getElementById:get,querySelector:()=>null,createElement:el},
+  cloudAuthSetMode(mode){get('emailConfirmField').hidden=mode!=='register';get('emailConfirm').required=mode==='register';get('emailPassword').value='';get('emailConfirm').value='';},
+  async emailAuthRequest(action,body){requests.push({action,body:JSON.parse(JSON.stringify(body))});if(failure||(verifyFailure&&action==='verify-reset'))throw Error(failure||'Tautan kedaluwarsa');return action==='verify-reset'?{ok:true,email:'member@example.test'}:{ok:true,retryAfter:60};},
+  SidapsLoginExperience:{async authenticated(){navigated++;},skipIntro(){}}
+ };
+ get('emailAuthForm').onsubmit=async()=>{baseSubmits++;};get('emailAuthForm').requestSubmit=()=>get('emailAuthForm').onsubmit({preventDefault(){}});
+ context.window=context;vm.createContext(context);vm.runInContext(fs.readFileSync('public/recovery-otp.js','utf8'),context);
+ return {context,get,requests,timers,events,mode:value=>context.cloudAuthSetMode(value),submit:()=>get('emailAuthForm').onsubmit({preventDefault(){}}),
+  advance(ms){clock+=ms;for(const [id,fn]of [...timers]){timers.delete(id);fn();}},fail(value){failure=value;},get baseSubmits(){return baseSubmits;},get navigated(){return navigated;}};
+}
+const a=setup();a.mode('register');assert.equal(a.get('emailConfirm').required,true);await a.submit();assert.equal(a.baseSubmits,1);
+a.mode('login');assert.equal(a.get('emailConfirmField').hidden,true);await a.submit();assert.equal(a.baseSubmits,2);
+a.mode('recover');assert.equal(a.get('emailRecoveryField').hidden,true);assert.equal(a.get('emailRecovery').required,false);
+assert.equal(a.get('emailPassword').parent.hidden,true);assert.equal(a.get('emailPassword').required,false);assert.equal(a.get('emailSubmit').textContent,'Kirim tautan reset');assert.equal(a.get('emailOtp'),undefined);
+a.get('emailAddress').value='member@example.test';a.fail('Email belum berhasil dikirim');await a.submit();assert.equal(a.get('emailAuthMessage').attrs['data-state'],'error');assert.equal(a.get('resetSentGuide').hidden,true);assert.equal(a.get('emailSubmit').disabled,false);assert.equal(a.navigated,0);
+a.fail(null);await a.submit();assert.deepEqual(a.requests.at(-1),{action:'request-otp',body:{email:'member@example.test'}});assert.equal(a.get('resetSentGuide').hidden,false);assert.equal(a.get('emailSubmit').hidden,true);assert.equal(a.get('emailAddress').readOnly,true);assert.equal(a.get('otpResend').disabled,true);
+const count=a.requests.length;a.get('otpResend').onclick();assert.equal(a.requests.length,count);a.advance(61000);assert.equal(a.get('otpResend').disabled,false);a.get('otpResend').onclick();await tick();assert.equal(a.requests.length,count+1);
+a.get('otpBackToLogin').onclick();assert.equal(a.get('emailAddress').readOnly,false);assert.equal(a.get('emailPassword').parent.hidden,false);assert.equal(a.get('resetSentGuide').hidden,true);assert.equal(a.get('emailAddress').value,'member@example.test');a.events.pagehide();assert.equal(a.timers.size,0);
+for(const [field,credential]of [['oobCode','firebase-code-synthetic-123'],['token','a'.repeat(64)]]){
+ const reset=setup('https://sidaps.online/reset-password?'+field+'='+credential);await tick();assert.deepEqual(reset.requests[0],{action:'verify-reset',body:{[field]:credential}});assert.equal(reset.get('emailAddress').value,'member@example.test');assert.equal(reset.get('emailAddress').readOnly,true);assert.equal(reset.get('emailPassword').required,true);assert.equal(reset.get('emailPassword').minLength,8);
+ reset.get('emailPassword').value=reset.get('emailConfirm').value='short';await reset.submit();assert.equal(reset.requests.length,1);
+ reset.get('emailPassword').value='New-Password-83!';reset.get('emailConfirm').value='Different-password';await reset.submit();assert.equal(reset.requests.length,1);
+ reset.get('emailConfirm').value=reset.get('emailPassword').value;reset.fail('Tautan kedaluwarsa');await reset.submit();assert.equal(reset.navigated,0);assert.equal(reset.get('emailAuthMessage').attrs['data-state'],'error');
+ reset.fail(null);await reset.submit();assert.equal(reset.requests.at(-1).action,'confirm-reset');assert.equal(reset.requests.at(-1).body[field],credential);assert.equal(reset.requests.at(-1).body.password,'New-Password-83!');assert.equal(reset.navigated,1);assert.equal(reset.context.location.search,'');
+}
+const expired=setup('https://sidaps.online/reset-password?oobCode=expired-synthetic-code',true);await tick();assert.equal(expired.get('emailAuthMessage').textContent,'Tautan kedaluwarsa');assert.equal(expired.navigated,0);assert.equal(expired.requests.length,1);
+console.log('PASS: actual shells, email reset links, signup/login preservation, delivery failure, resend cooldown, back navigation, Firebase/custom proof, expiry, password validation, retry and successful navigation; no real email.');

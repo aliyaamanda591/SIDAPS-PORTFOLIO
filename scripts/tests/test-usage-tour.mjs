@@ -1,5 +1,6 @@
+import {portfolioHtml} from './helpers/templates.mjs';
 import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
-const raw=fs.readFileSync('lib/portfolio-html.ts','utf8').split('export const portfolioHtml=')[1].trim(),html=JSON.parse(raw.slice(0,-1));
+const html=portfolioHtml;
 const script=html.match(/<script>([\s\S]*?)<\/script>/)[1];const start=script.indexOf('let usageTourStep='),end=script.indexOf('function openUsageGuide(){',start);
 const elements=Object.fromEntries(['usageTourScreen','usageTourTitle','usageTourCaption','usageTourCounter','usageTourProgress','usageTourPlay'].map(id=>[id,{}]));let tick,cleared=0;
 const ctx={window:{},Math,document:{hidden:false,getElementById:id=>elements[id]},setInterval:(fn,delay)=>{assert.equal(delay,4800);tick=fn;return 1;},clearInterval:()=>cleared++};vm.createContext(ctx);const run=s=>vm.runInContext(s,ctx);run(script.slice(start,end));

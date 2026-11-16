@@ -1,8 +1,8 @@
+import {portfolioHtml} from './helpers/templates.mjs';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
-const raw=fs.readFileSync('lib/portfolio-html.ts','utf8');
-const html=JSON.parse(raw.slice(raw.indexOf('=')+1).trim().replace(/;$/,''));
+const html=portfolioHtml;
 const assets=[{name:'BTC INDODAX',kind:'crypto',unit:'BTC',company:'Bitcoin · BTC/IDR · Indodax',qty:0.25,capital:1000,symbol:'indodax:btc_idr'},{name:'SOL INDODAX',kind:'crypto',unit:'SOL',company:'Solana · SOL/IDR · Indodax'},{name:'BMRI',kind:'stock',unit:'lembar',company:'PT Bank Mandiri'}];
 const before=JSON.stringify(assets),ctx={assets,companyFor:a=>a.company};vm.createContext(ctx);
 vm.runInContext(html.slice(html.indexOf('function assetDisplayName('),html.indexOf('function assetLogoHtml(')),ctx);

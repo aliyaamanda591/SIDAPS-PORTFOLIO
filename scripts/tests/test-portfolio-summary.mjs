@@ -1,9 +1,9 @@
+import {portfolioHtml} from './helpers/templates.mjs';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 import {webcrypto} from 'node:crypto';
-const exported=fs.readFileSync('lib/portfolio-html.ts','utf8').split('export const portfolioHtml=')[1].trim();
-const html=JSON.parse(exported.slice(0,-1)),ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+const html=portfolioHtml,ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
 const element=()=>({value:'',innerHTML:'',textContent:'',style:{},required:false,className:'',attrs:{},classList:{add(){},remove(){},contains(){return false},toggle(){}},addEventListener(){},setAttribute(k,v){this.attrs[k]=String(v);},focus(){},remove(){},reset(){},contains(){return false},scrollHeight:800,clientHeight:300,scrollTop:0});
 function boot(bootstrap){
 const context=Object.fromEntries(ids.map(id=>[id,element()]));context.authCanvas.getContext=()=>({});

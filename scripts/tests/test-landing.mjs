@@ -1,8 +1,9 @@
+import {portfolioHtml} from './helpers/templates.mjs';
 import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';import {landingHtml} from '../../lib/landing-html.ts';
 const ids=[...landingHtml.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(ids.length,new Set(ids).size);
 for(const match of landingHtml.matchAll(/href="#([^"]+)"/g))assert.ok(ids.includes(match[1]),'Navigation points to a real section');
 assert.ok(!landingHtml.includes('CLOUD_BOOTSTRAP'));assert.ok(landingHtml.toLowerCase().includes('bukan data pasar'));assert.ok(landingHtml.includes('/?login=1'));
-const appRaw=fs.readFileSync('lib/portfolio-html.ts','utf8').split('export const portfolioHtml=')[1].trim(),appHtml=JSON.parse(appRaw.slice(0,-1));
+const appHtml=portfolioHtml;
 assert.ok(landingHtml.includes('id="marketWatch"'),'Public market watch belongs on landing');assert.ok(landingHtml.includes('/market-status.js'));assert.ok(!appHtml.includes('id="marketWatch"'),'Login has no market board');assert.ok(appHtml.includes('class="auth-brand"'));assert.ok(appHtml.includes('id="emailAuthForm"'));assert.ok(appHtml.includes('Minimal login intentionally has no background animation'),'Desktop login skips animation work, not only its visuals');
 const elements=Object.fromEntries(['demoSymbol','demoName','demoDescription'].map(id=>[id,{}]));const buttons=['stock','crypto','gold'].map(kind=>({dataset:{preview:kind},attrs:{},addEventListener(_,fn){this.click=fn;},setAttribute(k,v){this.attrs[k]=v;}}));
 vm.runInNewContext(fs.readFileSync('public/landing.js','utf8'),{document:{querySelectorAll:()=>buttons,getElementById:id=>elements[id]}});

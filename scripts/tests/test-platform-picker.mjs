@@ -1,7 +1,8 @@
+import {portfolioHtml} from './helpers/templates.mjs';
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
-const source=fs.readFileSync('lib/portfolio-html.ts','utf8'),html=JSON.parse(source.slice(source.indexOf('=')+1).trim().replace(/;$/,''));
+const html=portfolioHtml;
 const catalog=JSON.parse(html.match(/const PLATFORM_CATALOG=(\[.*?\]);/)[1]),values=catalog.flatMap(g=>g.items.map(([value])=>value));
 assert.equal(values.length,168);assert.equal(new Set(values).size,values.length);
 for(const name of ['GROWIN','STOCKBIT','IPOT','AJAIB','INDODAX','BIONS','HOTS','MOTIONTRADE','BRIGHTS','SIMINVEST','BEST','POEMS','RHB TRADESMART'])assert.ok(values.includes(name),name+' available');
