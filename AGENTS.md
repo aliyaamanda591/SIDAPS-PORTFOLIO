@@ -20,6 +20,7 @@ Teknologi: TypeScript, Vinext/Vite, route Next.js, Cloudflare Worker + D1. Root 
 | Route API | `app/api/{auth/[action],state,admin/accounts,prices/[source],market-board}/route.ts` |
 | Halaman reset | `app/reset-password/route.ts` |
 | Landing | `lib/landing-html.ts` → `lib/landing/{head,hero,market-before,features,tutorial-faq-footer}.ts` |
+| Smartphone hero / warna penutup | `lib/landing/hero.ts`, `public/landing-phones.css`, `public/landing-phones/`; PNG pengguna dipertahankan asli |
 | Login | `lib/login-html.ts` → `lib/login/{head,backdrop,auth-card,auth-script}.ts` |
 | Perangkai dashboard | `lib/portfolio-html.ts`; urutan concatenation/scope script wajib dipertahankan |
 | Struktur dashboard/form/akun | `lib/portfolio/views/{shell-dashboard,transactions-assets,developer-footer}.ts` |

@@ -1,0 +1,10 @@
+# Smartphone melayang pada landing
+
+- Struktur: `lib/landing/hero.ts`; stylesheet terbatas landing: `public/landing-phones.css`, dimuat setelah lapisan tema melalui `lib/landing/head.ts`.
+- Dua screenshot pengguna disalin byte-for-byte ke `public/landing-phones/dashboard-light.png` (488×907, 90.717 byte) dan `dashboard-dark.png` (481×906, 90.153 byte). Tidak di-resize, digambar ulang, digabung, dikompresi ulang, atau diganti gambar AI. Ilustrasi showcase gabungan hanya referensi komposisi dan tidak diunggah sebagai aset.
+- Bingkai tipis dan kemiringan memakai CSS. Inner wrapper hanya translateY, outer wrapper menjaga sudut tetap. Durasi 7,8 dan 9,4 detik dengan fase berbeda; amplitudo 13px desktop dan 8px HP. Shadow statis, tanpa canvas/render-loop/library baru.
+- Animasi otomatis berulang; pause saat hero di luar viewport atau tab tersembunyi mengikuti mekanisme landing yang sudah ada. `prefers-reduced-motion: reduce` mematikan gerakan. Dimensi intrinsik gambar dicantumkan untuk menghindari layout shift; gambar tidak diperbesar melewati ukuran sumber.
+- Contoh dashboard interaktif lama dipertahankan dalam disclosure “Lihat contoh dashboard interaktif” di bawah hero/strip aset. ID, kategori, grafik dan event handler tidak diganti; bukan halaman demo baru.
+- Referensi Google AI Studio dilihat melalui pratinjau pengguna: diambil perubahan kecil berupa penutup Emerald–Gold, pesan nyaman dipakai di HP/laptop, dan CTA demo tambahan. Tidak menyalin proyek lain atau mengganti tutorial/backend/autentikasi.
+- Uji browser: 320, 360, 375, 390, 430, 768, 1024, 1440 px tanpa overflow body; dua aset berhasil dimuat. Timing animasi berbeda/running; membuka contoh lama dan memilih Kripto masih menghasilkan angka kategori yang sesuai. Aturan reduced-motion diverifikasi pada stylesheet dan regresi.
+- Regresi `scripts/tests/test-landing.mjs` mengunci hash screenshot sumber dan mempertahankan contoh interaktif. Source aplikasi akun, database, auth, API, transaksi dan dashboard privat tidak disentuh.

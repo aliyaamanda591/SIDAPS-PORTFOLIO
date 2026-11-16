@@ -107,7 +107,7 @@ export const landingTutorialFaqFooterHtml = `<section class="how-section" id="ca
 </section>
 <section class="closing wrap"><span class="eyebrow">PERJALANANMU, CATATANMU</span>
 <h2>Langkah berikutnya<br>dimulai dari catatan pertama.</h2>
-<p>Beri ruang untuk melihat portofoliomu dengan lebih jelas.</p><a class="button cream" href="https://sidaps.online/?login=1">Buka Sidaps Portfolio <span aria-hidden="true">↗</span></a><span class="closing-orbit" aria-hidden="true"></span>
+<p>Catat dari HP di perjalanan, lanjutkan evaluasi dari laptop di rumah.</p><a class="button cream" href="https://sidaps.online/?login=1">Buka Sidaps Portfolio <span aria-hidden="true">↗</span></a><a class="closing-demo" href="https://sidaps.online/?demo=1">Coba demo tanpa daftar ↗</a><span class="closing-orbit" aria-hidden="true"></span>
 </section>
 </main>
 <footer class="wrap"><a class="brand" href="?view=landing"><img src="/sidaps-mark.svg" width="32" height="32" alt=""><span>sidaps<span class="brand-sub">PORTFOLIO</span></span></a>

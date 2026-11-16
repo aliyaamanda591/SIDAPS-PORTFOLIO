@@ -1,0 +1,35 @@
+/* Two independent user-supplied screenshots. All selectors stay on the public landing. */
+#sidaps-portfolio .landing-page .hero-phones{position:relative;isolation:isolate;width:100%;max-width:500px;aspect-ratio:1/1.12;margin:auto;min-width:0}
+#sidaps-portfolio .landing-page .hero-phone{position:absolute;width:44%;margin:0;transform-origin:center;z-index:1}
+#sidaps-portfolio .landing-page .phone-light{left:7%;top:4%;transform:rotate(-9deg)}
+#sidaps-portfolio .landing-page .phone-dark{right:7%;top:15%;transform:rotate(8deg);z-index:2}
+#sidaps-portfolio .landing-page .phone-float{animation:sidaps-phone-float 7.8s ease-in-out infinite;will-change:transform}
+#sidaps-portfolio .landing-page .phone-dark .phone-float{animation-duration:9.4s;animation-delay:-3.2s}
+#sidaps-portfolio .landing-page .phone-device{padding:5px;border:1px solid #b7c7b58c;border-radius:26px;background:linear-gradient(145deg,#c9d2c1,#243b30 18%,#081a12 68%,#879b88);box-shadow:0 22px 34px #0007,0 2px 4px #0006,inset 0 0 0 2px #12251c}
+#sidaps-portfolio .landing-page .phone-device img{display:block;width:100%;height:auto;max-width:100%;border-radius:20px;image-rendering:auto;background:#0b2519}
+#sidaps-portfolio .landing-page .phone-aura{position:absolute;inset:8% -2% 6%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse,#89aa6d24,transparent 66%);border-radius:50%}
+#sidaps-portfolio .landing-page .phone-caption{position:absolute;bottom:0;left:0;right:0;margin:0;text-align:center;font-size:12px!important;line-height:1.6!important;color:#e4d4a6!important}
+#sidaps-portfolio .landing-page .phone-caption span{display:block;font-size:10px;color:#c2d4c8;margin-top:3px}
+@keyframes sidaps-phone-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
+#sidaps-portfolio .landing-page .premium-hero.motion-offscreen .phone-float,
+#sidaps-portfolio.landing-motion-paused .landing-page .phone-float{animation-play-state:paused}
+#sidaps-portfolio .landing-page .hero-example-section{margin-top:0;margin-bottom:24px}
+#sidaps-portfolio .landing-page .hero-example{border:1px solid #c8dccf;border-radius:14px;background:#f5faf6;overflow:hidden}
+#sidaps-portfolio .landing-page .hero-example>summary{cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 20px;font-size:13px;font-weight:500;color:#214734;list-style:none}
+#sidaps-portfolio .landing-page .hero-example>summary::-webkit-details-marker{display:none}
+#sidaps-portfolio .landing-page .hero-example[open]>summary{border-bottom:1px solid #d6e4da}
+#sidaps-portfolio .landing-page .hero-example .hero-visual{max-width:520px;margin:20px auto;padding:25px 24px 38px}
+#sidaps-portfolio .landing-page .hero-example .visual-orbit{display:none}
+#sidaps-portfolio .landing-page .hero-example .preview{transform:none}
+#sidaps-portfolio .landing-page .hero-example .floating-label{margin-left:auto;font-size:8px}
+#sidaps-portfolio .landing-page .hero-example .floating-card{margin-left:0}
+/* Closing panel follows the same Black Emerald and restrained Gold as the hero. */
+#sidaps-portfolio .landing-page main section.closing.wrap{background:radial-gradient(ellipse at 90% 0,#56764b40,transparent 60%),linear-gradient(125deg,#081e15,#17452e)!important;border:1px solid #536b4166;box-shadow:0 16px 40px #0b2b1712}
+#sidaps-portfolio .landing-page main section.closing.wrap .eyebrow{color:#dfc58d!important}
+#sidaps-portfolio .landing-page .closing-orbit{border-color:#c8ad6226!important}
+#sidaps-portfolio .landing-page .closing .closing-demo{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 18px;margin-left:12px;border:1px solid #baceb15c;border-radius:9px;color:#e9efe7;font-size:13px}
+@media(min-width:901px){#sidaps-portfolio .landing-page .premium-hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;min-height:620px}#sidaps-portfolio .landing-page .hero-phones{min-height:470px}}
+@media(max-width:900px) and (min-width:641px){#sidaps-portfolio .landing-page .premium-hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding-inline:24px}#sidaps-portfolio .landing-page .hero-phones{min-height:350px}.phone-caption span{font-size:9px}}
+@media(max-width:640px){#sidaps-portfolio .landing-page .premium-hero{grid-template-columns:minmax(0,1fr);gap:20px}#sidaps-portfolio .landing-page .hero-phones{max-width:350px;aspect-ratio:1/1.16}#sidaps-portfolio .landing-page .phone-device{padding:4px;border-radius:20px;box-shadow:0 14px 22px #0006}#sidaps-portfolio .landing-page .phone-device img{border-radius:15px}#sidaps-portfolio .landing-page .phone-float{animation-name:sidaps-phone-float-mobile}#sidaps-portfolio .landing-page .phone-caption{font-size:11px!important}#sidaps-portfolio .landing-page .phone-caption span{font-size:9px}#sidaps-portfolio .landing-page .hero-example>summary{padding:14px;font-size:12px}#sidaps-portfolio .landing-page .closing .closing-demo{margin:12px 0 0;display:flex;width:max-content;max-width:100%;margin-inline:auto}}
+@keyframes sidaps-phone-float-mobile{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){#sidaps-portfolio .landing-page .phone-float{animation:none!important;will-change:auto}}

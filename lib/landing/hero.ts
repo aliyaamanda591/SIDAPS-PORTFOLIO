@@ -14,7 +14,19 @@ export const landingHeroHtml = `<a class="skip" href="#utama">Langsung ke isi</a
 </div>
 <div class="hero-note"><span aria-hidden="true">✓</span> Akun pribadi <span class="note-dot">·</span> Mulai dari portofolio kosong</div><a class="demo-entry" href="https://sidaps.online/?demo=1">▷ Coba dashboard tanpa daftar</a>
 </div>
-<div class="hero-visual" aria-label="Ilustrasi dashboard Sidaps, bukan data pengguna atau harga pasar">
+<div class="hero-phones" role="group" aria-label="Dua smartphone Sidaps Portfolio dengan tema terang dan gelap">
+<div class="phone-aura" aria-hidden="true"></div>
+<figure class="hero-phone phone-light"><div class="phone-float"><div class="phone-device"><img src="/landing-phones/dashboard-light.png" width="488" height="907" alt="Tampilan demo Sidaps Portfolio dalam tema terang" decoding="async" fetchpriority="high"></div></div></figure>
+<figure class="hero-phone phone-dark"><div class="phone-float"><div class="phone-device"><img src="/landing-phones/dashboard-dark.png" width="481" height="906" alt="Tampilan demo Sidaps Portfolio dalam tema gelap" decoding="async"></div></div></figure>
+<p class="phone-caption">Satu portofolio. Dua tampilan.<span>Gambar akun demo · bukan data pasar langsung</span></p>
+</div>
+</section>
+<section class="asset-strip wrap" aria-label="Jenis aset yang didukung"><span>SATU CATATAN UNTUK</span>
+<div>◫ Saham Indonesia</div>
+<div>◈ Kripto</div>
+<div>▱ Emas</div><small>Platform berbeda, catatan tetap teratur.</small>
+</section>
+<section class="hero-example-section wrap" aria-label="Contoh dashboard interaktif"><details class="hero-example"><summary>Lihat contoh dashboard interaktif <span aria-hidden="true">＋</span></summary><div class="hero-visual" aria-label="Ilustrasi dashboard Sidaps, bukan data pengguna atau harga pasar">
 <div class="visual-orbit" aria-hidden="true">
 </div>
 <div class="floating-label"><span>◈</span> CATAT. PANTAU. BERTUMBUH.</div>
@@ -57,11 +69,5 @@ export const landingHeroHtml = `<a class="skip" href="#utama">Langsung ke isi</a
 <div><b>Catatanmu, kendalimu.</b><small>Mulai kecil. Catat dengan konsisten.</small>
 </div>
 </div>
-</div>
-</section>
-<section class="asset-strip wrap" aria-label="Jenis aset yang didukung"><span>SATU CATATAN UNTUK</span>
-<div>◫ Saham Indonesia</div>
-<div>◈ Kripto</div>
-<div>▱ Emas</div><small>Platform berbeda, catatan tetap teratur.</small>
-</section>
+</div></details></section>
 `;
