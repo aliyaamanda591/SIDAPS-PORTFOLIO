@@ -119,8 +119,8 @@ export const landingTutorialFaqFooterHtml = `<section class="how-section" id="ca
 </script>
 <script src="/market-board.js?v=20261112-4" defer>
 </script>
-<script src="/landing-demo-data.js?v=1" defer>
+<script src="/landing-demo-data.js?v=2" defer>
 </script>
-<script src="/landing-cinema.js?v=2" defer>
+<script src="/landing-cinema.js?v=3" defer>
 </script>
 </body></html>`;

@@ -16,9 +16,9 @@ export const landingHeroHtml = `<a class="skip" href="#utama">Langsung ke isi</a
 </div>
 <div class="hero-phones" role="group" aria-label="Dua smartphone Sidaps Portfolio dengan tema terang dan gelap">
 <div class="phone-aura" aria-hidden="true"></div>
-<figure class="hero-phone phone-light"><div class="phone-float"><div class="phone-device"><img src="/landing-phones/dashboard-light.png" width="488" height="907" alt="Tampilan demo Sidaps Portfolio dalam tema terang" decoding="async" fetchpriority="high"></div></div></figure>
-<figure class="hero-phone phone-dark"><div class="phone-float"><div class="phone-device"><img src="/landing-phones/dashboard-dark.png" width="481" height="906" alt="Tampilan demo Sidaps Portfolio dalam tema gelap" decoding="async"></div></div></figure>
-<p class="phone-caption">Satu portofolio. Dua tampilan.<span>Gambar akun demo · bukan data pasar langsung</span></p>
+<figure class="hero-phone phone-light"><div class="phone-float"><svg viewBox="430 0 870 940" width="870" height="940" role="img" aria-label="Smartphone Sidaps tema terang, model asli dari gambar referensi"><defs><clipPath id="phone-light-contour"><path d="M 465 118 C 451 69 478 35 526 29 L 754 18 C 798 16 823 37 835 78 L 875 316 L 816 788 L 654 815 C 615 823 584 797 575 757 Z"/></clipPath></defs><image href="/landing-phones/showcase-original.png" x="0" y="0" width="1672" height="941" clip-path="url(#phone-light-contour)"/></svg></div></figure>
+<figure class="hero-phone phone-dark"><div class="phone-float"><svg viewBox="430 0 870 940" width="870" height="940" role="img" aria-label="Smartphone Sidaps tema gelap, model asli dari gambar referensi"><defs><clipPath id="phone-dark-contour"><path d="M 897 153 C 912 110 937 90 977 92 L 1189 101 C 1240 102 1262 133 1255 186 L 1176 834 C 1171 876 1145 900 1104 899 L 872 879 C 832 876 810 853 814 815 Z"/></clipPath></defs><image href="/landing-phones/showcase-original.png" x="0" y="0" width="1672" height="941" clip-path="url(#phone-dark-contour)"/></svg></div></figure>
+<p class="phone-caption">Satu portofolio. Dua tampilan.<span>Gambar akun demo · bukan data pasar langsung</span><a href="/landing-phones/showcase-original.png" target="_blank" rel="noopener">Lihat gambar asli ukuran penuh ↗</a></p>
 </div>
 </section>
 <section class="asset-strip wrap" aria-label="Jenis aset yang didukung"><span>SATU CATATAN UNTUK</span>
@@ -26,7 +26,7 @@ export const landingHeroHtml = `<a class="skip" href="#utama">Langsung ke isi</a
 <div>◈ Kripto</div>
 <div>▱ Emas</div><small>Platform berbeda, catatan tetap teratur.</small>
 </section>
-<section class="hero-example-section wrap" aria-label="Contoh dashboard interaktif"><details class="hero-example"><summary>Lihat contoh dashboard interaktif <span aria-hidden="true">＋</span></summary><div class="hero-visual" aria-label="Ilustrasi dashboard Sidaps, bukan data pengguna atau harga pasar">
+<section class="hero-example-section wrap" aria-labelledby="interactiveExampleTitle"><div class="hero-example-intro"><span class="eyebrow">COBA LANGSUNG DI SINI</span><h2 id="interactiveExampleTitle">Sentuh asetnya.<br>Kenali cara kerjanya.</h2><p>Pilih Saham, Kripto, atau Emas. Ringkasan, grafik, dan rincian aset akan berubah mengikuti pilihanmu.</p><div class="example-category-icons"><img src="/logos/stocks/BBCA.svg" width="36" height="36" alt="Saham BBCA"><img src="/demo-icons/btc.png" width="36" height="36" alt="Bitcoin"><img src="/demo-icons/gold24.svg" width="36" height="36" alt="Emas"></div><p class="example-note">Semua angka di sini adalah simulasi. Kamu bisa mencoba tanpa mengubah data akun.</p><a class="button primary" href="https://sidaps.online/?demo=1">Coba dashboard lengkap ↗</a></div><div class="hero-example"><div class="hero-visual" aria-label="Ilustrasi dashboard Sidaps, bukan data pengguna atau harga pasar">
 <div class="visual-orbit" aria-hidden="true">
 </div>
 <div class="floating-label"><span>◈</span> CATAT. PANTAU. BERTUMBUH.</div>
@@ -69,5 +69,5 @@ export const landingHeroHtml = `<a class="skip" href="#utama">Langsung ke isi</a
 <div><b>Catatanmu, kendalimu.</b><small>Mulai kecil. Catat dengan konsisten.</small>
 </div>
 </div>
-</div></details></section>
+</div></div></section>
 `;

@@ -10,7 +10,7 @@ import {portfolioHtml,loginHtml,landingHtml} from './helpers/templates.mjs';
 process.chdir(fileURLToPath(new URL('../../',import.meta.url)));
 let references=0,inlineScripts=0;
 for(const html of [portfolioHtml,loginHtml,landingHtml]){
- for(const match of html.matchAll(/<(?:script|link|img)\b[^>]*?\b(?:src|href)="(\/[^"<>]+)"/g)){
+ for(const match of html.matchAll(/<(?:script|link|img|image)\b[^>]*?\b(?:src|href)="(\/[^"<>]+)"/g)){
   const url=match[1].split(/[?#]/)[0];
   if(url.startsWith('//')||url.includes('$')||url.includes("'"))continue;
   assert.ok(fs.existsSync(path.join('public',decodeURIComponent(url))),'Missing public asset: '+url);

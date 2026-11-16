@@ -5,12 +5,17 @@ const ids=[...landingHtml.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal
 const phoneCss=fs.readFileSync('public/landing-phones.css','utf8');
 assert.equal((landingHtml.match(/class="hero-phone /g)||[]).length,2);
 for(const [name,hash]of [['dashboard-light.png','39dd2e61a1cf6c3fa0440c101646b6d5b9a09471bba34b8460361469d5b20e12'],['dashboard-dark.png','3e17610c3f19eca1abd44dd686f2ffaafd8a8a73486ec29887af5f05d24d451e']]){
- assert.ok(landingHtml.includes('/landing-phones/'+name));
+ assert.ok(fs.existsSync('public/landing-phones/'+name));
  assert.equal(createHash('sha256').update(fs.readFileSync('public/landing-phones/'+name)).digest('hex'),hash,'User screenshot is unchanged, not redrawn or recompressed');
 }
 assert.match(phoneCss,/7\.8s ease-in-out infinite/);assert.match(phoneCss,/animation-duration:9\.4s;animation-delay:-3\.2s/);
 assert.match(phoneCss,/@media\(prefers-reduced-motion:reduce\)/);assert.match(phoneCss,/animation:none!important/);
 assert.ok(landingHtml.includes('class="hero-example"'),'Interactive example remains accessible');
+assert.ok(!landingHtml.includes('<details class="hero-example"'),'Example is always visible, never collapsed');
+assert.equal((landingHtml.match(/clip-path="url\(#phone-/g)||[]).length,2,'Original phones are two independently animated clipped layers');
+assert.equal(createHash('sha256').update(fs.readFileSync('public/landing-phones/showcase-original.png')).digest('hex'),'65468e46968b282b274715432e89cc5eab09049aec711986e627c7a52d8919e8');
+const samplesContext={window:{}};vm.runInNewContext(fs.readFileSync('public/landing-demo-data.js','utf8'),samplesContext);
+for(const sample of samplesContext.window.SidapsDemoSamples)for(const asset of sample.assets){assert.ok(asset.logo&&asset.logo.startsWith('/'));assert.ok(fs.existsSync('public'+asset.logo),'Every example asset has a working local logo');}
 assert.ok(landingHtml.includes('class="closing-demo"'),'Closing provides the reference demo action');
 for(const match of landingHtml.matchAll(/href="#([^"]+)"/g))assert.ok(ids.includes(match[1]),'Navigation points to a real section');
 assert.ok(!landingHtml.includes('CLOUD_BOOTSTRAP'));assert.ok(landingHtml.toLowerCase().includes('bukan data pasar'));assert.ok(landingHtml.includes('/?login=1'));

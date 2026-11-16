@@ -26,7 +26,7 @@ export const landingHeadHtml = `<!doctype html><html id="sidaps-portfolio" lang=
 <link rel="stylesheet" href="/landing-cinema.css?v=2">
 <link rel="stylesheet" href="/demo-mode.css?v=1">
 <link rel="stylesheet" href="/emerald-gold.css?v=2">
-<link rel="stylesheet" href="/landing-phones.css?v=1">
+<link rel="stylesheet" href="/landing-phones.css?v=2">
 <style>
 html body.landing-page main section.closing.wrap h2{color:#fff7e0!important;-webkit-text-fill-color:#fff7e0!important;background:none!important;text-shadow:0 2px 18px rgba(0,0,0,.35)}
 html body.landing-page main section.closing.wrap p{color:#e3e9f0!important}

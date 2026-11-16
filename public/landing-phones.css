@@ -1,4 +1,4 @@
-/* Two independent user-supplied screenshots. All selectors stay on the public landing. */
+/* Two independent reference-model layers. All selectors stay on the public landing. */
 #sidaps-portfolio .landing-page .hero-phones{position:relative;isolation:isolate;width:100%;max-width:500px;aspect-ratio:1/1.12;margin:auto;min-width:0}
 #sidaps-portfolio .landing-page .hero-phone{position:absolute;width:44%;margin:0;transform-origin:center;z-index:1}
 #sidaps-portfolio .landing-page .phone-light{left:7%;top:4%;transform:rotate(-9deg)}
@@ -33,3 +33,24 @@
 @media(max-width:640px){#sidaps-portfolio .landing-page .premium-hero{grid-template-columns:minmax(0,1fr);gap:20px}#sidaps-portfolio .landing-page .hero-phones{max-width:350px;aspect-ratio:1/1.16}#sidaps-portfolio .landing-page .phone-device{padding:4px;border-radius:20px;box-shadow:0 14px 22px #0006}#sidaps-portfolio .landing-page .phone-device img{border-radius:15px}#sidaps-portfolio .landing-page .phone-float{animation-name:sidaps-phone-float-mobile}#sidaps-portfolio .landing-page .phone-caption{font-size:11px!important}#sidaps-portfolio .landing-page .phone-caption span{font-size:9px}#sidaps-portfolio .landing-page .hero-example>summary{padding:14px;font-size:12px}#sidaps-portfolio .landing-page .closing .closing-demo{margin:12px 0 0;display:flex;width:max-content;max-width:100%;margin-inline:auto}}
 @keyframes sidaps-phone-float-mobile{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
 @media(prefers-reduced-motion:reduce){#sidaps-portfolio .landing-page .phone-float{animation:none!important;will-change:auto}}
+/* Reference-model revision: original raster pixels, individually clipped by SVG. */
+#sidaps-portfolio .landing-page .hero-phones{max-width:600px;aspect-ratio:870/1060;min-height:0}
+#sidaps-portfolio .landing-page .hero-phone{inset:0;width:100%;height:calc(100% - 76px);transform:none;pointer-events:none}
+#sidaps-portfolio .landing-page .phone-float{height:100%;will-change:auto}
+#sidaps-portfolio .landing-page .hero-phone svg{display:block;width:100%;height:100%;overflow:visible}
+#sidaps-portfolio .landing-page .phone-caption a{display:inline-block;margin-top:7px;color:#f1dfad;text-decoration:underline;text-underline-offset:4px;font-size:11px;pointer-events:auto}
+#sidaps-portfolio .landing-page .hero-example-section{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:48px;align-items:center;margin-top:38px;margin-bottom:42px}
+#sidaps-portfolio .landing-page .hero-example{overflow:visible;border:0;background:transparent}
+#sidaps-portfolio .landing-page .hero-example-intro h2{font-size:clamp(25px,3vw,39px);line-height:1.2;letter-spacing:-1px;color:#173d2b;margin:18px 0}
+#sidaps-portfolio .landing-page .hero-example-intro>p{font-size:14px;line-height:1.8;color:#526c5c;max-width:370px}
+#sidaps-portfolio .landing-page .example-category-icons{display:flex;gap:12px;align-items:center;margin:22px 0}
+#sidaps-portfolio .landing-page .example-category-icons img{border-radius:12px;object-fit:contain;background:#fff;box-shadow:0 3px 12px #133d2010;padding:4px}
+#sidaps-portfolio .landing-page .hero-example-intro .example-note{font-size:12px;color:#6b7e6e}
+#sidaps-portfolio .landing-page .hero-example .hero-visual{margin:0 auto;padding:18px 0 38px;max-width:490px}
+#sidaps-portfolio .landing-page .hero-example .floating-label{font-size:8px;letter-spacing:.5px}
+#sidaps-portfolio .landing-page .asset-symbol>img{width:28px;height:28px;object-fit:contain}
+@media(min-width:901px){#sidaps-portfolio .landing-page .premium-hero{grid-template-columns:minmax(0,.95fr) minmax(0,1.15fr)}#sidaps-portfolio .landing-page .hero-phones{min-height:0}}
+@media(max-width:900px) and (min-width:641px){#sidaps-portfolio .landing-page .hero-phones{min-height:370px}}
+@media(max-width:640px){#sidaps-portfolio .landing-page .hero-phones{max-width:390px;aspect-ratio:870/1120;min-height:0}#sidaps-portfolio .landing-page .hero-example-section{grid-template-columns:minmax(0,1fr);gap:20px;margin-top:24px;margin-bottom:30px}#sidaps-portfolio .landing-page .hero-example-intro>p{font-size:13px}#sidaps-portfolio .landing-page .hero-example .preview{padding:16px}#sidaps-portfolio .landing-page .hero-example .floating-label{font-size:7px}}
+
+#sidaps-portfolio .landing-page .hero-example .preview-asset .asset-symbol{display:grid!important;place-items:center;width:36px;height:36px;flex:none;background:#fff;border:1px solid #e3e9e1;border-radius:10px}
