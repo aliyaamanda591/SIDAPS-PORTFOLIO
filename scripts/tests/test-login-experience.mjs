@@ -35,5 +35,5 @@ a.context.document.hidden=true;a.events.visibilitychange();assert.equal(a.body.a
 const success=reduced.context.SidapsLoginExperience.authenticated();await success;assert.equal(reduced.calls.reload,1);await reduced.context.SidapsLoginExperience.authenticated();assert.equal(reduced.calls.reload,1,'Success cannot navigate twice');
 const failure=setup();const pendingFailure=failure.form.onsubmit(event);failure.calls.resolveEmail();await pendingFailure;assert.equal(failure.body.attrs['data-auth-busy'],undefined,'Completion restores controls without replacing auth error handling');
 const ids=[...loginHtml.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(ids.length,new Set(ids).size);
-assert.ok(loginHtml.includes('else if(window.SidapsLoginExperience)await window.SidapsLoginExperience.authenticated();else location.reload();'));
+assert.ok(fs.readFileSync('public/firebase-auth.js','utf8').includes('if(window.SidapsLoginExperience)await window.SidapsLoginExperience.authenticated();else location.reload();'));
 console.log('PASS: every-load/refresh/BFCache replay despite old session flag, original logo, decorative 12-candle reveal, <30KB HTML, reduced motion, skip/watchdog/no-JS fallback, no API/render loop, duplicate-submit and Google/email race protection, mode transitions, background pause and success navigation.');

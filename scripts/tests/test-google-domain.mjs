@@ -1,10 +1,3 @@
-import fs from 'node:fs';import vm from 'node:vm';import assert from 'node:assert/strict';
-const nodes=new Map(),get=id=>{if(!nodes.has(id))nodes.set(id,{disabled:false,textContent:'',hidden:true,attrs:{},setAttribute(k,v){this.attrs[k]=v;}});return nodes.get(id);};
-let domains=['sidaps-portfolio.sidaps.workers.dev'],outage=false,popupCalls=0;
-const context={AbortSignal,FIREBASE_WEB_CONFIG:{apiKey:'public-fixture-key'},location:{hostname:'sidaps-portfolio.sidaps.workers.dev'},getAuth:()=>({}),document:{getElementById:get},cloudNativeFetch:async url=>{assert.ok(url.startsWith('https://identitytoolkit.googleapis.com/v1/projects?key='));if(outage)throw Error('offline');return {ok:true,json:async()=>({authorizedDomains:domains})};}};
-vm.createContext(context);vm.runInContext(fs.readFileSync('lib/google-auth-client.js','utf8'),context);vm.runInContext("firebaseGoogleSdk={auth:{},provider:{},authSdk:{signInWithPopup:async()=>{throw {code:'auth/unauthorized-domain'};},signOut:async()=>{}}}",context);
-await vm.runInContext('googleSignIn()',context);assert.match(get('googleAuthMessage').textContent,/sudah aktif/);assert.equal(get('googleAuthHelp').hidden,false);assert.equal(get('googleSignInButton').disabled,false);
-domains=[];await vm.runInContext('googleSignIn()',context);assert.match(get('googleAuthMessage').textContent,/alamat resmi/);
-outage=true;await vm.runInContext('googleSignIn()',context);assert.match(get('googleAuthMessage').textContent,/alamat resmi/);assert.equal(get('googleSignInButton').disabled,false);
-const s=fs.readFileSync('lib/login-html.ts','utf8'),h=JSON.parse(s.slice(s.indexOf('=')+1).trim().slice(0,-1));assert.ok(h.includes('id="googleAuthHelp"'));assert.ok(h.includes('https://sidaps-portfolio.sidaps.workers.dev/?login=1'));assert.ok(h.includes('/login-refinement.css?v=1'));assert.ok(h.includes('showGoogleDomainRecovery'));
-console.log('PASS: live-domain recheck, stale SDK recovery guidance, wrong-domain official link, network failure, retry release and consistent generated login.');
+import assert from 'node:assert/strict';import fs from 'node:fs';import {loginHtml} from '../../lib/login-html.ts';
+const client=fs.readFileSync('public/firebase-auth.js','utf8');assert.ok(client.includes("'auth/unauthorized-domain'"));assert.ok(client.includes('Alamat website belum diizinkan di Firebase Authentication.'));assert.ok(client.includes("/api/auth/config"));assert.ok(!client.includes('prompt:'));assert.ok(loginHtml.includes('id="googleAuthHelp"'));assert.ok(loginHtml.includes('https://sidaps-portfolio.sidaps.workers.dev/?login=1'));
+console.log('PASS: native Firebase domain error guidance, centralized web config, official login help and unforced Google chooser.');

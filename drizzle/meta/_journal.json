@@ -29,6 +29,13 @@
       "when": 1794711529308,
       "tag": "0003_absent_abomination",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1794718098604,
+      "tag": "0004_unusual_loki",
+      "breakpoints": true
     }
   ]
 }

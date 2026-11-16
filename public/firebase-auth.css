@@ -1,0 +1,12 @@
+#firebaseVerification[hidden],#emailAuthForm[hidden]{display:none!important}
+.firebase-verification{padding:14px 0;color:inherit}
+.firebase-verification h2{font-size:20px;line-height:1.3;margin:0 0 12px}
+.firebase-verification p{font-size:13px;line-height:1.65;overflow-wrap:anywhere}
+.firebase-verification button{width:100%;min-height:44px;margin-top:10px;white-space:normal}
+.firebase-legacy-help{display:block;margin:12px auto 0;border:0;background:transparent;color:inherit;font:inherit;font-size:12px;text-decoration:underline;text-underline-offset:3px;line-height:1.6;padding:8px;cursor:pointer}
+.firebase-legacy-help[hidden]{display:none!important}
+[data-auth-mode=recover] .login-recovery-link{display:none}
+#emailAuthMessage[data-state=error],#googleAuthMessage[data-state=error]{color:#b43e52!important}
+[data-sidaps-theme=dark] #emailAuthMessage[data-state=error],[data-sidaps-theme=dark] #googleAuthMessage[data-state=error]{color:#efa3b2!important}
+#emailAuthMessage[data-state=success]{color:#368064!important}
+[data-sidaps-theme=dark] #emailAuthMessage[data-state=success]{color:#b0d4bd!important}

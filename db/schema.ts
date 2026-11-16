@@ -1,7 +1,7 @@
 // Intentionally empty by default.
 // Add Drizzle tables here when the site actually needs a database.
 // See examples/d1/db/schema.ts for an opt-in example.
-import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { integer, sqliteTable, text, primaryKey, uniqueIndex } from "drizzle-orm/sqlite-core";
 
 export const accounts = sqliteTable("accounts", {
   userId: text("user_id").primaryKey(),
@@ -55,3 +55,10 @@ export const passwordResetOtps = sqliteTable("password_reset_otps", {
   expiresAt: integer("expires_at").notNull(),
   ready: integer("ready").notNull().default(0),
 });
+
+export const firebaseAccounts = sqliteTable("firebase_accounts", {
+  projectId: text("project_id").notNull(),
+  firebaseUid: text("firebase_uid").notNull(),
+  userId: text("user_id").notNull().references(() => accounts.userId),
+  createdAt: text("created_at").notNull(),
+}, table => [primaryKey({columns:[table.projectId,table.firebaseUid]}),uniqueIndex("firebase_accounts_user_project_unique").on(table.projectId,table.userId)]);

@@ -1,7 +1,8 @@
 import { createRemoteJWKSet, jwtVerify, type JWTVerifyGetKey } from 'jose';
 import { safeGooglePhoto } from './profile-photo.js';
+import defaults from '../config/firebase.web.json' with {type:'json'};
 
-export const FIREBASE_PROJECT_ID='sidaps-portfolio';
+export const FIREBASE_PROJECT_ID=defaults.projectId;
 const googleKeys=createRemoteJWKSet(new URL('https://www.googleapis.com/service_accounts/v1/jwk/securetoken@system.gserviceaccount.com'),{timeoutDuration:6500,cacheMaxAge:3600000,cooldownDuration:30000});
 export type GoogleIdentity={uid:string;email:string;displayName:string;photoURL?:string};
 
