@@ -1,7 +1,7 @@
 export const landingHeroHtml = `<a class="skip" href="#utama">Langsung ke isi</a>
 <header class="site-header"><a class="brand" href="?view=landing" aria-label="Sidaps Portfolio beranda"><img src="/sidaps-mark.svg" width="39" height="39" alt=""><span>sidaps<span class="brand-sub">PORTFOLIO</span></span></a>
 <nav aria-label="Navigasi utama"><a href="#pasar">Pasar</a><a href="#fitur">Fitur</a><a href="#cara">Cara pakai</a><a href="#privasi">Privasi</a><a href="#faq">FAQ</a>
-</nav><a class="nav-login" href="/?login=1">Masuk <span aria-hidden="true">↗</span></a>
+</nav><a class="nav-login" href="https://sidaps.online/?login=1">Masuk <span aria-hidden="true">↗</span></a>
 </header>
 <main id="utama">
 <section class="hero wrap premium-hero">
@@ -10,9 +10,9 @@ export const landingHeroHtml = `<a class="skip" href="#utama">Langsung ke isi</a
 </h1>
 <p class="intro">Saham, kripto, dan emas punya tempatnya masing-masing. Sekarang, semua catatannya punya satu rumah.</p>
 <p class="hero-detail">Kenali modalmu, pantau nilai aset, dan lihat hasil perjalanan investasimu dengan lebih jelas.</p>
-<div class="hero-buttons"><a class="button primary" href="/?login=1">Mulai portofoliomu <span aria-hidden="true">↗</span></a><a class="text-link" href="#tutorial" data-watch-tutorial><span class="play">▶</span> Lihat cara kerjanya</a>
+<div class="hero-buttons"><a class="button primary" href="https://sidaps.online/?login=1">Mulai portofoliomu <span aria-hidden="true">↗</span></a><a class="text-link" href="#tutorial" data-watch-tutorial><span class="play">▶</span> Lihat cara kerjanya</a>
 </div>
-<div class="hero-note"><span aria-hidden="true">✓</span> Akun pribadi <span class="note-dot">·</span> Mulai dari portofolio kosong</div><a class="demo-entry" href="/?demo=1">▷ Coba dashboard tanpa daftar</a>
+<div class="hero-note"><span aria-hidden="true">✓</span> Akun pribadi <span class="note-dot">·</span> Mulai dari portofolio kosong</div><a class="demo-entry" href="https://sidaps.online/?demo=1">▷ Coba dashboard tanpa daftar</a>
 </div>
 <div class="hero-visual" aria-label="Ilustrasi dashboard Sidaps, bukan data pengguna atau harga pasar">
 <div class="visual-orbit" aria-hidden="true">

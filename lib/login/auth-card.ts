@@ -49,10 +49,10 @@ export const loginAuthCardHtml = `<section class="authcard" aria-labelledby="aut
 <path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8A9.6 9.6 0 0 0 12 2a10 10 0 0 0-9 5.6l3.3 2.5C7.1 7.7 9.4 5.9 12 5.9z"/></svg><span id="googleSignInText">Memuat login Google…</span></button>
 <p id="googleAuthMessage" class="google-auth-message" role="status" aria-live="polite">
 </p>
-<div id="googleAuthHelp" class="google-auth-help" hidden><button type="button" onclick="location.reload()">Muat ulang halaman</button><a href="https://sidaps-portfolio.sidaps.workers.dev/?login=1" target="_top">Buka alamat resmi ↗</a>
+<div id="googleAuthHelp" class="google-auth-help" hidden><button type="button" onclick="location.reload()">Muat ulang halaman</button><a href="https://sidaps.online/?login=1" target="_top">Buka alamat resmi ↗</a>
 </div>
 <div class="email-auth-links"><span class="new-account-hint">Belum punya akun?</span><button type="button" onclick="cloudAuthSetMode('login')">Masuk</button><button type="button" onclick="cloudAuthSetMode('register')">Daftar</button>
-</div><a class="demo-entry" href="/?demo=1">▷ Coba demo tanpa daftar</a>
+</div><a class="demo-entry" href="https://sidaps.online/?demo=1">▷ Coba demo tanpa daftar</a>
 <p class="signup-privacy" id="registerSecurityNote" hidden>Gunakan kata sandi minimal 8 karakter. Jika lupa kata sandi, kamu bisa meresetnya kapan saja lewat tautan yang dikirim ke emailmu. Portofolio setiap pengguna bersifat pribadi.</p>
 </div>
 </section>

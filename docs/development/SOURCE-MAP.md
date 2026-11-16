@@ -4,6 +4,8 @@ Peta modul terverifikasi 16 November 2026. Panduan awal yang lebih ringkas ada d
 
 ## Modul hasil pemecahan
 
+Domain/SEO: `lib/canonical-url.ts` berisi domain resmi dan redirect; `worker/index.ts` memeriksanya sebelum routing/binding. `vite.config.ts` memakai `assets.run_worker_first` agar aset pada domain lama ikut dialihkan. Aset di domain utama/lokal tetap dilayani melalui binding ASSETS. `lib/site-seo.ts` menyimpan identitas publik, title, description dan JSON-LD yang dipakai landing dan metadata layout. Dokumen crawl statis: `public/robots.txt` dan `public/sitemap.xml`. Rincian: `DOMAIN-SEO.md`.
+
 | Perangkai | Modul yang dirangkai |
 | --- | --- |
 | `lib/landing-html.ts` | `lib/landing/{head,hero,market-before,features,tutorial-faq-footer}.ts` dan `lib/market-board-html.js` |

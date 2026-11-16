@@ -4,7 +4,7 @@ export const landingTutorialFaqFooterHtml = `<section class="how-section" id="ca
 <h2>Mulai dari satu aset.<br>Lanjutkan dengan kebiasaan.</h2>
 <p class="section-intro">Lihat caranya dari awal. Ikuti kursor, lalu mulai dengan aset pilihanmu.</p>
 <div class="how-chapters" role="group" aria-label="Bab tutorial"><button type="button" data-how-step="0" aria-pressed="true"><span>01</span> Buat akun</button><button type="button" data-how-step="1" aria-pressed="false"><span>02</span> Catat aset</button><button type="button" data-how-step="2" aria-pressed="false"><span>03</span> Pantau</button>
-</div><a class="button primary" href="/?login=1">Mulai mencatat <span aria-hidden="true">↗</span></a>
+</div><a class="button primary" href="https://sidaps.online/?login=1">Mulai mencatat <span aria-hidden="true">↗</span></a>
 <details class="how-reading">
 <summary>Baca langkah lengkap</summary>
 <ol class="steps">
@@ -107,11 +107,11 @@ export const landingTutorialFaqFooterHtml = `<section class="how-section" id="ca
 </section>
 <section class="closing wrap"><span class="eyebrow">PERJALANANMU, CATATANMU</span>
 <h2>Langkah berikutnya<br>dimulai dari catatan pertama.</h2>
-<p>Beri ruang untuk melihat portofoliomu dengan lebih jelas.</p><a class="button cream" href="/?login=1">Buka Sidaps Portfolio <span aria-hidden="true">↗</span></a><span class="closing-orbit" aria-hidden="true"></span>
+<p>Beri ruang untuk melihat portofoliomu dengan lebih jelas.</p><a class="button cream" href="https://sidaps.online/?login=1">Buka Sidaps Portfolio <span aria-hidden="true">↗</span></a><span class="closing-orbit" aria-hidden="true"></span>
 </section>
 </main>
 <footer class="wrap"><a class="brand" href="?view=landing"><img src="/sidaps-mark.svg" width="32" height="32" alt=""><span>sidaps<span class="brand-sub">PORTFOLIO</span></span></a>
-<p>Catat hari ini. Pahami perjalananmu.</p><a href="/?login=1">Masuk ke akun ↗</a><small>Sidaps Portfolio adalah alat pencatatan, bukan penyedia transaksi atau rekomendasi investasi.</small>
+<p>Catat hari ini. Pahami perjalananmu.</p><a href="https://sidaps.online/?login=1">Masuk ke akun ↗</a><small>Sidaps Portfolio adalah alat pencatatan, bukan penyedia transaksi atau rekomendasi investasi.</small>
 </footer>
 <script src="/landing.js?v=3" defer>
 </script>

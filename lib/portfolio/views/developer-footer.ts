@@ -134,7 +134,7 @@ export const portfolioDeveloperFooterHtml = `<section id="developer" class="pane
 <div id="accountDirectoryRoot">
 <div class="card">
 <h3>Daftar anggota</h3>
-<p class="muted">Daftar pengguna hanya tersedia di website yang dihosting. Masuk memakai akun pemilik situs agar menu ini dapat memuat data pendaftaran.</p><a class="btn primary directory-link" href="https://catatan-investasi-denny.fruityhen1.chatgpt.site/" target="_blank" rel="noopener">Buka website online</a>
+<p class="muted">Daftar pengguna hanya tersedia di website yang dihosting. Masuk memakai akun pemilik situs agar menu ini dapat memuat data pendaftaran.</p><a class="btn primary directory-link" href="https://sidaps.online/" target="_blank" rel="noopener">Buka website online</a>
 </div>
 </div>
 </div>

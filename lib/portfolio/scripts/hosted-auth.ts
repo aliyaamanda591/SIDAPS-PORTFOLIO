@@ -187,7 +187,7 @@ document.getElementById('cloudPasswordForm').onsubmit=async e=>{e.preventDefault
 updateCloudPasswordForm();
 
 const FIREBASE_WEB_CONFIG={"apiKey":"AIzaSyBoiv_DYguZua_-0Ls43mEqYAMXsVDWmcg","authDomain":"sidaps-portfolio.firebaseapp.com","projectId":"sidaps-portfolio","storageBucket":"sidaps-portfolio.firebasestorage.app","messagingSenderId":"810538821573","appId":"1:810538821573:web:0fb00cdb12304c54d94dac"};
-function correctGoogleLoginOrigin(){if(location.hostname!=='sidaps-portfolio.sidaps.workers.dev.')return false;const url=new URL(location.href);url.hostname='sidaps-portfolio.sidaps.workers.dev';location.replace(url.href);return true;}
+function correctGoogleLoginOrigin(){const hostname=(location.hostname||'').toLowerCase(),host=hostname.endsWith('.')?hostname.slice(0,-1):hostname;if(!host.endsWith('.workers.dev')&&hostname!=='sidaps.online.')return false;const url=new URL(location.href);url.protocol='https:';url.hostname='sidaps.online';url.port='';location.replace(url.href);return true;}
 // Domain failures can outlive an authorization change in an already-open SDK instance.
 async function showGoogleDomainRecovery(message){
  let allowed=false;

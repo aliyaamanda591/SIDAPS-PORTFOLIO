@@ -40,4 +40,4 @@ export const loginBackdropHtml = `<div id="sidapsIntro" class="sidaps-intro" rol
 <path class="backdrop-reference" pathLength="1" d="M34 179 Q180 154 300 162 T686 142" fill="none" stroke="#cfb376" stroke-width="1"/>
 <path class="backdrop-price" pathLength="1" d="M34 165 64 158 108 169 152 145 196 117 240 127 284 103 330 114 390 102 436 115 480 96 524 74 568 82 612 63 656 48 686 37" fill="none" stroke="#67ac8b" stroke-width="1.8"/><circle class="backdrop-point" cx="686" cy="37" r="3" fill="#b7d0be"/></g></svg>
 </div>
-<div class="auth-entry" id="loginEntry"><a class="auth-brand" href="/?view=landing" aria-label="Kembali ke beranda Sidaps"><img src="/sidaps-mark.svg" width="34" height="34" alt=""><span>SIDAPS PORTFOLIO</span></a>`;
+<div class="auth-entry" id="loginEntry"><a class="auth-brand" href="https://sidaps.online/?view=landing" aria-label="Kembali ke beranda Sidaps"><img src="/sidaps-mark.svg" width="34" height="34" alt=""><span>SIDAPS PORTFOLIO</span></a>`;

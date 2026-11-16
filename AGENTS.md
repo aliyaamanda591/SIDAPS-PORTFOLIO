@@ -15,6 +15,8 @@ Teknologi: TypeScript, Vinext/Vite, route Next.js, Cloudflare Worker + D1. Root 
 | Fitur | Lokasi awal yang dibaca |
 | --- | --- |
 | Pemilih landing/login/demo/dashboard | `app/route.ts` |
+| Domain utama/redirect 301 | `lib/canonical-url.ts`, `worker/index.ts`; `vite.config.ts` menjalankan Worker sebelum aset |
+| SEO publik | `lib/site-seo.ts`, `lib/landing/head.ts`, `app/layout.tsx`, `public/{robots.txt,sitemap.xml}` |
 | Route API | `app/api/{auth/[action],state,admin/accounts,prices/[source],market-board}/route.ts` |
 | Halaman reset | `app/reset-password/route.ts` |
 | Landing | `lib/landing-html.ts` → `lib/landing/{head,hero,market-before,features,tutorial-faq-footer}.ts` |
@@ -63,5 +65,7 @@ Peta lengkap: `docs/development/SOURCE-MAP.md`. Jangan memindai seluruh repo jik
 - Stub `cloudflare:workers` hanya dalam tes offline dan melempar bila env produksi diakses. Gunakan transport Firebase/email palsu dan database SQLite memori; jangan jalankan skrip registrasi HTTP ke produksi.
 - Sembilan skrip integrasi HTTP/katalog tambahan bukan bagian dari 25 tes offline; jalankan hanya dengan environment lokal yang sesuai. Jangan mengklaim login Google nyata sudah diuji oleh suite offline.
 - Nama recovery/OTP lama tetap dipertahankan untuk kompatibilitas, bukan instruksi mengaktifkan OTP kustom.
-- 16 Nov: source/config runtime tetap identik terhadap commit Fase 2. Pemeriksaan publik menemukan `sidaps.online` belum ada di Authorized Domains Firebase; jangan menyatakan login Google pada domain itu siap sebelum izin eksternal diverifikasi/diperbaiki. Lihat `docs/development/PHASE4-VERIFICATION.md`.
+- Pemeriksaan Fase 4 semula menemukan domain belum diizinkan. Pemeriksaan publik ulang saat migrasi domain/SEO mengonfirmasi `sidaps.online` sudah tercantum di Authorized Domains Firebase. Pengaturan itu tidak diubah oleh patch SEO; OAuth akun nyata belum diuji. Laporan historis: `docs/development/PHASE4-VERIFICATION.md`; keadaan migrasi terbaru: `docs/development/DOMAIN-SEO.md`.
 - Pertahankan route, field data, migrasi dan identitas hosting. Cabang pengaman Firebase tetap terpisah dari main.
+- Migrasi domain diminta pengguna: semua host `*.workers.dev` yang mencapai Worker diarahkan 301 ke `https://sidaps.online`, path/query dipertahankan; localhost tidak dialihkan. Jangan memakai Host/X-Forwarded-Host dari header sebagai tujuan redirect.
+- Sitemap hanya berisi halaman publik canonical yang benar-benar ada; login/demo/reset/data akun bukan halaman SEO. `lib/site-seo.ts` adalah sumber title, description dan JSON-LD; jangan membuat rating/ulasan palsu.

@@ -10,7 +10,7 @@ const sources: Record<string,string> = {
 const cache = new Map<string,{expires:number; data:unknown}>();
 async function forward(source: string, init?: RequestInit, key=source) {
   const existing = cache.get(key); if (existing && existing.expires > Date.now()) return Response.json(existing.data, {headers:{"Cache-Control":"private, max-age=30"}});
-  const response = await fetch(source, { ...init, headers:{'Accept':'application/json','User-Agent':'SidapsPortfolio/1.0 (+https://catatan-investasi-denny.fruityhen1.chatgpt.site)',...init?.headers}, signal: AbortSignal.timeout(8500) });
+  const response = await fetch(source, { ...init, headers:{'Accept':'application/json','User-Agent':'SidapsPortfolio/1.0 (+https://sidaps.online)',...init?.headers}, signal: AbortSignal.timeout(8500) });
   if (!response.ok) throw Error("Sumber harga HTTP "+response.status);
   const data = await response.json(); if(cache.size>250)cache.clear();cache.set(key,{data,expires:Date.now()+300000});
   return Response.json(data,{headers:{"Cache-Control":"private, max-age=30"}});
