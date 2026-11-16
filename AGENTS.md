@@ -20,6 +20,7 @@ Teknologi: TypeScript, Vinext/Vite, route Next.js, Cloudflare Worker + D1. Root 
 | Route API | `app/api/{auth/[action],state,admin/accounts,prices/[source],market-board}/route.ts` |
 | Halaman reset | `app/reset-password/route.ts` |
 | Landing | `lib/landing-html.ts` → `lib/landing/{head,hero,market-before,features,tutorial-faq-footer}.ts` |
+| Tutorial landing | `public/landing-tutorial.{js,css}` (5 adegan, HP/Monitor), `lib/landing/tutorial-faq-footer.ts`; seluruh transaksi hanya mock DOM |
 | Smartphone hero / warna penutup | `lib/landing/hero.ts`, `public/landing-phones.css`, `public/landing-phones/`; model asli ditampilkan lewat dua kontur SVG; contoh dashboard selalu terbuka, logo lokal di `public/demo-icons/` |
 | Login | `lib/login-html.ts` → `lib/login/{head,backdrop,auth-card,auth-script}.ts` |
 | Perangkai dashboard | `lib/portfolio-html.ts`; urutan concatenation/scope script wajib dipertahankan |
@@ -34,7 +35,7 @@ Teknologi: TypeScript, Vinext/Vite, route Next.js, Cloudflare Worker + D1. Root 
 | Data privat/revisi | `lib/{database,account-store}.ts`, `db/schema.ts`, `drizzle/` |
 | Pasar/IHSG/emas | `lib/{market-board,retail-gold,market-catalog}.ts`; route harga di atas |
 | Grafik/tema/navigasi/HP | `public/{portfolio-insights.js,dashboard-ihsg.*,theme.*,account-menu.*,mobile-*}` |
-| Panduan/demo | `lib/portfolio/usage-guide.ts`, `lib/demo-portfolio.ts`, `public/{usage-demo,landing-cinema,landing-demo-data}.js` |
+| Panduan/demo | `lib/portfolio/usage-guide.ts`, `lib/demo-portfolio.ts`, `public/{usage-demo,landing-tutorial,landing-cinema,landing-demo-data}.js` |
 | Reset UI | `public/recovery-otp.js` (nama historis; sekarang tautan reset), `lib/auth/reset-handlers.ts` |
 | Hosting/build | `worker/`, `vite.config.ts`, `.openai/hosting.json`, `scripts/{vite,connector-preview}/` |
 | Tes | `scripts/tests/run-offline.mjs` (25 tes); `helpers/templates.mjs` membaca HTML hasil modul langsung |

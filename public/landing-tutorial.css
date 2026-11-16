@@ -1,0 +1,99 @@
+/* Scoped tutorial: same Emerald / Gold and compact cards as the actual dashboard. */
+#sidaps-portfolio .landing-tutorial{--t-bg:#f3f8f5;--t-surface:#fff;--t-text:#173d2d;--t-muted:#5f7868;--t-border:#ccded3;max-width:570px;width:100%;margin-inline:auto;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+#sidaps-portfolio .landing-tutorial[data-tutorial-theme=dark]{--t-bg:#081f16;--t-surface:#102d21;--t-text:#e9f1e9;--t-muted:#afc7b6;--t-border:#365541}
+#sidaps-portfolio .tutorial-toolbar{display:flex;justify-content:flex-end;margin:8px 0 12px}
+#sidaps-portfolio .tutorial-toolbar>div{display:flex;padding:3px;border:1px solid #51715a;border-radius:10px;gap:4px}
+#sidaps-portfolio .tutorial-toolbar button,#sidaps-portfolio .tutorial-assets button{font:500 12px system-ui;cursor:pointer;border:1px solid transparent;border-radius:7px;background:transparent;color:#dbe8da;min-height:36px;padding:6px 11px}
+#sidaps-portfolio .tutorial-toolbar button[aria-pressed=true]{background:#d8c18a;color:#173d2d}
+#sidaps-portfolio .tutorial-assets{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
+#sidaps-portfolio .tutorial-assets button{display:flex;align-items:center;gap:6px;border-color:#527059;padding:6px 10px;flex:1;justify-content:center}
+#sidaps-portfolio .tutorial-assets img{object-fit:contain;border-radius:6px;background:white}
+#sidaps-portfolio .tutorial-assets button[aria-pressed=true]{background:#294b36;border-color:#dfc58d;color:#fff0c6}
+#sidaps-portfolio .landing-tutorial .landing-demo-screen{position:relative;height:538px;min-height:0;overflow:visible;max-width:340px;margin:0 auto;border:0;background:transparent}
+#sidaps-portfolio .landing-tutorial .rd-simulator{height:100%;overflow:hidden;border:5px solid #081b13;outline:1px solid #9caa91;border-radius:30px;background:var(--t-bg);box-shadow:0 13px 27px #0005,inset 0 0 0 1px #c1cbb8}
+#sidaps-portfolio .landing-tutorial .rd-statusbar{height:29px;min-height:29px;display:flex;align-items:center;justify-content:space-between;padding:0 13px;color:var(--t-text);font-size:10px;position:relative;background:var(--t-surface)}
+#sidaps-portfolio .landing-tutorial .rd-statusbar i{position:absolute;width:71px;height:16px;border-radius:12px;background:#07110b;left:50%;top:4px;transform:translateX(-50%)}
+#sidaps-portfolio .landing-tutorial .rd-home-indicator{height:12px;background:var(--t-bg);position:relative;flex-shrink:0}
+#sidaps-portfolio .landing-tutorial .rd-home-indicator:after{content:'';display:block;width:85px;height:3px;position:absolute;left:50%;top:4px;transform:translateX(-50%);background:var(--t-text);opacity:.6;border-radius:3px}
+#sidaps-portfolio .landing-tutorial .rd-content{background:var(--t-bg);color:var(--t-text)}
+#sidaps-portfolio .landing-tutorial .rd-content :is(.rd-header,.rd-nav,.rd-stat,.rd-dialog,.rd-row,.rd-portfolio-card,.rd-record,.rd-analytics,.rd-asset-details,.rd-login-card,.rd-input,.rd-platform-menu,.rd-result,.rd-empty){background:var(--t-surface);color:var(--t-text);border-color:var(--t-border)}
+#sidaps-portfolio .landing-tutorial .rd-header{font-size:10px;height:35px;padding:0 9px}
+#sidaps-portfolio .landing-tutorial .rd-nav{padding:5px 8px}
+#sidaps-portfolio .landing-tutorial .rd-nav span{font-size:9px;padding:5px 7px}
+#sidaps-portfolio .landing-tutorial .rd-page{padding:9px}
+#sidaps-portfolio .landing-tutorial .rd-stat{padding:9px;border-radius:10px}
+#sidaps-portfolio .landing-tutorial .rd-stat-0{background:linear-gradient(130deg,#1c4c37,#103423);color:#f4eedf;border-color:#688061}
+#sidaps-portfolio .landing-tutorial .rd-stat-0>span{color:#d4dfd1}
+#sidaps-portfolio .landing-tutorial .rd-stat>span{font-size:9px}
+#sidaps-portfolio .landing-tutorial .rd-stat>b{font-size:14px;font-variant-numeric:tabular-nums}
+#sidaps-portfolio .landing-tutorial .rd-content :is(small,label,.rd-purchase-note,.rd-stat>span){color:var(--t-muted)}
+#sidaps-portfolio .landing-tutorial .rd-content .rd-stat-0>span{color:#d4dfd1}
+#sidaps-portfolio .landing-tutorial .rd-content h4{color:var(--t-text);font-size:15px;line-height:1.3;margin:0 0 7px}
+#sidaps-portfolio .landing-tutorial .rd-content p{color:var(--t-muted);font-size:10px!important;line-height:1.6!important;margin:0 0 12px}
+#sidaps-portfolio .landing-tutorial .rd-primary,#sidaps-portfolio .landing-tutorial .rd-actions span:first-child{background:#d8bc7c;color:#233b2b;border-color:#c9af71;min-height:34px;font-size:11px;box-shadow:0 2px 5px #122b1710}
+#sidaps-portfolio .landing-tutorial .rd-google-mark{color:#4285f4;background:white;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;margin-right:5px}
+#sidaps-portfolio .landing-tutorial .rd-heading{font-size:11px}
+#sidaps-portfolio .landing-tutorial .rd-heading>span{font-size:9px;background:var(--t-surface);color:var(--t-text);border-color:var(--t-border)}
+#sidaps-portfolio .landing-tutorial .rd-dialog{top:43px;left:10px;right:10px;padding:12px;max-width:345px;box-shadow:0 12px 30px #0003}
+#sidaps-portfolio .landing-tutorial .rd-dialog .rd-input{min-height:35px;font-size:11px;padding:8px}
+#sidaps-portfolio .landing-tutorial .rd-form{gap:10px 8px}
+#sidaps-portfolio .landing-tutorial .rd-form label{font-size:10px;margin-bottom:5px}
+#sidaps-portfolio .landing-tutorial .rd-platform-menu{position:absolute;left:12px;right:12px;bottom:69px;z-index:4}
+#sidaps-portfolio .landing-tutorial .rd-platform-menu span{display:flex;gap:8px;align-items:center;padding:10px;font-size:11px}
+#sidaps-portfolio .landing-tutorial .rd-picker-space{min-height:46px;padding:13px 0}
+#sidaps-portfolio .landing-tutorial .rd-result{margin-top:12px;font-size:11px}
+#sidaps-portfolio .landing-tutorial .rd-categories{display:flex;gap:5px;margin-top:9px}
+#sidaps-portfolio .landing-tutorial .rd-row{padding:7px;margin-top:6px;font-size:10px;min-height:40px}
+#sidaps-portfolio .landing-tutorial .rd-content img{object-fit:contain;flex-shrink:0;border-radius:5px}
+#sidaps-portfolio .landing-tutorial .rd-instruction{flex-shrink:0;min-height:52px;padding:8px 10px;color:var(--t-text);background:var(--t-surface);border-color:var(--t-border);font:500 11px/1.5 system-ui;border-left:3px solid #cfb56e}
+#sidaps-portfolio .landing-tutorial .rd-donut i:after{background:var(--t-surface)}
+#sidaps-portfolio .landing-tutorial .rd-analytics{height:98px;grid-template-columns:85px 1fr;padding:7px}
+#sidaps-portfolio .landing-tutorial .rd-toast{position:absolute;bottom:8px;left:8px;right:8px;padding:9px;background:#183e29;color:#e6eedb;border:1px solid #a7bc84;border-radius:8px;z-index:6;font-size:10px;box-shadow:0 5px 15px #0002}
+#sidaps-portfolio .landing-tutorial .rd-record-asset{display:flex;align-items:center;gap:8px;margin-block:10px}
+#sidaps-portfolio .landing-tutorial .rd-record{margin-top:10px}
+#sidaps-portfolio .landing-tutorial .ld-cursor{width:27px;height:33px;z-index:8}
+#sidaps-portfolio .landing-tutorial[data-tutorial-device=desktop] .landing-demo-screen{max-width:none;height:480px}
+#sidaps-portfolio .landing-tutorial[data-tutorial-device=desktop] .rd-simulator{border-radius:14px;border-width:4px}
+#sidaps-portfolio .landing-tutorial[data-tutorial-device=desktop] .rd-statusbar i{display:none}
+#sidaps-portfolio .landing-tutorial .landing-demo-caption{min-height:108px;padding-top:17px}
+#sidaps-portfolio .landing-tutorial .landing-demo-caption h3{font-size:17px!important}
+#sidaps-portfolio .landing-tutorial .landing-demo-note{font-size:11px!important}
+@media(max-width:640px){#sidaps-portfolio .landing-tutorial{padding:13px}#sidaps-portfolio .landing-tutorial .landing-demo-screen{height:520px}#sidaps-portfolio .landing-tutorial[data-tutorial-device=desktop] .landing-demo-screen{height:480px}#sidaps-portfolio .tutorial-assets button{padding:6px;font-size:11px}#sidaps-portfolio .landing-tutorial .rd-dialog{padding:10px;left:7px;right:7px}#sidaps-portfolio .landing-tutorial .rd-content label{font-size:9px}}
+@media(prefers-reduced-motion:reduce){#sidaps-portfolio .landing-tutorial :is(.rd-line,.landing-demo-progress i){animation:none!important}#sidaps-portfolio .landing-tutorial *{scroll-behavior:auto!important}}
+#sidaps-portfolio .landing-tutorial .rd-purchase-asset{display:flex;align-items:center;gap:8px}
+#sidaps-portfolio .landing-tutorial[data-tutorial-theme=dark] :is(.rd-green,.rd-stat-2>b,.rd-row-value small){color:#a6d5b5}
+/* Keep all three completed assets visible within the tutorial phone. */
+#sidaps-portfolio .landing-tutorial .rd-stat{padding:6px}
+#sidaps-portfolio .landing-tutorial .rd-analytics{height:72px;grid-template-columns:65px 1fr}
+#sidaps-portfolio .landing-tutorial .rd-donut i{width:54px;height:54px}
+#sidaps-portfolio .landing-tutorial .rd-donut i:after{inset:7px}
+#sidaps-portfolio .landing-tutorial .rd-donut>span{font-size:7px}
+#sidaps-portfolio .landing-tutorial .rd-donut b{font-size:9px}
+#sidaps-portfolio .landing-tutorial .rd-chart svg{height:44px}
+#sidaps-portfolio .landing-tutorial .rd-row{padding:5px;min-height:35px;margin-top:5px}
+#sidaps-portfolio .landing-tutorial .rd-greeting{margin-bottom:6px}
+#sidaps-portfolio .landing-tutorial .tutorial-toolbar{justify-content:space-between;gap:8px;flex-wrap:wrap}
+#sidaps-portfolio .landing-tutorial .landing-demo-controls{margin-top:0;gap:5px}
+#sidaps-portfolio .landing-tutorial .landing-demo-controls button{min-height:34px;padding:6px 9px}
+#sidaps-portfolio .landing-tutorial .landing-demo-controls>span{display:none}
+#sidaps-portfolio .landing-tutorial .landing-demo-caption{min-height:86px}
+/* Theme layers elsewhere in the app must not override the isolated simulator. */
+#sidaps-portfolio .landing-tutorial[data-tutorial-theme=dark] .rd-content{background:var(--t-bg)!important;color:var(--t-text)!important}
+#sidaps-portfolio .landing-tutorial[data-tutorial-theme=dark] .rd-content :is(.rd-header,.rd-nav,.rd-stat,.rd-dialog,.rd-row,.rd-portfolio-card,.rd-record,.rd-analytics,.rd-asset-details,.rd-login-card,.rd-input,.rd-platform-menu,.rd-result,.rd-empty){background:var(--t-surface)!important;color:var(--t-text)!important;border-color:var(--t-border)!important}
+#sidaps-portfolio .landing-tutorial[data-tutorial-theme=dark] .rd-content :is(h4,.rd-greeting,.rd-heading,.rd-input b,.rd-big-value){color:var(--t-text)!important}
+#sidaps-portfolio .landing-tutorial[data-tutorial-theme=dark] .rd-content :is(small,label,.rd-purchase-note,.rd-stat>span){color:var(--t-muted)!important}
+#sidaps-portfolio .landing-tutorial .rd-content .rd-stat-0{background:linear-gradient(130deg,#1c4c37,#103423)!important;color:#f4eedf!important}
+#sidaps-portfolio .landing-tutorial .rd-content .rd-stat-0>span{color:#d4dfd1!important}
+#sidaps-portfolio .landing-tutorial .rd-primary,#sidaps-portfolio .landing-tutorial .rd-actions span:first-child{background:#d8bc7c!important;color:#233b2b!important;border-color:#c9af71!important}
+#sidaps-portfolio .landing-tutorial[data-tutorial-theme=dark] .rd-content :is(.rd-menu,.rd-avatar){background:#244533!important;color:#dfebdf!important;border-color:#4f7059!important}
+#sidaps-portfolio .landing-tutorial .rd-heading{margin-bottom:6px}
+#sidaps-portfolio .landing-tutorial .rd-stat>b{margin-top:3px}
+#sidaps-portfolio .landing-tutorial .rd-nav{padding-block:4px}
+#sidaps-portfolio .landing-tutorial .rd-analytics{margin-top:6px}
+#sidaps-portfolio .landing-tutorial .rd-section{margin:6px 0 4px}
+#sidaps-portfolio .landing-tutorial .rd-row{margin-top:4px}
+@media(max-width:380px){#sidaps-portfolio .landing-tutorial .rd-dialog h4{font-size:13px}#sidaps-portfolio .landing-tutorial .rd-form{gap:8px 6px}}
+#sidaps-portfolio .landing-tutorial .rd-section{margin:4px 0 3px}
+#sidaps-portfolio .landing-tutorial .rd-row{margin-top:3px}
+@media(min-width:700px){#sidaps-portfolio .landing-tutorial[data-tutorial-device=desktop] .rd-stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:640px){#sidaps-portfolio .landing-tutorial[data-tutorial-device=desktop] .landing-demo-screen{height:538px}}

@@ -18,7 +18,7 @@ export const landingHeroHtml = `<a class="skip" href="#utama">Langsung ke isi</a
 <div class="phone-aura" aria-hidden="true"></div>
 <figure class="hero-phone phone-light"><div class="phone-float"><svg viewBox="430 0 870 940" width="870" height="940" role="img" aria-label="Smartphone Sidaps tema terang, model asli dari gambar referensi"><defs><clipPath id="phone-light-contour"><path d="M 465 118 C 451 69 478 35 526 29 L 754 18 C 798 16 823 37 835 78 L 875 316 L 816 788 L 654 815 C 615 823 584 797 575 757 Z"/></clipPath></defs><image href="/landing-phones/showcase-original.png" x="0" y="0" width="1672" height="941" clip-path="url(#phone-light-contour)"/></svg></div></figure>
 <figure class="hero-phone phone-dark"><div class="phone-float"><svg viewBox="430 0 870 940" width="870" height="940" role="img" aria-label="Smartphone Sidaps tema gelap, model asli dari gambar referensi"><defs><clipPath id="phone-dark-contour"><path d="M 897 153 C 912 110 937 90 977 92 L 1189 101 C 1240 102 1262 133 1255 186 L 1176 834 C 1171 876 1145 900 1104 899 L 872 879 C 832 876 810 853 814 815 Z"/></clipPath></defs><image href="/landing-phones/showcase-original.png" x="0" y="0" width="1672" height="941" clip-path="url(#phone-dark-contour)"/></svg></div></figure>
-<p class="phone-caption">Satu portofolio. Dua tampilan.<span>Gambar akun demo · bukan data pasar langsung</span><a href="/landing-phones/showcase-original.png" target="_blank" rel="noopener">Lihat gambar asli ukuran penuh ↗</a></p>
+<p class="phone-caption">Satu portofolio. Dua tampilan.<span>Gambar akun demo · bukan data pasar langsung</span></p>
 </div>
 </section>
 <section class="asset-strip wrap" aria-label="Jenis aset yang didukung"><span>SATU CATATAN UNTUK</span>

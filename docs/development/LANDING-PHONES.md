@@ -12,6 +12,6 @@
 ## Revisi detail model dan logo
 
 - Sumber model: public/landing-phones/showcase-original.png, 1672×941, disalin byte-for-byte dari gambar pengguna. SHA-256: 65468e46968b282b274715432e89cc5eab09049aec711986e627c7a52d8919e8. Dua inline SVG memakai clipPath terpisah dan animasi berbeda; yang ditampilkan setiap lapisan hanya satu ponsel. Tidak menggunakan satu gambar gabungan sebagai elemen hero tunggal. Bagian layar/bodi yang saling menutupi mengikuti foto sumber; tidak direka ulang.
-- CSS tidak memberi filter blur atau rotasi tambahan pada model raster. Komposisi diperbesar, dan tautan gambar asli ukuran penuh tersedia untuk melihat detail. Ketajaman tetap dibatasi resolusi sumber, bukan dijanjikan detail baru yang tidak ada pada gambar.
+- CSS tidak memberi filter blur atau rotasi tambahan pada model raster. Komposisi diperbesar, dan caption hero kini hanya keterangan singkat tanpa tautan gambar ukuran penuh, sesuai revisi pengguna. Ketajaman tetap dibatasi resolusi sumber, bukan dijanjikan detail baru yang tidak ada pada gambar.
 - Contoh interaktif selalu terbuka; semua enam aset memakai logo lokal. BBCA/BMRI memakai logo saham existing, BTC/SOL disimpan dari URL katalog aplikasi yang sudah dipakai (static.indodax.com), K24/K15 memakai ikon batang emas yang mengikuti SVG aplikasi. Tidak ada permintaan logo ke server eksternal ketika pengguna membuka contoh.
 - public/landing-demo-data.js hanya data sintetis publik; public/landing-cinema.js memperbarui ikon footer contoh sesuai kategori. Tidak menyentuh akun/data transaksi asli.

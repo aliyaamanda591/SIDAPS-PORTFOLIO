@@ -21,6 +21,8 @@ Login server Firebase berada di `lib/firebase-auth.ts`, identitas Google di `lib
 
 ## Perintah verifikasi
 
+Tutorial landing: `public/landing-tutorial.js` dan `public/landing-tutorial.css` mengatur simulasi 5 adegan dengan perangkat HP/Monitor. `public/landing-cinema.js` hanya mengatur contoh ringkasan interaktif. Lihat `LANDING-TUTORIAL.md`; jangan menghubungkan simulasi dengan fungsi transaksi/API akun.
+
 - `npm test`: 25 regresi offline, jaringan dimatikan; Firebase/email memakai transport sintetis dan D1 memakai SQLite memori.
 - `npm run verify:project`: referensi aset, sintaks inline/public JS, identitas config Firebase.
 - `node node_modules/typescript/bin/tsc --noEmit --incremental false`

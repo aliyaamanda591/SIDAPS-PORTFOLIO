@@ -4,6 +4,11 @@ import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 
 const ids=[...landingHtml.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(ids.length,new Set(ids).size);
 const phoneCss=fs.readFileSync('public/landing-phones.css','utf8');
 assert.equal((landingHtml.match(/class="hero-phone /g)||[]).length,2);
+assert.ok(!landingHtml.includes('Lihat gambar asli ukuran penuh'));
+assert.ok(!/<a[^>]*href="\/landing-phones\/showcase-original.png"/.test(landingHtml),'Hero caption has no external full-image link');
+assert.ok(landingHtml.includes('/landing-tutorial.js?v=1'));
+assert.ok(landingHtml.includes('data-tutorial-asset="gold"'));
+assert.ok(landingHtml.includes('data-tutorial-device="phone"'));
 for(const [name,hash]of [['dashboard-light.png','39dd2e61a1cf6c3fa0440c101646b6d5b9a09471bba34b8460361469d5b20e12'],['dashboard-dark.png','3e17610c3f19eca1abd44dd686f2ffaafd8a8a73486ec29887af5f05d24d451e']]){
  assert.ok(fs.existsSync('public/landing-phones/'+name));
  assert.equal(createHash('sha256').update(fs.readFileSync('public/landing-phones/'+name)).digest('hex'),hash,'User screenshot is unchanged, not redrawn or recompressed');

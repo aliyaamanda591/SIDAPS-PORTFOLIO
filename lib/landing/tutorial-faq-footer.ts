@@ -2,7 +2,7 @@ export const landingTutorialFaqFooterHtml = `<section class="how-section" id="ca
 <div class="wrap how-grid cinematic-how">
 <div class="how-intro"><span class="eyebrow">TIDAK PERLU RUMIT</span>
 <h2>Mulai dari satu aset.<br>Lanjutkan dengan kebiasaan.</h2>
-<p class="section-intro">Lihat caranya dari awal. Ikuti kursor, lalu mulai dengan aset pilihanmu.</p>
+<p class="section-intro">Ikuti kursor di layar HP atau monitor. Pelajari cara mencatat saham, kripto, dan emas, langkah demi langkah.</p>
 <div class="how-chapters" role="group" aria-label="Bab tutorial"><button type="button" data-how-step="0" aria-pressed="true"><span>01</span> Buat akun</button><button type="button" data-how-step="1" aria-pressed="false"><span>02</span> Catat aset</button><button type="button" data-how-step="2" aria-pressed="false"><span>03</span> Pantau</button>
 </div><a class="button primary" href="https://sidaps.online/?login=1">Mulai mencatat <span aria-hidden="true">↗</span></a>
 <details class="how-reading">
@@ -29,9 +29,12 @@ export const landingTutorialFaqFooterHtml = `<section class="how-section" id="ca
 </ol>
 </details>
 </div>
-<div class="landing-tutorial" id="tutorial" role="region" aria-label="Tutorial animasi cara memakai Sidaps">
+<div class="landing-tutorial" id="tutorial" data-tutorial-device="phone" data-tutorial-theme="light" role="region" aria-label="Tutorial animasi cara memakai Sidaps">
 <div class="landing-tutorial-top"><span><i></i> SIDAPS · TUTORIAL</span><b id="landingDemoCounter">01 / 03</b>
 </div>
+<div class="tutorial-toolbar"><div class="landing-demo-controls"><button type="button" id="landingDemoToggle" aria-label="Jeda tutorial">Ⅱ Jeda</button><button type="button" id="landingDemoReplay">↻ Ulang</button><span>Tanpa suara · contoh tampilan</span>
+</div><div role="group" aria-label="Tampilan perangkat tutorial"><button type="button" data-tutorial-device="phone" aria-pressed="true">▯ HP</button><button type="button" data-tutorial-device="desktop" aria-pressed="false">▭ Monitor</button></div></div>
+<div class="tutorial-assets" role="group" aria-label="Jenis aset tutorial"><button type="button" data-tutorial-asset="stock" aria-pressed="false"><img src="/logos/stocks/BBCA.svg" width="20" height="20" alt="">Saham</button><button type="button" data-tutorial-asset="crypto" aria-pressed="false"><img src="/demo-icons/btc.png" width="20" height="20" alt="">Kripto</button><button type="button" data-tutorial-asset="gold" aria-pressed="false"><img src="/demo-icons/gold24.svg" width="20" height="20" alt="">Emas</button></div>
 <div class="landing-demo-screen" id="landingDemoScreen">
 <div class="ld-fallback"><b>Buat akun, catat aset, pantau portofolio.</b>
 <p>Masuk dengan Google atau email. Tambahkan aset sendiri, kemudian catat pembelianmu.</p>
@@ -43,8 +46,7 @@ export const landingTutorialFaqFooterHtml = `<section class="how-section" id="ca
 </div>
 <div class="landing-demo-progress" aria-hidden="true"><i></i>
 </div>
-<div class="landing-demo-controls"><button type="button" id="landingDemoToggle" aria-label="Jeda tutorial">Ⅱ Jeda</button><button type="button" id="landingDemoReplay">↻ Ulang</button><span>Tanpa suara · contoh tampilan</span>
-</div>
+
 <p class="landing-demo-note">Simulasi, bukan akun atau transaksi sungguhan. Angka dan grafik hanya ilustrasi, bukan data pasar.</p>
 </div>
 </div>
@@ -121,6 +123,7 @@ export const landingTutorialFaqFooterHtml = `<section class="how-section" id="ca
 </script>
 <script src="/landing-demo-data.js?v=2" defer>
 </script>
-<script src="/landing-cinema.js?v=3" defer>
+<script src="/landing-tutorial.js?v=1" defer></script>
+<script src="/landing-cinema.js?v=4" defer>
 </script>
 </body></html>`;
