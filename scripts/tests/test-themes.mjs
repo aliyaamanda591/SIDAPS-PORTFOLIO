@@ -6,5 +6,6 @@ const a=setup(null,true);assert.equal(a.root.attrs['data-sidaps-theme'],'dark');
 for(const file of ['lib/portfolio-html.ts']){const text=renderedTemplate(file);assert.ok(text.includes('data-theme-option'));assert.ok(!text.includes('data-theme-picker'));assert.ok(text.includes('/theme.js?v=4'));assert.ok(text.includes('/theme.css?v=2'));}
 console.log('PASS: segmented theme buttons, active state, saved preferences, system changes, cross-tab sync and all three surfaces.');
 
-for(const file of ['lib/login-html.ts','lib/landing-html.ts']){const text=renderedTemplate(file);assert.ok(!text.includes('data-theme-option'));assert.ok(!text.includes('/theme.js'));assert.ok(text.includes('data-sidaps-theme'));assert.ok(text.includes(file.includes('login-html')?'dark':'light'));}
-console.log('PASS: landing remains light; requested login is Black Emerald without appearance controls; account appearance remains available.');
+const login=renderedTemplate('lib/login-html.ts');assert.ok(!login.includes('data-theme-option'));assert.ok(!login.includes('/theme.js'));assert.ok(login.includes('data-sidaps-theme="dark"'));
+const landing=renderedTemplate('lib/landing-html.ts');assert.ok(landing.includes('data-theme-option="light"'));assert.ok(landing.includes('data-theme-option="dark"'));assert.ok(landing.includes('/theme.js'));assert.ok(landing.includes('/emerald-gold.css'));
+console.log('PASS: landing and account support saved light/dark appearance; login keeps its approved Black Emerald theme.');

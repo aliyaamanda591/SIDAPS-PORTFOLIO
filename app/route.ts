@@ -11,7 +11,7 @@ export async function GET(request:Request){
   if(canonical)return canonical;
   const url=new URL(request.url);
   if(url.searchParams.get('view')==='landing')return landingResponse();
-  if(url.searchParams.get('demo')==='1')return new Response(renderDemoPortfolio(portfolioHtml),{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store','X-Robots-Tag':'noindex, follow','X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin'}});
+  if(url.searchParams.get('demo')==='1')return new Response(renderDemoPortfolio(portfolioHtml,url.searchParams.get('embed')==='phone'),{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store','X-Robots-Tag':'noindex, follow','X-Content-Type-Options':'nosniff','Referrer-Policy':'same-origin'}});
   const isPasswordReset =
     url.searchParams.has('oobCode') ||
     url.searchParams.has('token') ||

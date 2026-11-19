@@ -1,0 +1,23 @@
+/* Embedded demo presentation only. Uses the same dashboard and its existing controls. */
+html,body{min-width:0!important;overflow-x:clip!important}html{scroll-padding-top:12px!important}body{margin:0!important}.app-header .top{padding:10px!important}.app-header .brand h1{font-size:14px!important}.app-header .brand p{display:none!important}.app-header .brand img{width:25px!important;height:25px!important}.app-header .top{gap:6px!important}.app-header .theme-choice{display:none!important}.demo-notice{margin-bottom:12px!important;padding:10px!important;gap:8px!important;flex-direction:column!important;align-items:flex-start!important}.demo-notice b{font-size:12px!important}.demo-notice span{font-size:10px!important}.demo-notice-actions{width:100%}.demo-notice-actions button,.demo-notice-actions a{font-size:10px!important;min-height:32px!important;padding:6px 9px!important}main{padding:12px!important}.investment-overview{padding:13px!important}.overview-grid{gap:7px!important}.overview-stat{padding:10px!important}.overview-stat .metric{font-size:20px!important}.overview-stat-caption{font-size:10px!important}.app-header .header-logout{display:none!important}.asset-picker-modal,.modal{max-width:100%!important}.overlay{padding:10px!important}.modal-content{max-height:88vh!important;overflow:auto!important}a[target=_top]{text-decoration:none}
+/* Keep full app dialogs usable inside the bounded phone viewport. */
+.modalback{padding:10px!important}.modalback .modal{max-height:calc(100dvh - 24px)!important;overflow-y:auto!important;overscroll-behavior:contain;width:100%!important;padding:15px!important}.modalback .modalactions{position:sticky;bottom:-15px;background:var(--sp-surface);padding:12px 0 5px;z-index:2}.modalback .modal h3{font-size:18px!important}
+
+/* Hide scroll tracks only in the embedded phone; keep touch/wheel scrolling. */
+html,body,body *{scrollbar-width:none!important;-ms-overflow-style:none!important}
+html::-webkit-scrollbar,body::-webkit-scrollbar,body *::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+
+/* Keep the overview readable as a compact two-column product preview. */
+.overview-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.overview-stat .metric{font-size:16px!important}.overview-stat{min-height:82px!important}.overview-stat-caption{font-size:9px!important}
+
+/* Show more of the filled portfolio in the landing preview. */
+.demo-showcase .demo-notice-actions{display:none!important}.demo-showcase .demo-notice{padding:8px 10px!important;margin-bottom:8px!important;gap:3px!important}.demo-showcase .overview-stat{height:84px!important;min-height:84px!important}.demo-showcase .overview-grid{grid-auto-rows:auto!important}
+
+/* Landing presentation: operational details stay in the full dashboard. */
+.demo-showcase .section:has(#priceStatus) .status,.demo-showcase #idxMarketStatus,.demo-showcase .asset-mobile-hint{display:none!important}
+.demo-showcase .section:has(#priceStatus){margin:20px 0 10px!important}
+.demo-showcase #dashboardAssets>.asset{transition:border-color .25s ease,box-shadow .25s ease}
+.demo-showcase #dashboardAssets>.asset:hover{border-color:#b99b5c88;box-shadow:0 4px 16px #0000000c}
+.demo-showcase .showcase-reveal{opacity:0;transform:translateY(7px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.7,.2,1)}
+.demo-showcase .showcase-reveal.is-visible{opacity:1;transform:translateY(0)}
+@media(prefers-reduced-motion:reduce){.demo-showcase .showcase-reveal{opacity:1;transform:none;transition:none}.demo-showcase #dashboardAssets>.asset{transition:none}}

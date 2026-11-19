@@ -1,46 +1,21 @@
-import {portfolioHtml} from './helpers/templates.mjs';
-import {createHash} from 'node:crypto';
-import assert from 'node:assert/strict';import fs from 'node:fs';import vm from 'node:vm';import {landingHtml} from '../../lib/landing-html.ts';
-const ids=[...landingHtml.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);assert.equal(ids.length,new Set(ids).size);
-const phoneCss=fs.readFileSync('public/landing-phones.css','utf8');
-assert.equal((landingHtml.match(/class="hero-phone /g)||[]).length,2);
-assert.ok(!landingHtml.includes('Lihat gambar asli ukuran penuh'));
-assert.ok(!/<a[^>]*href="\/landing-phones\/showcase-original.png"/.test(landingHtml),'Hero caption has no external full-image link');
-assert.ok(landingHtml.includes('/landing-tutorial.js?v=1'));
-assert.ok(landingHtml.includes('data-tutorial-asset="gold"'));
-assert.ok(landingHtml.includes('data-tutorial-device="phone"'));
-for(const [name,hash]of [['dashboard-light.png','39dd2e61a1cf6c3fa0440c101646b6d5b9a09471bba34b8460361469d5b20e12'],['dashboard-dark.png','3e17610c3f19eca1abd44dd686f2ffaafd8a8a73486ec29887af5f05d24d451e']]){
- assert.ok(fs.existsSync('public/landing-phones/'+name));
- assert.equal(createHash('sha256').update(fs.readFileSync('public/landing-phones/'+name)).digest('hex'),hash,'User screenshot is unchanged, not redrawn or recompressed');
-}
-assert.match(phoneCss,/7\.8s ease-in-out infinite/);assert.match(phoneCss,/animation-duration:9\.4s;animation-delay:-3\.2s/);
-assert.match(phoneCss,/@media\(prefers-reduced-motion:reduce\)/);assert.match(phoneCss,/animation:none!important/);
-assert.ok(landingHtml.includes('class="hero-example"'),'Interactive example remains accessible');
-assert.ok(!landingHtml.includes('<details class="hero-example"'),'Example is always visible, never collapsed');
-assert.equal((landingHtml.match(/clip-path="url\(#phone-/g)||[]).length,2,'Original phones are two independently animated clipped layers');
-assert.equal(createHash('sha256').update(fs.readFileSync('public/landing-phones/showcase-original.png')).digest('hex'),'65468e46968b282b274715432e89cc5eab09049aec711986e627c7a52d8919e8');
-const samplesContext={window:{}};vm.runInNewContext(fs.readFileSync('public/landing-demo-data.js','utf8'),samplesContext);
-for(const sample of samplesContext.window.SidapsDemoSamples)for(const asset of sample.assets){assert.ok(asset.logo&&asset.logo.startsWith('/'));assert.ok(fs.existsSync('public'+asset.logo),'Every example asset has a working local logo');}
-assert.ok(landingHtml.includes('class="closing-demo"'),'Closing provides the reference demo action');
-for(const match of landingHtml.matchAll(/href="#([^"]+)"/g))assert.ok(ids.includes(match[1]),'Navigation points to a real section');
-assert.ok(!landingHtml.includes('CLOUD_BOOTSTRAP'));assert.ok(landingHtml.toLowerCase().includes('bukan data pasar'));assert.ok(landingHtml.includes('/?login=1'));
-const appHtml=portfolioHtml;
-assert.ok(landingHtml.includes('id="marketWatch"'),'Public market watch belongs on landing');assert.ok(landingHtml.includes('/market-status.js'));assert.ok(!appHtml.includes('id="marketWatch"'),'Login has no market board');assert.ok(appHtml.includes('class="auth-brand"'));assert.ok(appHtml.includes('id="emailAuthForm"'));assert.ok(appHtml.includes('Minimal login intentionally has no background animation'),'Desktop login skips animation work, not only its visuals');
-const elements=Object.fromEntries(['demoSymbol','demoName','demoDescription'].map(id=>[id,{}]));const buttons=['stock','crypto','gold'].map(kind=>({dataset:{preview:kind},attrs:{},addEventListener(_,fn){this.click=fn;},setAttribute(k,v){this.attrs[k]=v;}}));
-vm.runInNewContext(fs.readFileSync('public/landing.js','utf8'),{document:{querySelectorAll:()=>buttons,getElementById:id=>elements[id]}});
-buttons[1].click();assert.equal(elements.demoName.textContent,'Kripto pilihanmu');assert.equal(buttons[1].attrs['aria-pressed'],'true');assert.equal(buttons[0].attrs['aria-pressed'],'false');buttons[2].click();assert.ok(elements.demoDescription.textContent.includes('gram'));
-// Motion reveals once, pauses offscreen/background, and is skipped for reduced motion.
-function motionFixture(reduced){const classes=()=>{const values=new Set();return {values,add:k=>values.add(k),remove:k=>values.delete(k),toggle:(k,on)=>on?values.add(k):values.delete(k)};};const target={classList:classes()},hero={classList:classes()},root={classList:classes()},observers=[],events={};
- const document={hidden:false,documentElement:root,querySelectorAll:q=>q==='[data-preview]'?[]:[target],querySelector:()=>hero,addEventListener:(name,fn)=>events[name]=fn};
- const window={matchMedia:()=>({matches:reduced}),IntersectionObserver:class{constructor(cb){this.cb=cb;this.removed=[];observers.push(this);}observe(){}unobserve(t){this.removed.push(t);}disconnect(){}}};
- vm.runInNewContext(fs.readFileSync('public/landing.js','utf8'),{document,window});return {target,hero,root,document,observers,events};}
-const motion=motionFixture(false);assert.ok(motion.target.classList.values.has('reveal-ready'));motion.observers[0].cb([{target:motion.target,isIntersecting:true}]);assert.ok(motion.target.classList.values.has('is-visible'));assert.equal(motion.observers[0].removed.length,1);motion.observers[1].cb([{isIntersecting:false}]);assert.ok(motion.hero.classList.values.has('motion-offscreen'));motion.document.hidden=true;motion.events.visibilitychange();assert.ok(motion.root.classList.values.has('landing-motion-paused'));assert.equal(motionFixture(true).observers.length,0);
-if(process.argv.includes('--http')){
- const origin='http://127.0.0.1:5178';
- const home=await fetch(origin+'/');assert.equal(home.status,200);assert.ok((await home.text()).includes('Semua asetmu.'));
- const login=await fetch(origin+'/?login=1');assert.equal(login.status,200);assert.ok((await login.text()).includes('id="googleSignInButton"'));
- const password='Local-Landing-Test-2026!',registered=await fetch(origin+'/api/auth/register',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify({email:'landing-'+Date.now()+'@example.test',password,confirm:password,displayName:'Local landing fixture'})});assert.equal(registered.status,200);
- const cookie=registered.headers.getSetCookie()[0].split(';')[0];const account=await fetch(origin+'/',{headers:{Cookie:cookie}});assert.ok((await account.text()).includes('id="dashboardAssets"'),'Signed-in users still go directly to the portfolio');
- const publicView=await fetch(origin+'/?view=landing',{headers:{Cookie:cookie}});const text=await publicView.text();assert.ok(text.includes('Semua asetmu.'));assert.ok(!text.includes('Local landing fixture'),'Public landing never includes account data');
-}
-console.log('PASS: public landing, anchored navigation, interactive asset examples, login access and signed-in dashboard isolation.');
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {landingHtml,portfolioHtml} from './helpers/templates.mjs';
+const ids=[...landingHtml.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+assert.equal(ids.length,new Set(ids).size,'Landing sections have unique IDs');
+for(const match of landingHtml.matchAll(/href="#([^"]+)"/g))assert.ok(ids.includes(match[1]),'Navigation targets an existing section');
+assert.ok(!landingHtml.includes('CLOUD_BOOTSTRAP'),'Landing never embeds account state');
+assert.match(landingHtml,/<iframe[^>]+src="\/\?demo=1&amp;embed=phone"/,'Phone uses the isolated public showcase');
+assert.ok(landingHtml.includes('sandbox="allow-scripts allow-same-origin allow-forms allow-downloads"'));
+assert.ok(landingHtml.includes('id="si-laptop"')&&landingHtml.includes('id="si-dashboard"'));
+assert.ok(landingHtml.includes('href="/?login=1"')&&landingHtml.includes('href="/?demo=1"'));
+for(const asset of ['/device-frames/iphone-18-pro-max-black.webp','/landing-assets/aset-investasi.webp','/logos/gold-premium.svg'])assert.ok(fs.existsSync('public'+asset));
+assert.ok(landingHtml.includes('portofolio kosong'),'Practice account is distinct from showcase');
+assert.ok(landingHtml.includes('grafik ilustrasi'),'Illustrative charts are labelled');
+assert.ok(!portfolioHtml.includes('id="sidaps-intro"'),'Introduction never runs in an account dashboard');
+for(const file of ['landing-intro.js','landing-functional.js','landing-wealth.js','demo-phone.js'])new vm.Script(fs.readFileSync('public/'+file,'utf8'));
+const bridge=fs.readFileSync('public/landing-functional.js','utf8');
+assert.ok(bridge.includes('event.origin!==location.origin')&&bridge.includes('event.source!==frame.contentWindow'),'Phone commands verify origin and source');
+assert.ok(portfolioHtml.includes('id="emailAuthForm"')&&portfolioHtml.includes('id="dashboardAssets"'),'Login and portfolio remain available');
+console.log('PASS: landing navigation, laptop and phone, isolated showcase, asset references, script syntax, origin-checked messaging and account separation.');

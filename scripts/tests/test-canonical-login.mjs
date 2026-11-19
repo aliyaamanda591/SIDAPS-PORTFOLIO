@@ -47,7 +47,7 @@ assert.equal((landingHtml.match(/rel="canonical"/g)||[]).length,1);assert.match(
 for(const html of [landingHtml,loginHtml,portfolioHtml]){
  assert.doesNotMatch(html,/https?:\/\/[^\s"'<>]*(?:workers\.dev|chatgpt\.site)/,'No legacy outbound URLs in rendered UI');
 }
-for(const match of landingHtml.matchAll(/href="([^"]+)"/g))if(match[1].includes('?login=')||match[1].includes('?demo='))assert.equal(new URL(match[1]).origin,'https://sidaps.online');
+for(const match of landingHtml.matchAll(/href="([^"]+)"/g))if(match[1].includes('?login=')||match[1].includes('?demo='))assert.equal(new URL(match[1],'https://sidaps.online').origin,'https://sidaps.online');
 console.log('PASS: Worker-wide permanent redirect for pages/API/assets, paths/queries, no host spoof/open redirect/loops, localhost bypass, asset serving, consistent SDK fallback, primary CTA links, canonical and Open Graph.');
 
 // Public SEO documents describe only real canonical pages, not auth/demo/private data.

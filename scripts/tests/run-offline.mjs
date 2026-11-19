@@ -7,6 +7,8 @@ const tests=[
   "test-brand-display.mjs",
   "test-canonical-login.mjs",
   "test-demo-mode.mjs",
+  "test-demo-market-prices.mjs",
+  "test-landing-intro.mjs",
   "test-fast-login.mjs",
   "test-google-account-link.mjs",
   "test-google-domain.mjs",
