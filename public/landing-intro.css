@@ -1,4 +1,5 @@
 /* Scoped intro: does not change the existing landing/dashboard themes. */
+#sidaps-intro[hidden]{display:none!important}
 .si-intro{position:relative;height:auto;overflow-anchor:none}.si-intro.si-ready{height:300vh}.si-intro.si-static{height:auto}
 #sidaps-portfolio .si-stage{--sp-text:#eef7f1;--sp-muted:#a1b9ac;--sp-bg:#06140e;--sp-surface:#0b2218;--sp-raised:#123a28;--sp-border:#acd9bd26;--si-green:#10b981;position:relative;isolation:isolate;width:100%;height:100vh;height:100svh;min-height:540px;overflow:clip;color:#eef7f1;font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:14px;line-height:1.5;background:radial-gradient(ellipse at 50% 58%,#10b98117,transparent 55%),linear-gradient(160deg,#06140e 10%,#0b2218)}
 .si-stage:before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(#80c49b06 1px,transparent 1px),linear-gradient(90deg,#80c49b06 1px,transparent 1px);background-size:74px 74px;mask-image:radial-gradient(ellipse,#000,transparent 75%)}
