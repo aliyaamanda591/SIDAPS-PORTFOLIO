@@ -1,4 +1,4 @@
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_JSON_LD, SITE_IMAGE, SITE_IMAGE_ALT } from '../site-seo';
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_JSON_LD, SITE_IMAGE, SITE_IMAGE_ALT, SITE_NAME } from '../site-seo';
 
 export const landingHeadHtml = `<!doctype html><html id="sidaps-portfolio" lang="id" data-sidaps-theme="light">
 <head>
@@ -10,7 +10,7 @@ export const landingHeadHtml = `<!doctype html><html id="sidaps-portfolio" lang=
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://sidaps.online" />
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Sidaps">
+<meta property="og:site_name" content="${SITE_NAME}">
 <meta property="og:locale" content="id_ID">
 <meta property="og:title" content="${SITE_TITLE.replaceAll('&', '&amp;')}">
 <meta property="og:description" content="${SITE_DESCRIPTION}">

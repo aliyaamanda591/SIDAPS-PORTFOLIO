@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { OFFICIAL_PORTFOLIO_ORIGIN } from "../lib/canonical-url";
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_IMAGE, SITE_IMAGE_ALT } from "../lib/site-seo";
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_IMAGE, SITE_IMAGE_ALT, SITE_NAME } from "../lib/site-seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(OFFICIAL_PORTFOLIO_ORIGIN),
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: OFFICIAL_PORTFOLIO_ORIGIN,
-    siteName: "Sidaps",
+    siteName: SITE_NAME,
     locale: "id_ID",
     images: [{ url: SITE_IMAGE, width: 1672, height: 941, alt: SITE_IMAGE_ALT }],
     title: SITE_TITLE,

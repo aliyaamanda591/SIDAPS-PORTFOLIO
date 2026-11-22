@@ -55,9 +55,9 @@ assert.equal(landingHtml.match(/<title>(.*?)<\/title>/)[1].replaceAll('&amp;','&
 assert.match(landingHtml,/<meta name="description" content="Sidaps[^\"]+Indonesia[^\"]+">/);
 const structured=[...landingHtml.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];assert.equal(structured.length,1);
 const schema=JSON.parse(structured[0][1]);assert.equal(schema['@context'],'https://schema.org');assert.deepEqual(schema['@graph'].map(x=>x['@type']),['WebSite','SoftwareApplication']);
-for(const node of schema['@graph']){assert.equal(node.name,'Sidaps');assert.equal(node.alternateName,'Sidaps Portfolio');assert.equal(node.url,'https://sidaps.online');assert.equal(node.aggregateRating,undefined);}
+for(const node of schema['@graph']){assert.equal(node.name,'Sidaps Portfolio');assert.equal(node.alternateName,'Sidaps');assert.equal(node.url,'https://sidaps.online');assert.equal(node.aggregateRating,undefined);}
 const robots=fs.readFileSync('public/robots.txt','utf8');assert.match(robots,/User-agent: \*/);assert.match(robots,/^Allow: \/$/m);assert.match(robots,/Sitemap: https:\/\/sidaps\.online\/sitemap\.xml/);assert.doesNotMatch(robots,/^Disallow: \/$/m);
 const sitemap=fs.readFileSync('public/sitemap.xml','utf8');assert.match(sitemap,/xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9"/);
-const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x=>x[1]);assert.deepEqual(urls,['https://sidaps.online','https://sidaps.online/blog/cara-mencatat-portofolio-investasi']);
+const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x=>x[1]);assert.deepEqual(urls,['https://sidaps.online','https://sidaps.online/tentang-sidaps','https://sidaps.online/blog/cara-mencatat-portofolio-investasi']);
 assert.ok(!/noindex/.test(route.slice(route.indexOf('function landingResponse()'))),'Public landing must remain indexable');
 console.log('PASS: branded title/description, valid WebSite and SoftwareApplication JSON-LD, crawlable robots, canonical-only sitemap and indexable public landing.');

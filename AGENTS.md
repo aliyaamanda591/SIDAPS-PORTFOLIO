@@ -19,6 +19,7 @@ Teknologi: TypeScript, Vinext/Vite, route Next.js, Cloudflare Worker + D1. Root 
 | SEO publik | `lib/site-seo.ts`, `lib/landing/head.ts`, `app/layout.tsx`, `public/{robots.txt,sitemap.xml}` |
 | Landing aktif dan konten SEO | `lib/landing-html.ts` → `lib/landing-wealth-html.ts` (hero/teks publik aktif); jangan mengubah modul hero lama untuk mengganti halaman tayang |
 | Artikel pemula | `lib/content/portfolio-guide.ts` (isi/meta), `lib/blog-html.ts`, `app/blog/cara-mencatat-portofolio-investasi/route.ts`, `public/blog.css`; tanpa akses akun |
+| Pengenalan merek | `lib/about-html.ts`, `app/tentang-sidaps/route.ts`; nama lengkap/alias bersama di `lib/site-seo.ts`, FAQ/tautan pada landing aktif |
 | Route API | `app/api/{auth/[action],state,admin/accounts,prices/[source],market-board}/route.ts` |
 | Halaman reset | `app/reset-password/route.ts` |
 | Landing | `lib/landing-html.ts` → `lib/landing/{head,hero,market-before,features,tutorial-faq-footer}.ts` |

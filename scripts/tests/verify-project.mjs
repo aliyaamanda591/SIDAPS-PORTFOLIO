@@ -6,10 +6,12 @@ import assert from 'node:assert/strict';
 import {spawnSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
 import {portfolioHtml,loginHtml,landingHtml} from './helpers/templates.mjs';
+import {aboutHtml} from '../../lib/about-html.ts';
+import {blogHtml} from '../../lib/blog-html.ts';
 
 process.chdir(fileURLToPath(new URL('../../',import.meta.url)));
 let references=0,inlineScripts=0;
-for(const html of [portfolioHtml,loginHtml,landingHtml]){
+for(const html of [portfolioHtml,loginHtml,landingHtml,aboutHtml,blogHtml]){
  for(const match of html.matchAll(/<(?:script|link|img|image)\b[^>]*?\b(?:src|href)="(\/[^"<>]+)"/g)){
   const url=match[1].split(/[?#]/)[0];
   if(url.startsWith('//')||url.includes('$')||url.includes("'"))continue;
