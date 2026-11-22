@@ -51,13 +51,13 @@ for(const match of landingHtml.matchAll(/href="([^"]+)"/g))if(match[1].includes(
 console.log('PASS: Worker-wide permanent redirect for pages/API/assets, paths/queries, no host spoof/open redirect/loops, localhost bypass, asset serving, consistent SDK fallback, primary CTA links, canonical and Open Graph.');
 
 // Public SEO documents describe only real canonical pages, not auth/demo/private data.
-assert.equal(landingHtml.match(/<title>(.*?)<\/title>/)[1].replaceAll('&amp;','&'),'Sidaps Portfolio — Aplikasi Catatan Investasi Saham, Kripto & Emas');
-assert.match(landingHtml,/<meta name="description" content="Sidaps Portfolio[^"]+">/);
+assert.equal(landingHtml.match(/<title>(.*?)<\/title>/)[1].replaceAll('&amp;','&'),'Sidaps Portfolio — Catatan Investasi Saham, Kripto & Emas');
+assert.match(landingHtml,/<meta name="description" content="Sidaps[^\"]+Indonesia[^\"]+">/);
 const structured=[...landingHtml.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];assert.equal(structured.length,1);
 const schema=JSON.parse(structured[0][1]);assert.equal(schema['@context'],'https://schema.org');assert.deepEqual(schema['@graph'].map(x=>x['@type']),['WebSite','SoftwareApplication']);
 for(const node of schema['@graph']){assert.equal(node.name,'Sidaps');assert.equal(node.alternateName,'Sidaps Portfolio');assert.equal(node.url,'https://sidaps.online');assert.equal(node.aggregateRating,undefined);}
 const robots=fs.readFileSync('public/robots.txt','utf8');assert.match(robots,/User-agent: \*/);assert.match(robots,/^Allow: \/$/m);assert.match(robots,/Sitemap: https:\/\/sidaps\.online\/sitemap\.xml/);assert.doesNotMatch(robots,/^Disallow: \/$/m);
 const sitemap=fs.readFileSync('public/sitemap.xml','utf8');assert.match(sitemap,/xmlns="http:\/\/www\.sitemaps\.org\/schemas\/sitemap\/0\.9"/);
-const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x=>x[1]);assert.deepEqual(urls,['https://sidaps.online']);
+const urls=[...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(x=>x[1]);assert.deepEqual(urls,['https://sidaps.online','https://sidaps.online/blog/cara-mencatat-portofolio-investasi']);
 assert.ok(!/noindex/.test(route.slice(route.indexOf('function landingResponse()'))),'Public landing must remain indexable');
 console.log('PASS: branded title/description, valid WebSite and SoftwareApplication JSON-LD, crawlable robots, canonical-only sitemap and indexable public landing.');

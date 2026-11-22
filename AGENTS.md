@@ -17,6 +17,8 @@ Teknologi: TypeScript, Vinext/Vite, route Next.js, Cloudflare Worker + D1. Root 
 | Pemilih landing/login/demo/dashboard | `app/route.ts` |
 | Domain utama/redirect 301 | `lib/canonical-url.ts`, `worker/index.ts`; `vite.config.ts` menjalankan Worker sebelum aset |
 | SEO publik | `lib/site-seo.ts`, `lib/landing/head.ts`, `app/layout.tsx`, `public/{robots.txt,sitemap.xml}` |
+| Landing aktif dan konten SEO | `lib/landing-html.ts` → `lib/landing-wealth-html.ts` (hero/teks publik aktif); jangan mengubah modul hero lama untuk mengganti halaman tayang |
+| Artikel pemula | `lib/content/portfolio-guide.ts` (isi/meta), `lib/blog-html.ts`, `app/blog/cara-mencatat-portofolio-investasi/route.ts`, `public/blog.css`; tanpa akses akun |
 | Route API | `app/api/{auth/[action],state,admin/accounts,prices/[source],market-board}/route.ts` |
 | Halaman reset | `app/reset-password/route.ts` |
 | Landing | `lib/landing-html.ts` → `lib/landing/{head,hero,market-before,features,tutorial-faq-footer}.ts` |
@@ -38,7 +40,7 @@ Teknologi: TypeScript, Vinext/Vite, route Next.js, Cloudflare Worker + D1. Root 
 | Panduan/demo | `lib/portfolio/usage-guide.ts`, `lib/demo-portfolio.ts`, `public/{usage-demo,landing-tutorial,landing-cinema,landing-demo-data}.js` |
 | Reset UI | `public/recovery-otp.js` (nama historis; sekarang tautan reset), `lib/auth/reset-handlers.ts` |
 | Hosting/build | `worker/`, `vite.config.ts`, `.openai/hosting.json`, `scripts/{vite,connector-preview}/` |
-| Tes | `scripts/tests/run-offline.mjs` (25 tes); `helpers/templates.mjs` membaca HTML hasil modul langsung |
+| Tes | `scripts/tests/run-offline.mjs` (28 tes); `helpers/templates.mjs` membaca HTML hasil modul langsung |
 
 Peta lengkap: `docs/development/SOURCE-MAP.md`. Jangan memindai seluruh repo jika lokasi fitur sudah tercantum.
 
@@ -62,7 +64,7 @@ Peta lengkap: `docs/development/SOURCE-MAP.md`. Jangan memindai seluruh repo jik
 
 ## Verifikasi
 
-- Dari root checkout: `npm test` (25 regresi offline), `npm run verify:project` (aset/sintaks/config), `node node_modules/typescript/bin/tsc --noEmit --incremental false`, `npm run build`.
+- Dari root checkout: `npm test` (28 regresi offline), `npm run verify:project` (aset/sintaks/config), `node node_modules/typescript/bin/tsc --noEmit --incremental false`, `npm run build`.
 - Tes Node memerlukan `registerHooks` (Node >=22.15; diverifikasi pada 26.7). Runner memasang `helpers/register.mjs` untuk import TypeScript/JSON. Tidak ada monkey-patch pembacaan file.
 - Stub `cloudflare:workers` hanya dalam tes offline dan melempar bila env produksi diakses. Gunakan transport Firebase/email palsu dan database SQLite memori; jangan jalankan skrip registrasi HTTP ke produksi.
 - Sembilan skrip integrasi HTTP/katalog tambahan bukan bagian dari 25 tes offline; jalankan hanya dengan environment lokal yang sesuai. Jangan mengklaim login Google nyata sudah diuji oleh suite offline.

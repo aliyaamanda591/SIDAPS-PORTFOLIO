@@ -5,6 +5,7 @@ const root=fileURLToPath(new URL('../../',import.meta.url));
 const tests=[
   "test-audit-regressions.mjs",
   "test-brand-display.mjs",
+  "test-brand-seo.mjs",
   "test-canonical-login.mjs",
   "test-demo-mode.mjs",
   "test-demo-market-prices.mjs",

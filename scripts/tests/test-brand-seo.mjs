@@ -1,0 +1,53 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import { landingHtml } from './helpers/templates.mjs';
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_IMAGE, SITE_STRUCTURED_DATA } from '../../lib/site-seo.ts';
+import { portfolioGuide } from '../../lib/content/portfolio-guide.ts';
+import { blogHtml, portfolioGuideUrl } from '../../lib/blog-html.ts';
+import { GET } from '../../app/blog/cara-mencatat-portofolio-investasi/route.ts';
+
+const meta = (html, property) => html.match(new RegExp(`<meta (?:name|property)="${property}" content="([^"]+)"`))?.[1];
+const title = html => html.match(/<title>(.*?)<\/title>/)?.[1].replaceAll('&amp;', '&');
+assert.equal(title(landingHtml), SITE_TITLE);
+assert.equal(meta(landingHtml, 'description'), SITE_DESCRIPTION);
+assert.equal(meta(landingHtml, 'og:locale'), 'id_ID');
+assert.equal(meta(landingHtml, 'og:site_name'), 'Sidaps');
+assert.equal(meta(landingHtml, 'og:image'), SITE_IMAGE);
+assert.equal(meta(landingHtml, 'twitter:card'), 'summary_large_image');
+assert.ok(fs.existsSync('public' + new URL(SITE_IMAGE).pathname));
+assert.equal((landingHtml.match(/<h1>/g) || []).length, 1);
+assert.match(landingHtml, /<h1>Sidaps,[\s\S]*?Saham, kripto, dan emas\.<\/em><\/h1>/);
+assert.match(landingHtml, /pengguna di Indonesia/);
+for (const node of SITE_STRUCTURED_DATA['@graph']) {
+  assert.equal(node.inLanguage, 'id-ID');
+  assert.equal(node.aggregateRating, undefined);
+  assert.equal(node.review, undefined);
+}
+const application = SITE_STRUCTURED_DATA['@graph'].find(x => x['@type'] === 'SoftwareApplication');
+assert.equal(application.countriesSupported, 'ID');
+assert.equal(application.applicationCategory, 'FinanceApplication');
+assert.ok(application.featureList.length >= 3);
+
+const words = portfolioGuide.body.replace(/<[^>]*>/g, ' ').trim().split(/\s+/).length;
+assert.ok(words >= 800 && words <= 1000, 'Article must contain 800–1,000 words: ' + words);
+assert.equal(title(blogHtml), portfolioGuide.metaTitle);
+assert.equal(meta(blogHtml, 'description'), portfolioGuide.description);
+assert.equal(meta(blogHtml, 'og:url'), portfolioGuideUrl);
+assert.ok(blogHtml.includes('rel="canonical" href="' + portfolioGuideUrl + '"'));
+assert.equal((blogHtml.match(/<h1>/g) || []).length, 1);
+assert.ok(blogHtml.includes('<h3>') && blogHtml.includes('tidak menjamin bebas rugi'));
+assert.ok(landingHtml.includes('href="' + portfolioGuide.slug + '"'));
+const schema = JSON.parse(blogHtml.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+assert.equal(schema['@type'], 'BlogPosting');
+assert.equal(schema.url, portfolioGuideUrl);
+assert.equal(schema.headline, portfolioGuide.title);
+const ids = [...blogHtml.matchAll(/\bid="([^"]+)"/g)].map(m => m[1]);
+for (const match of blogHtml.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.includes(match[1]));
+const response = GET();
+assert.equal(response.status, 200);
+assert.equal(response.headers.get('Content-Type'), 'text/html; charset=utf-8');
+assert.equal(response.headers.get('X-Robots-Tag'), null);
+assert.ok(response.headers.get('Cache-Control').startsWith('public'));
+assert.equal(await response.text(), blogHtml);
+assert.doesNotMatch(fs.readFileSync('app/blog/cara-mencatat-portofolio-investasi/route.ts','utf8'), /resolveIdentity|readState|database|fetch\(/);
+console.log(`PASS: Indonesia brand metadata/schema, original logo/social image, public linked article (${words} words), crawlable route, sitemap and no account access.`);

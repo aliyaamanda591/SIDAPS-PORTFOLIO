@@ -1,4 +1,4 @@
-import { SITE_TITLE, SITE_DESCRIPTION, SITE_JSON_LD } from '../site-seo';
+import { SITE_TITLE, SITE_DESCRIPTION, SITE_JSON_LD, SITE_IMAGE, SITE_IMAGE_ALT } from '../site-seo';
 
 export const landingHeadHtml = `<!doctype html><html id="sidaps-portfolio" lang="id" data-sidaps-theme="light">
 <head>
@@ -10,10 +10,20 @@ export const landingHeadHtml = `<!doctype html><html id="sidaps-portfolio" lang=
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://sidaps.online" />
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Sidaps Portfolio">
+<meta property="og:site_name" content="Sidaps">
+<meta property="og:locale" content="id_ID">
 <meta property="og:title" content="${SITE_TITLE.replaceAll('&', '&amp;')}">
 <meta property="og:description" content="${SITE_DESCRIPTION}">
 <meta property="og:url" content="https://sidaps.online">
+<meta property="og:image" content="${SITE_IMAGE}">
+<meta property="og:image:width" content="1672">
+<meta property="og:image:height" content="941">
+<meta property="og:image:alt" content="${SITE_IMAGE_ALT}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${SITE_TITLE.replaceAll('&', '&amp;')}">
+<meta name="twitter:description" content="${SITE_DESCRIPTION}">
+<meta name="twitter:image" content="${SITE_IMAGE}">
+<meta name="twitter:image:alt" content="${SITE_IMAGE_ALT}">
 <script type="application/ld+json">${SITE_JSON_LD}</script>
 <link rel="icon" href="/favicon.svg">
 <link rel="stylesheet" href="/landing.css?v=4">
